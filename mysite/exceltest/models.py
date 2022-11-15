@@ -1,9 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
+from distutils.command.upload import upload
 
 # class SampleModel(models.Model): 
 #     Name = models.CharField(max_length = 10, null = False)
 #     Number = models.IntegerField(null = True)
 #     Item = models.CharField(max_length = 10, null = True)
+
+class Document(models.Model):
+    file_id = models.BigAutoField(primary_key=True)
+    file_path = models.FileField(upload_to='upload_files/%Y%m%d/')
+    file_name = models.CharField(max_length = 200)
+    file_user = models.ForeignKey(User, on_delete = models.CASCADE)
+    file_create_time = models.DateTimeField(auto_now_add = True)
+    file_updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'[{self.file_name}] [{self.file_user}] [updated at: {self.file_updated_at}]'
+
+    class Meta:
+        verbose_name_plural = 'documents_uploaded'
 
 class tbl_product(models.Model):
     product_code = models.CharField(help_text="Product code", max_length=200,primary_key=True)

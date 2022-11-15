@@ -1,0 +1,56 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Boot strap -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <style>
+        .content{
+            height: 75%;
+        }
+        .panel-footer{
+            height:10%;
+            color:gray;
+        }
+    </style>
+
+    <title>Sales1Manager</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+        <div class="header">
+            <div class="page-header">
+                <a href="/" class="btn btn-default btn-xs" style="margin: 10px">Home</a>
+                <h1>Channel Sales Department<small>Login</small></h1>
+            </div>
+        </div>
+    </nav>
+        <div class="content">
+            <div class="signinDiv">
+                <form action="login/" method="POST">{% csrf_token %}
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Email</span>
+                        <input name='loginID' type="text" class="form-control" placeholder="Please insert your ID." style="width: 50%">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Password</span>
+                        <input name='loginPW' type="password" class="form-control" placeholder="Please insert your password." style="width: 50%">
+                    </div><br>
+                    <input type="submit" class="btn btn-success btn-lg" value="Login">
+                </form>
+                <a href="signup/">SignUp</a>
+            </div>
+        </div>
+        <div class="panel-footer">
+            Copyright by all rights reserved by 'KGCTW IT PART'
+        </div>
+    </div>
+</body>
+</html>

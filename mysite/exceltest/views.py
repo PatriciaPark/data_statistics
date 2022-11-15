@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render, redirect
 from datetime import datetime as dt
 from .models import *
@@ -9,7 +8,7 @@ import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 from pandas import DataFrame
 from .models import tbl_invoice_daily, tbl_product, tbl_store
-import random
+from datetime import datetime
 # from django.shortcuts import render,redirect
 # from http.client import HTTPResponse
 # from .models import SampleModel
@@ -17,6 +16,40 @@ import random
 # import openpyxl
 
 # Create your views here.
+
+def index(request):
+    # if not 'user_id' in request.session.keys():
+    #     return redirect('')
+    # user_id = request.session['user_id']
+    # user = User.objects.get(user_id = user_id)
+    # documents = Document.objects.filter(file_user=user)
+    # content = {'documents': documents}
+    return render(request, 'index3.html')
+
+# def loginView(request):
+#     return render(request, 'login.html')
+
+def fileView(request):
+    return render(request, 'uploadFile.html')
+
+def uploadFile(request):
+    try:
+        user_file = request.FILES['fileInput']
+        origin_file_name = user_file.name
+        user_id = request.session['user_id']
+        now_HMS = datetime.today().strftime('%H%M%S')
+        file_upload_name = now_HMS + '_' + origin_file_name
+        user_file.name = file_upload_name
+        user = User.objects.get(user_id=user_id)
+        document = Document(file_path = user_file, file_name=origin_file_name, file_user=user)
+        document.save()
+    except:
+        message = 'An unknown error occurred.'
+        return render(request, 'error.html',{"message": message})
+        
+    return redirect('/index/')
+
+
 def dailyToDB(request):
     # try:
     if request.method == 'POST' and request.FILES['fileInput']:
@@ -132,7 +165,7 @@ def storeInfoToDB(request):
 
     except:
         message = 'An unknown error occurred.'
-        return render(request, 'main/error.html',{"message": message})
+        return render(request, 'error.html',{"message": message})
         
     return redirect('/index/')
 
