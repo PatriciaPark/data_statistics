@@ -20,6 +20,9 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main),
+    path('csd/', include('csd.urls')),
+    path('csm/', include('csm.urls')),
+    path('csp/', include('csp.urls')),
     path('note/', include('myapp.urls')),
     path('users/', include('users.urls')),
     path('exceltest/', include('exceltest.urls')),

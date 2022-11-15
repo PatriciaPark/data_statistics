@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% if user.is_authenticated %} 
+    <h1>CSM Monthly</h1>
+{% else %}
+    <meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+{% endblock %}
