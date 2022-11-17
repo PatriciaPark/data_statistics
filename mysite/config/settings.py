@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
+    'csd',
+    'csm',
+    'csp',
     'users',
-    'exceltest',
+    'myapp',
+    # 'exceltest',
 ]
 
 MIDDLEWARE = [

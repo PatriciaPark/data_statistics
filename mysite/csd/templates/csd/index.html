@@ -2,9 +2,211 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    /* 검색 영역 */
+    .searchForm {
+        padding: 20px;
+    }
+
+    /* 그리드 영역 */
+    .dataGrid {
+        padding: 20px;
+        overflow: auto; 
+    }
+
+    .tableGrid {
+        border-collapse: collapse;
+        border: 1px solid;
+        white-space: nowrap;
+    }
+
+    .tableGrid thead { 
+        position: -webkit-sticky; 
+        position: sticky; 
+        top: 0; 
+        z-index: 1; 
+    }
+    .tableGrid th:first-child,
+    .tableGrid td:first-child { 
+        position: -webkit-sticky; 
+        position: sticky; 
+        left: 0; 
+    }
+    .tableGrid th:nth-child(2),
+    .tableGrid td:nth-child(2) { 
+        position: -webkit-sticky; 
+        position: sticky; 
+        left: 94px; 
+    }
+    .tableGrid th:nth-child(3),
+    .tableGrid td:nth-child(3) { 
+        position: -webkit-sticky; position: sticky; left: 156px; 
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+
+    tr:hover {background-color: coral;}
+
+    /* 업로드 영역 */
+    .input-group {
+        padding: 20px;
+    }
+</style>
+
 {% if user.is_authenticated %} 
-    <h1>CSD Daily</h1>
+    <h3>CSD Daily</h3>
+    <div class="searchForm">
+        <input type="month" id="monthSearch" class="searchMonth" value="2022-11">
+        <input type="button" id="btnSearch" value="Search" onclick="searchDaily()">
+    </div>
+    <div class="dataGrid">
+        <table class="tableGrid" id="myTable">
+            <thead>
+                <tr id="newTr">
+                    <th><B>商品代號</B></th>
+                    <th><B>條碼</B></th>
+                    <th><B>品名</B></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% comment %} {% for candidate in candidates %} {% endcomment %}
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    {% comment %} <td>{{candidate.party_number}}번</td>
+                    <td>{{candidate.name}}</td>
+                    <td>{{candidate.introduction}}</td>
+                    <td>{{candidate.area}}</td> {% endcomment %}
+                </tr>
+                {% comment %} {% endfor %} {% endcomment %}
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tbody>
+        </table>
+    </div>
+    <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="input-group">
+            <input type="file" class="form-control" id="fileInput" name="fileInput">
+            <input type="submit" class="btn btn-success btn-lg" value="Upload File">
+        </div>
+    </form>
+
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
+<script>
+    window.onload=function(){
+        searchDaily();
+    }
+    
+    // 검색창 달력 현재 달로 디폴트 세팅 
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);
+    const defaultMonth = currentYear + "-" + currentMonth
+    document.getElementById("monthSearch").value = defaultMonth;
+    
+    function searchDaily() {
+        // 테이블에 일 출력 (달력에 선택된 달의 마지막 일짜까지 출력)
+        const monthSearch = document.getElementById('monthSearch').value;
+        const lastDay = new Date( now.getFullYear(), ( monthSearch.substr(5)), 0 );
+        const lastDate = lastDay.getDate(); // 해당 월의 마지막일자
+        const mytable = document.getElementById('myTable');
+        const newTr = document.getElementById('newTr');
+        for (var i = 0; i < lastDate; i++){
+            let th = document.createElement('th');
+            th.innerHTML = i + 1;
+            newTr.append(th);
+        }
+        let thT = document.createElement('th')
+        thT.innerHTML = "Total";
+        newTr.append(thT);
+        let thA = document.createElement('th')
+        thA.innerHTML = "Average";
+        newTr.append(thA);
+    }
+</script>
 {% endblock %}

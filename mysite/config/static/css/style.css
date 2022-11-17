@@ -102,3 +102,9 @@
         width: 100%;
     }
 }
+
+/* Search Form */
+.searchForm {
+  padding: 20px;
+  margin: auto;
+}

@@ -25,5 +25,5 @@ urlpatterns = [
     path('csp/', include('csp.urls')),
     path('note/', include('myapp.urls')),
     path('users/', include('users.urls')),
-    path('exceltest/', include('exceltest.urls')),
+    # path('exceltest/', include('exceltest.urls')),
 ]
