@@ -49,18 +49,18 @@ def upload(request):
 
         for dbframe in df.itertuples():
 
-            product = tbl_product.objects.get(product_code_bystore = str(dbframe.貨號))
-            store = tbl_store.objects.get(store_code = str(dbframe.門市代號))
+            product = Product.objects.get(prd_code = str(dbframe.貨號))
+            store = Store.objects.get(store_code = str(dbframe.門市代號))
       
-            obj = tbl_invoice_daily.objects.create(
-                invoice_day_date    = fromdate_time_obj,
-                invoice_day_save    = dbframe.上存量,
-                invoice_day_buy     = dbframe.進貨量,
-                invoice_day_return  = dbframe.退貨量,
-                invoice_day_sale    = dbframe.銷貨量,
-                invoice_day_stock   = dbframe.庫存量,
-                invoice_day_product = product,
-                invoice_day_store = store
+            obj = InvoiceDaily.objects.create(
+                inv_d_date    = fromdate_time_obj,
+                inv_d_save    = dbframe.上存量,
+                inv_d_buy     = dbframe.進貨量,
+                inv_d_return  = dbframe.退貨量,
+                inv_d_sale    = dbframe.銷貨量,
+                inv_d_stock   = dbframe.庫存量,
+                prd_code = product,
+                str_code = store
                 )
             obj.save()
 
