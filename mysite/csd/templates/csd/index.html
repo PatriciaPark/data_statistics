@@ -78,99 +78,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% comment %} {% for candidate in candidates %} {% endcomment %}
+                {% for inv in invoiceDaily %}
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    {% comment %} <td>{{candidate.party_number}}번</td>
-                    <td>{{candidate.name}}</td>
-                    <td>{{candidate.introduction}}</td>
-                    <td>{{candidate.area}}</td> {% endcomment %}
+                    <td>{{inv.prd_code}}코드</td>
+                    <td>{{inv.prd_barcode}}바코드</td>
+                    <td>{{inv.prd_name}}이름</td>
                 </tr>
-                {% comment %} {% endfor %} {% endcomment %}
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
+                {% endfor %}
                 <tbody>
         </table>
     </div>
     <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="input-group">
             <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-success btn-lg" value="Upload File">
+            <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
         </div>
     </form>
 
@@ -182,6 +103,11 @@
         searchDaily();
     }
     
+    // 파일 선택시에만 버튼 활성화
+    document.getElementById('fileInput').addEventListener('input', function(event) {
+        document.getElementById('submitBtn').disabled = !this.value;
+    }, false);
+
     // 검색창 달력 현재 달로 디폴트 세팅 
     const now = new Date();
     const currentYear = now.getFullYear();
@@ -208,5 +134,6 @@
         thA.innerHTML = "Average";
         newTr.append(thA);
     }
+
 </script>
 {% endblock %}

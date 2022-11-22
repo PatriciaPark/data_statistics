@@ -48,7 +48,7 @@ class InvoiceDaily(models.Model):
         tbl_product = None
 
     def __str__(self):
-        return (str(self.inv_d_date)+ " // "+ self.str_code.str_name + " // "+ self.prd_code.prd_name )
+        return (str(self.inv_d_date)+ ", "+ self.str_code.str_name + ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code))
 
     class Meta:
         db_table = 'tbl_invoice_d'
@@ -74,3 +74,22 @@ class DataDaily(models.Model):
         db_table = 'tbl_data_d'
         verbose_name = 'Daily Data Master'
         verbose_name_plural = 'Daily Data Master'
+        
+# class SumDaily(models.Model):
+#     sum_d_code = models.BigAutoField(primary_key=True)
+#     sum_d_date = models.DateField( null=False, blank=False)
+#     sum_d_save = models.IntegerField(null=False, blank=False)
+#     sum_d_buy = models.IntegerField(null=False, blank=False)
+#     sum_d_return = models.IntegerField(null=False, blank=False)
+#     sum_d_sale = models.IntegerField(null=False, blank=False)
+#     sum_d_stock = models.IntegerField(null=False, blank=False)
+#     prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
+#     str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL) 
+    
+#     def __str__(self):
+#         return (str(self.sum_d_date)+ ", "+ self.str_code.str_name + ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code))
+
+#     class Meta:
+#         db_table = 'tbl_sum_d'
+#         verbose_name = 'Daily Sum Data'
+#         verbose_name_plural = 'Daily Sum Data'
