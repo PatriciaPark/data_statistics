@@ -18,6 +18,7 @@
         border-collapse: collapse;
         border: 1px solid;
         white-space: nowrap;
+        text-align: center;
     }
 
     .tableGrid thead { 
@@ -52,6 +53,7 @@
     th {
         background-color: #333;
         color: white;
+        text-align: center;
     }
 
     tr:hover {background-color: coral;}
@@ -71,23 +73,27 @@
     <div class="dataGrid">
         <table class="tableGrid" id="myTable">
             <thead>
-                <tr id="newTr">
+                <tr id="thTr">
                     <th><B>商品代號</B></th>
                     <th><B>條碼</B></th>
                     <th><B>品名</B></th>
                 </tr>
             </thead>
             <tbody>
-                {% for inv in invoiceDaily %}
-                <tr>
-                    <td>{{inv.prd_code}}코드</td>
-                    <td>{{inv.prd_barcode}}바코드</td>
-                    <td>{{inv.prd_name}}이름</td>
+                {% for inv in sumDaily %}
+                <tr id="tdTr">
+                    <td>{{inv.prd_code.prd_code}}</td>
+                    <td>{{inv.prd_code.prd_barcode}}</td>
+                    <td>{{inv.prd_code.prd_name}}</td>
+                    <td>{{inv.sum_d_date}}</td>
                 </tr>
+                <p id="datedata" hidden>{{inv.sum_d_date}}</p>
+                <p id="saledata" hidden>{{inv.sum_d_sale}}</p>
                 {% endfor %}
                 <tbody>
         </table>
     </div>
+
     <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="input-group">
             <input type="file" class="form-control" id="fileInput" name="fileInput">
@@ -116,23 +122,38 @@
     document.getElementById("monthSearch").value = defaultMonth;
     
     function searchDaily() {
-        // 테이블에 일 출력 (달력에 선택된 달의 마지막 일짜까지 출력)
+        // 테이블 th에 일 출력 (달력에 선택된 달의 마지막 일짜까지 출력)
         const monthSearch = document.getElementById('monthSearch').value;
         const lastDay = new Date( now.getFullYear(), ( monthSearch.substr(5)), 0 );
         const lastDate = lastDay.getDate(); // 해당 월의 마지막일자
         const mytable = document.getElementById('myTable');
-        const newTr = document.getElementById('newTr');
+        const thTr = document.getElementById('thTr');
         for (var i = 0; i < lastDate; i++){
             let th = document.createElement('th');
             th.innerHTML = i + 1;
-            newTr.append(th);
+            thTr.append(th);
         }
         let thT = document.createElement('th')
         thT.innerHTML = "Total";
-        newTr.append(thT);
+        thTr.append(thT);
         let thA = document.createElement('th')
         thA.innerHTML = "Average";
-        newTr.append(thA);
+        thTr.append(thA);
+
+        // 테이블 td에 데이터 출력
+        const tdTr = document.getElementById('tdTr');
+        const datedata = document.getElementById('datedata').value;
+        const saledata = document.getElementById('saledata').value;
+        console.log("datedata "+datedata);
+        console.log("saledata "+saledata);
+        for (var i = 0; i < lastDate; i++){
+            let td = document.createElement('td');
+            if(i+1 == datedata.toString().slice(-2)) {
+                td.innerHTML = saledata;
+            }
+            tdTr.append(td);
+        }
+
     }
 
 </script>
