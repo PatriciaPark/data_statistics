@@ -5,16 +5,33 @@ from datetime import datetime as dt
 from django.core.files.storage import FileSystemStorage
 import openpyxl
 from pandas import DataFrame
-from django.db.models import Sum
-import re
+import json
 
 
 # Create your views here.
 def index(request):
     
     sumDaily = SumDaily.objects.select_related('prd_code', 'str_code').all()
-    context = {"sumDaily":sumDaily}
-    print("**********context ")
+    #context = {"sumDaily":sumDaily}
+    sumDate = []
+    sumSale = []
+    sumSet = {}
+    
+    a = []    # 빈 리스트 생성
+ 
+    for i in range(10):
+        a.append(0)    # append로 요소 추가
+    
+    print(a)
+    
+    for i in range(len(sumDaily)):
+        sumDate.append(int(str(sumDaily.values()[i]['sum_d_date'])[8:]))
+        sumSale.append(sumDaily.values()[i]['sum_d_sale'])
+        sumSet.update({sumDate[i]:sumSale[i]})
+        
+    context = {"sumDaily":sumDaily, "sumSet":sumSet, "sumSale":sumSale, "sumDate":sumDate}
+    print("****************context ", context)
+    print("****************sumSale ", sumSale)
     
     return render(request, 'csd/index.html', context)
 

@@ -85,10 +85,9 @@
                     <td>{{inv.prd_code.prd_code}}</td>
                     <td>{{inv.prd_code.prd_barcode}}</td>
                     <td>{{inv.prd_code.prd_name}}</td>
-                    <td>{{inv.sum_d_date}}</td>
                 </tr>
                 <p id="datedata" hidden>{{inv.sum_d_date}}</p>
-                <p id="saledata" hidden>{{inv.sum_d_sale}}</p>
+                <p id="saledata" hidden>{{inv.sum_d_sale | slice:":2"}}</p>
                 {% endfor %}
                 <tbody>
         </table>
@@ -130,7 +129,7 @@
         const thTr = document.getElementById('thTr');
         for (var i = 0; i < lastDate; i++){
             let th = document.createElement('th');
-            th.innerHTML = i + 1;
+            th.innerHTML = (i + 1);
             thTr.append(th);
         }
         let thT = document.createElement('th')
@@ -144,14 +143,19 @@
         const tdTr = document.getElementById('tdTr');
         const datedata = document.getElementById('datedata').innerHTML;
         const saledata = document.getElementById('saledata').innerHTML;
-        console.log("datedata "+datedata);
-        console.log("saledata "+saledata);
-        for (var i = 0; i < lastDate; i++){
-            let td = document.createElement('td');
-            if(i+1 == datedata.toString().slice(-2)) {
-                td.innerHTML = saledata;
+ 
+        var arrDate = "{{sumDate}}".substr(1).slice(0,-1).split(",");
+        var arrSale = "{{sumSale}}".substr(1).slice(0,-1).split(",");
+        for (var j = 0; j < lastDate; j++){
+            console.log("(j + 1) "+(j + 1));
+            console.log("arrDate "+arrDate[j]);
+            console.log("arrSale "+arrSale[j]);
+            if((j + 1) == arrDate[j]) {
+                //console.log("saledata "+saledata);
+                let td = document.createElement('td');
+                td.innerHTML = arrSale[j];
+                tdTr.append(td);
             }
-            tdTr.append(td);
         }
 
     }

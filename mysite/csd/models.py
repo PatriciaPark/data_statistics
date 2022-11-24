@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+# 상품테이블
 class Product(models.Model):
     prd_code = models.CharField(help_text="Product code", max_length=200, primary_key=True)
     prd_barcode = models.CharField(max_length=200,null=False, blank=False)
@@ -17,6 +18,7 @@ class Product(models.Model):
 
     objects = models.Manager()
 
+# 매장테이블
 class Store(models.Model):
     str_code = models.CharField(help_text="store code", max_length=200, primary_key=True)
     str_city = models.CharField(max_length=200, null=False, blank=False)
@@ -33,6 +35,7 @@ class Store(models.Model):
 
     objects = models.Manager()
 
+# 주문테이블(데일리)
 class InvoiceDaily(models.Model):
     try:
         inv_d_code = models.BigAutoField(primary_key=True)
@@ -56,7 +59,8 @@ class InvoiceDaily(models.Model):
         verbose_name_plural = 'Daily Invoice Master'
 
     objects = models.Manager()
-    
+
+# 데이터 테이블    
 class DataDaily(models.Model):
     data_code = models.BigAutoField(primary_key=True)
     register_date = models.DateTimeField(auto_now_add = True)
@@ -74,7 +78,8 @@ class DataDaily(models.Model):
         db_table = 'tbl_data_d'
         verbose_name = 'Daily Data Master'
         verbose_name_plural = 'Daily Data Master'
-        
+
+# 합계 테이블 (데일리)
 class SumDaily(models.Model):
     sum_d_code = models.BigAutoField(primary_key=True)
     sum_d_date = models.DateField( null=False, blank=False)
