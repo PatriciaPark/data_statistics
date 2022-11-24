@@ -127,10 +127,14 @@
         const lastDate = lastDay.getDate(); // 해당 월의 마지막일자
         const mytable = document.getElementById('myTable');
         const thTr = document.getElementById('thTr');
+        // 날짜 arr
+        const arrNum = new Array();
         for (var i = 0; i < lastDate; i++){
             let th = document.createElement('th');
             th.innerHTML = (i + 1);
             thTr.append(th);
+
+            arrNum.push(i+1);
         }
         let thT = document.createElement('th')
         thT.innerHTML = "Total";
@@ -141,19 +145,28 @@
 
         // 테이블 td에 데이터 출력
         const tdTr = document.getElementById('tdTr');
-        const datedata = document.getElementById('datedata').innerHTML;
-        const saledata = document.getElementById('saledata').innerHTML;
- 
-        var arrDate = "{{sumDate}}".substr(1).slice(0,-1).split(",");
-        var arrSale = "{{sumSale}}".substr(1).slice(0,-1).split(",");
+        const arrSet = "{{sumSet}}".substr(1).slice(0,-1).split(",");
+        // arrSet 1: 31, 2: 53, 3: 79, 6: 197, 7: 227, 8: 249, 9: 262, 10: 285, 13: 392, 14: 418, 15: 439
+        
+        console.log("arrSet "+arrSet);
+        //const datedata = document.getElementById('datedata').innerHTML;
+        //const saledata = document.getElementById('saledata').innerHTML;
+        //var arrDate = "{{sumDate}}".substr(1).slice(0,-1).split(",");
+        //var arrSale = "{{sumSale}}".substr(1).slice(0,-1).split(",");
+        //console.log("arrDate "+arrDate);
+        //console.log("arrSale "+arrSale);
         for (var j = 0; j < lastDate; j++){
-            console.log("(j + 1) "+(j + 1));
-            console.log("arrDate "+arrDate[j]);
-            console.log("arrSale "+arrSale[j]);
-            if((j + 1) == arrDate[j]) {
-                //console.log("saledata "+saledata);
-                let td = document.createElement('td');
-                td.innerHTML = arrSale[j];
+            let setDate = arrSet[j].split(":")[0].trim();
+            
+            console.log("arrNum "+arrNum);
+            let td = document.createElement('td');
+            if(setDate.includes(j+1)) {
+                console.log("setDate "+arrSet[j].split(":")[0].trim());
+                console.log("includes(j+1) "+(3+1));
+                td.innerHTML = arrSet[j+1].split(":")[1].trim();
+                tdTr.append(td);
+            } else {
+                td.innerHTML = '-';
                 tdTr.append(td);
             }
         }
