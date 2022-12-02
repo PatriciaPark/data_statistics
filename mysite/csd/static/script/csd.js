@@ -1,59 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/csd.css' %}">
-{% if user.is_authenticated %} 
-    <h3>CSD Daily 《{{month}}》</h3>
-    <form method="GET">
-        <div class="searchForm">
-            <input type="month" name="input-month" id="monthSearch" class="searchMonth">
-            <input type="submit" id="btnSearch" value="Search">
-        </div>
-    </form>
-    <div class="dataGrid">
-        <table class="tableGrid" id="myTable">
-            <thead>
-                <tr id="thTr">
-                    <th><B>商品代號</B></th>
-                    <th><B>條碼</B></th>
-                    <th><B>品名</B></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr id="tdTr"></tr>
-                <tr id="tdTr2"></tr>
-                <tr id="tdTr3"></tr>
-                <tr id="tdTr4"></tr>
-                <tr id="tdTr5"></tr>
-                <tr id="tdTr6"></tr>
-            <tbody>
-        </table>
-    </div>
-
-    <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="input-group">
-            <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
-        </div>
-    </form>
-{% comment %} <script src ="{% static 'script/csd.js' %}"> </script> {% endcomment %}
-{% else %}
-    <meta http-equiv="refresh" content="0; url='/users/login'" />
-{% endif %}
-<script>
-// 전역변수
-let hashDate = 0;
-let hashDateList = [];
-let nullDateList = "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-console.log("aaa " + "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/));
-
-//페이지 로드시 실행
 window.onload=function(){
     searchDaily();
-    baseGrid();
-    localStorage.removeItem("user_selected_date");
-
 }
 
 // 파일 선택시에만 버튼 활성화
@@ -61,98 +7,52 @@ document.getElementById('fileInput').addEventListener('input', function(event) {
     document.getElementById('submitBtn').disabled = !this.value;
 }, false);
 
-// 달력 날짜 선택시 로컬스토리지 저장
-document.getElementById('monthSearch').addEventListener('input', function(event){
-    localStorage.setItem("user_selected_date", document.getElementById('monthSearch').value);
-});
-
-// 검색창 달력 현재 달로 디폴트 세팅
-function defaultDate() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);
-    const defaultMonth = currentYear + "-" + currentMonth;
-    document.getElementById('monthSearch').value = defaultMonth;
-}
-
 // Search 버튼 클릭이벤트 - 월별 데일리 데이터 출력    
 function searchDaily() {
-    // 검색창 달력 현재달/마지막선택달
-    if(!localStorage.getItem("user_selected_date")) {
-        defaultDate();
+    // 검색창 달력 현재 달로 디폴트 세팅
+    let now = new Date();
+    let currentYear = now.getFullYear();
+    let currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);
+    let defaultMonth = currentYear + "-" + currentMonth
+    let monthSearch = document.getElementById('monthSearch').value;
+    console.log(defaultMonth +" " + monthSearch);
+    document.getElementById('monthSearch').value = defaultMonth;
+    if(!monthSearch) {
     } else {
-        document.getElementById('monthSearch').value = localStorage.getItem("user_selected_date");
+        document.getElementById('monthSearch').value = monthSearch
     }
-}
 
-// 기본 그리드
-function baseGrid() {
-    // 테이블 th에 일 출력 (달력에 선택된 달의 마지막 일짜까지 출력) 
-    const now = new Date();
-    const monthSearch = document.getElementById('monthSearch').value;
-    const lastDay = new Date( now.getFullYear(), ( monthSearch.substr(5)), 0 );
-    const lastDate = lastDay.getDate(); // 해당 월의 마지막일자
-    const thTr = document.getElementById('thTr');
-    // total/average th
-    const thT = document.createElement('th');
-    const thA = document.createElement('th');
-
-    for (hashDate = 0; hashDate < lastDate; hashDate++){
-        // 일자 출력
-        let th = document.createElement('th');
-        th.innerHTML = hashDate+1;
-        thTr.append(th);
-        hashDateList.push(hashDate);
-        //console.log("a " + hashDate);
-        //prd11530035(hashDate);
-    }
-    // total, average 출력
-    thT.innerHTML = "Total";
-    thTr.append(thT);
-    thA.innerHTML = "Average";
-    thTr.append(thA);    
-
-    console.log("a " + hashDateList);
     // 상품별 판매 데이터 출력
-    prd11530035(hashDateList);
-    prd11060162(hashDate);
-    prd17010087(hashDate);
-    prd17010088(hashDate);
-    prd17010004(hashDate);
-    prd17010002(hashDate);
+    prd11530035();
+    prd11060162();
+    prd17010087();
+    prd17010088();
+    prd17010004();
+    prd17010002();
+
 }
 
 function prd11530035(){
     // views.py에서 넘어온 상품별 데이터
     const prd11530035 = "{{prd11530035}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    let thTr = document.getElementById('thTr');
     let tdTr = document.getElementById('tdTr');
-    
-
     if(prd11530035.length > 1) {
         let tdCode = document.createElement('td');  // 상품코드 td
         let tdBar = document.createElement('td');   // 바코드 td
         let tdName = document.createElement('td');  // 상품명 td
+
+        let thT = document.createElement('th');     // total th
+        let thA = document.createElement('th');     // average th
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        let tdNull = document.createElement('td');   // null td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
-
-        /////////
+        
         for (var i = 0; i < prd11530035.length/6; i++){
-            let intDate = parseInt(prd11530035[hashDateList[i]*6+1].slice(-2));
-            //let intDateNull = parseInt(nullDateList[i].slice(-2));
-            //intDate.push(intDateNull);
-            console.log(i+1 + '//' + intDate + "//" + i );
-            //console.log(parseInt(nullDateList[i].slice(-2)));
-            //console.log('***' + i);
-            //console.log(parseInt(prd11530035[i*6+1].slice(-2)));// 날짜 일자만 뽑아서 int로 변환
-            //console.log(intDate + " *** " + (i+1));
-            //console.log(intDate == (hashDate+1) == (i+1));
-            
-            // 판매량 td
-            let td = document.createElement('td');
-
+            // 일자 출력
+            let th = document.createElement('th');      // 일자 th
+            let td = document.createElement('td');      // 판매량 td
+            th.innerHTML = prd11530035[i*6+1].substr(8);
+            thTr.append(th);
             // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
             if (i == 0) {
                 tdCode.innerHTML = prd11530035[i*6+4];
@@ -164,39 +64,20 @@ function prd11530035(){
                 td.innerHTML = prd11530035[i*6+5];
                 tdTr.append(td);
             } else {
-                
-                if(i+1 == intDate) {
-                    td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
-                    tdTr.append(td);
-
-                } else {
-                    for (var j = 0; j < hashDateList.length; j++){
-                        let intDateNull = parseInt(nullDateList[j].slice(-2));
-                        console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull );
-                        if(i+1 == intDateNull) {
-                            td.innerHTML = '-';
-                            tdTr.append(td);
-                        } 
-                    }
-                }
-                
-                
-                
+                td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
+                tdTr.append(td);
             }
-            
         }
-
-        //tdNull.innerHTML = '-';
-        //tdTr.append(tdNull);
-
+        // total, average 출력
+        thT.innerHTML = "Total";
+        thTr.append(thT);
+        thA.innerHTML = "Average";
+        thTr.append(thA);
         // 값
         tdTotal.innerHTML = prd11530035[prd11530035.length-1];
         tdTr.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd11530035[prd11530035.length-1])/(prd11530035.length/6));
+        tdAvg.innerHTML = (prd11530035[prd11530035.length-1])/(prd11530035.length/6);
         tdTr.append(tdAvg);
-        /////////
-
-
     }
 }
 
@@ -211,8 +92,6 @@ function prd11060162(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
 
         for (var i = 0; i < prd11060162.length/6; i++){
             // 판매량 td
@@ -235,7 +114,7 @@ function prd11060162(){
         // 값
         tdTotal.innerHTML = prd11060162[prd11060162.length-1];
         tdTr2.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd11060162[prd11060162.length-1])/(prd11060162.length/6));
+        tdAvg.innerHTML = (prd11060162[prd11060162.length-1])/(prd11060162.length/6);
         tdTr2.append(tdAvg);
     }
 }
@@ -251,8 +130,6 @@ function prd17010087(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
 
         for (var i = 0; i < prd17010087.length/6; i++){
             // 판매량 td
@@ -275,7 +152,7 @@ function prd17010087(){
         // 값
         tdTotal.innerHTML = prd17010087[prd17010087.length-1];
         tdTr3.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd17010087[prd17010087.length-1])/(prd17010087.length/6));
+        tdAvg.innerHTML = (prd17010087[prd17010087.length-1])/(prd17010087.length/6);
         tdTr3.append(tdAvg);
     }
 }
@@ -291,8 +168,6 @@ function prd17010088(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
 
         for (var i = 0; i < prd17010088.length/6; i++){
             // 판매량 td
@@ -315,7 +190,7 @@ function prd17010088(){
         // 값
         tdTotal.innerHTML = prd17010088[prd17010088.length-1];
         tdTr4.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd17010088[prd17010088.length-1])/(prd17010088.length/6));
+        tdAvg.innerHTML = (prd17010088[prd17010088.length-1])/(prd17010088.length/6);
         tdTr4.append(tdAvg);
     }
 }
@@ -331,8 +206,6 @@ function prd17010004(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
 
         for (var i = 0; i < prd17010004.length/6; i++){
             // 판매량 td
@@ -355,7 +228,7 @@ function prd17010004(){
         // 값
         tdTotal.innerHTML = prd17010004[prd17010004.length-1];
         tdTr5.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd17010004[prd17010004.length-1])/(prd17010004.length/6));
+        tdAvg.innerHTML = (prd17010004[prd17010004.length-1])/(prd17010004.length/6);
         tdTr5.append(tdAvg);
     }
 }
@@ -371,8 +244,6 @@ function prd17010002(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        tdTotal.classList.add('setBold');
-        tdAvg.classList.add('setBold');
 
         for (var i = 0; i < prd17010002.length/6; i++){
             // 판매량 td
@@ -395,9 +266,7 @@ function prd17010002(){
         // 값
         tdTotal.innerHTML = prd17010002[prd17010002.length-1];
         tdTr6.append(tdTotal);
-        tdAvg.innerHTML = Math.round((prd17010002[prd17010002.length-1])/(prd17010002.length/6));
+        tdAvg.innerHTML = (prd17010002[prd17010002.length-1])/(prd17010002.length/6);
         tdTr6.append(tdAvg);
     }
-}    
-</script>
-{% endblock %}
+}

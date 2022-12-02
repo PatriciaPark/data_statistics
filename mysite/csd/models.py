@@ -9,7 +9,7 @@ class Product(models.Model):
     prd_name = models.CharField(max_length=200, null=False, blank=False)
     
     def __str__(self):
-        return self.prd_name
+        return (self.prd_name + ", " + self.prd_barcode + ", " + self.prd_code)
     
     class Meta:
         db_table = 'tbl_product'
@@ -26,7 +26,7 @@ class Store(models.Model):
     str_name = models.CharField(max_length=200, null=False, blank=False)
 
     def __str__(self):
-        return (self.str_loc + "// " + self.str_city + "// " + self.str_name )
+        return (self.str_loc + ", " + self.str_city + ", " + self.str_name )
 
     class Meta:
         db_table = 'tbl_store'
@@ -40,11 +40,11 @@ class InvoiceDaily(models.Model):
     try:
         inv_d_code = models.BigAutoField(primary_key=True)
         inv_d_date = models.DateField( null=False, blank=False)
-        inv_d_save = models.IntegerField(null=False, blank=False)
-        inv_d_buy = models.IntegerField(null=False, blank=False)
-        inv_d_return = models.IntegerField(null=False, blank=False)
-        inv_d_sale = models.IntegerField(null=False, blank=False)
-        inv_d_stock = models.IntegerField(null=False, blank=False)
+        inv_d_save = models.IntegerField(null=True, blank=True)
+        inv_d_buy = models.IntegerField(null=True, blank=True)
+        inv_d_return = models.IntegerField(null=True, blank=True)
+        inv_d_sale = models.IntegerField(null=True, blank=True)
+        inv_d_stock = models.IntegerField(null=True, blank=True)
         prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
         str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
     except models.DoesNotExist :
@@ -92,7 +92,7 @@ class SumDaily(models.Model):
     str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL) 
     
     def __str__(self):
-        return (str(self.sum_d_date)+ ", "+ self.str_code.str_name + ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code) + "," + str(self.sum_d_sale))
+        return (str(self.sum_d_date)+ ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code) + "," + str(self.sum_d_sale))
 
     class Meta:
         db_table = 'tbl_sum_d'
