@@ -31,13 +31,13 @@ def index(request):
     
     test = SumDaily.objects.filter(prd_code = 11530035, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code')
     testValues = test.values_list('sum_d_date')
-    print(test)
+    #print(test)
     for i in range(1,len(testValues)):
         dates = date_range(str(testValues.get(pk=i))[15:27].replace(', ', '-').replace(')', ''), str(testValues.get(pk=i+1))[15:27].replace(', ', '-').replace(')', ''))
         #print(dates)
         if dates:
             for j in range(0,len(dates)):
-                print(dates[j])
+                #print(dates[j])
                 nullDate.append(dates[j])
     
         
@@ -101,16 +101,17 @@ def upload(request):
             date_y_m_d = date_year + '-' + date_month + '-' + date_day
             fromdate_time_obj = datetime.strptime(date_y_m_d, '%Y-%m-%d')
             
-            date_null = int(date_day)
-            print("iiiiiiiiiiiii ", (i+1), date_null)
-            if i+1 != date_null:
-                NullDate = i+1
-                overDate = date_null
-                print("************NullDate: ", str(NullDate))
-                date_y_m_d_null = date_year + '-' + date_month + '-' + str(NullDate)
-                fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
-                print("fromdate_time_obj_null", fromdate_time_obj_null)
-                date_null = overDate-1
+            # date_null = int(date_day)
+            # print("iiiiiiiiiiiii ", (i+1), date_null)
+            # if i+1 != date_null:
+            #     NullDate = i+1
+            #     overDate = date_null
+            #     print("************NullDate: ", str(NullDate))
+            #     date_y_m_d_null = date_year + '-' + date_month + '-' + str(NullDate)
+            #     fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
+            #     print("fromdate_time_obj_null", fromdate_time_obj_null)
+            #     date_null = overDate-1
+            #     continue
 
             
             # 데이터 DB 저장
@@ -168,6 +169,9 @@ def upload(request):
                     str_code    = store
                     )
                 obj_sum.save()
+                #print(obj_sum)
+                
+                idx = pd.date_range()
             
                 # 엑셀 시트에 없는 날짜 추출 및 형변환
                 # print("iiiiiiiiiiiii ", (i+1), int(date_day))

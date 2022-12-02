@@ -172,10 +172,11 @@ function prd11530035(){
                 } else {
                     for (var j = 0; j < hashDateList.length; j++){
                         let intDateNull = parseInt(nullDateList[j].slice(-2));
-                        console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull );
+                        console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull);
                         if(i+1 == intDateNull) {
                             td.innerHTML = '-';
                             tdTr.append(td);
+                            i++;
                         } 
                     }
                 }
