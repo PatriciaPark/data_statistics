@@ -46,7 +46,7 @@
 let hashDate = 0;
 let hashDateList = [];
 let nullDateList = "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-console.log("aaa " + "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/));
+//console.log("aaa " + "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/));
 
 //페이지 로드시 실행
 window.onload=function(){
@@ -112,7 +112,7 @@ function baseGrid() {
     thA.innerHTML = "Average";
     thTr.append(thA);    
 
-    console.log("a " + hashDateList);
+    //console.log("a " + hashDateList);
     // 상품별 판매 데이터 출력
     prd11530035(hashDateList);
     prd11060162(hashDate);
@@ -143,7 +143,7 @@ function prd11530035(){
             let intDate = parseInt(prd11530035[hashDateList[i]*6+1].slice(-2));
             //let intDateNull = parseInt(nullDateList[i].slice(-2));
             //intDate.push(intDateNull);
-            console.log(i+1 + '//' + intDate + "//" + i );
+            //console.log(i+1 + '//' + intDate + "//" + i );
             //console.log(parseInt(nullDateList[i].slice(-2)));
             //console.log('***' + i);
             //console.log(parseInt(prd11530035[i*6+1].slice(-2)));// 날짜 일자만 뽑아서 int로 변환
@@ -165,21 +165,21 @@ function prd11530035(){
                 tdTr.append(td);
             } else {
                 
-                if(i+1 == intDate) {
-                    td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
-                    tdTr.append(td);
+                td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
+                tdTr.append(td);
+                //if(i+1 == intDate) {
 
-                } else {
-                    for (var j = 0; j < hashDateList.length; j++){
-                        let intDateNull = parseInt(nullDateList[j].slice(-2));
-                        console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull);
-                        if(i+1 == intDateNull) {
-                            td.innerHTML = '-';
-                            tdTr.append(td);
-                            i++;
-                        } 
-                    }
-                }
+                //} else {
+                    //for (var j = 0; j < hashDateList.length; j++){
+                        //let intDateNull = parseInt(nullDateList[j].slice(-2));
+                        //console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull);
+                        //if(i+1 == intDateNull) {
+                            //td.innerHTML = '-';
+                            //tdTr.append(td);
+                            //i++;
+                        //} 
+                    //}
+                //}
                 
                 
                 

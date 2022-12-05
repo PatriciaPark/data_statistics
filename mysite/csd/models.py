@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 # 상품테이블
 class Product(models.Model):
     prd_code = models.CharField(help_text="Product code", max_length=200, primary_key=True)
@@ -17,7 +16,7 @@ class Product(models.Model):
         verbose_name_plural = 'Product Master'
 
     objects = models.Manager()
-
+    
 # 매장테이블
 class Store(models.Model):
     str_code = models.CharField(help_text="store code", max_length=200, primary_key=True)
@@ -26,7 +25,7 @@ class Store(models.Model):
     str_name = models.CharField(max_length=200, null=False, blank=False)
 
     def __str__(self):
-        return (self.str_loc + ", " + self.str_city + ", " + self.str_name )
+        return "%s %s %s %s" % (self.str_code, self.str_loc, self.str_city, self.str_name )
 
     class Meta:
         db_table = 'tbl_store'
@@ -34,7 +33,7 @@ class Store(models.Model):
         verbose_name_plural = 'Store Master'
 
     objects = models.Manager()
-
+    
 # 주문테이블(데일리)
 class InvoiceDaily(models.Model):
     try:
@@ -89,7 +88,7 @@ class SumDaily(models.Model):
     sum_d_sale = models.IntegerField(null=False, blank=False)
     sum_d_stock = models.IntegerField(null=False, blank=False)
     prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
-    str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL) 
+    # str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL) 
     
     def __str__(self):
         return (str(self.sum_d_date)+ ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code) + "," + str(self.sum_d_sale))
