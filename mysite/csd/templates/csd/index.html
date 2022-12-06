@@ -18,6 +18,9 @@
                     <th><B>商品代號</B></th>
                     <th><B>條碼</B></th>
                     <th><B>品名</B></th>
+                    {% comment %} {% for i in range(len(last_date)) %}
+                    <th><B>{{i}}</B></th>
+                    {% endfor %} {% endcomment %}
                 </tr>
             </thead>
             <tbody>
@@ -42,12 +45,6 @@
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script>
-// 전역변수
-let hashDate = 0;
-let hashDateList = [];
-let nullDateList = "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-//console.log("aaa " + "{{nullDate}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/));
-
 //페이지 로드시 실행
 window.onload=function(){
     searchDaily();
@@ -102,9 +99,6 @@ function baseGrid() {
         let th = document.createElement('th');
         th.innerHTML = hashDate+1;
         thTr.append(th);
-        hashDateList.push(hashDate);
-        //console.log("a " + hashDate);
-        //prd11530035(hashDate);
     }
     // total, average 출력
     thT.innerHTML = "Total";
@@ -112,21 +106,19 @@ function baseGrid() {
     thA.innerHTML = "Average";
     thTr.append(thA);    
 
-    //console.log("a " + hashDateList);
     // 상품별 판매 데이터 출력
-    prd11530035(hashDateList);
-    prd11060162(hashDate);
-    prd17010087(hashDate);
-    prd17010088(hashDate);
-    prd17010004(hashDate);
-    prd17010002(hashDate);
+    prd11530035();
+    prd11060162();
+    prd17010087();
+    prd17010088();
+    prd17010004();
+    prd17010002();
 }
 
 function prd11530035(){
     // views.py에서 넘어온 상품별 데이터
     const prd11530035 = "{{prd11530035}}".replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr = document.getElementById('tdTr');
-    
 
     if(prd11530035.length > 1) {
         let tdCode = document.createElement('td');  // 상품코드 td
@@ -134,25 +126,12 @@ function prd11530035(){
         let tdName = document.createElement('td');  // 상품명 td
         let tdTotal = document.createElement('td'); // total td
         let tdAvg = document.createElement('td');   // average td
-        let tdNull = document.createElement('td');   // null td
         tdTotal.classList.add('setBold');
         tdAvg.classList.add('setBold');
 
-        /////////
         for (var i = 0; i < prd11530035.length/6; i++){
-            let intDate = parseInt(prd11530035[hashDateList[i]*6+1].slice(-2));
-            //let intDateNull = parseInt(nullDateList[i].slice(-2));
-            //intDate.push(intDateNull);
-            //console.log(i+1 + '//' + intDate + "//" + i );
-            //console.log(parseInt(nullDateList[i].slice(-2)));
-            //console.log('***' + i);
-            //console.log(parseInt(prd11530035[i*6+1].slice(-2)));// 날짜 일자만 뽑아서 int로 변환
-            //console.log(intDate + " *** " + (i+1));
-            //console.log(intDate == (hashDate+1) == (i+1));
-            
             // 판매량 td
             let td = document.createElement('td');
-
             // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
             if (i == 0) {
                 tdCode.innerHTML = prd11530035[i*6+4];
@@ -164,40 +143,21 @@ function prd11530035(){
                 td.innerHTML = prd11530035[i*6+5];
                 tdTr.append(td);
             } else {
-                
-                td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
-                tdTr.append(td);
-                //if(i+1 == intDate) {
-
-                //} else {
-                    //for (var j = 0; j < hashDateList.length; j++){
-                        //let intDateNull = parseInt(nullDateList[j].slice(-2));
-                        //console.log(i+1 + '*' + j + '*' + intDate + "**" + intDateNull);
-                        //if(i+1 == intDateNull) {
-                            //td.innerHTML = '-';
-                            //tdTr.append(td);
-                            //i++;
-                        //} 
-                    //}
-                //}
-                
-                
-                
+                if(prd11530035[i*6+5] != 0) {
+                    td.innerHTML = prd11530035[i*6+5]-prd11530035[(i-1)*6+5];
+                    tdTr.append(td);   
+                } else {
+                    td.innerHTML = 0;
+                    tdTr.append(td);   
+                }
             }
-            
         }
-
-        //tdNull.innerHTML = '-';
-        //tdTr.append(tdNull);
-
         // 값
         tdTotal.innerHTML = prd11530035[prd11530035.length-1];
+        console.log(prd11530035.length-1);
         tdTr.append(tdTotal);
         tdAvg.innerHTML = Math.round((prd11530035[prd11530035.length-1])/(prd11530035.length/6));
         tdTr.append(tdAvg);
-        /////////
-
-
     }
 }
 
