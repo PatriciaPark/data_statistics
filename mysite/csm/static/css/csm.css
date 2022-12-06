@@ -16,29 +16,6 @@
     text-align: center;
 }
 
-.tableGrid thead { 
-    position: -webkit-sticky; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1; 
-}
-.tableGrid th:first-child,
-.tableGrid td:first-child { 
-    position: -webkit-sticky; 
-    position: sticky; 
-    left: 0; 
-}
-.tableGrid th:nth-child(2),
-.tableGrid td:nth-child(2) { 
-    position: -webkit-sticky; 
-    position: sticky; 
-}
-.tableGrid th:nth-child(3),
-.tableGrid td:nth-child(3) { 
-    position: -webkit-sticky; 
-    position: sticky; 
-}
-
 th, td {
     padding: 15px;
     text-align: center;

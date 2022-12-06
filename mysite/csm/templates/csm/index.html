@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csm.css' %}">
 {% if user.is_authenticated %} 
-    <h3>CSM Monthly</h3>
+    <h3>CSM Monthly《{{month}}》</h3>
     <form method="GET">
         <div class="searchForm">
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">
@@ -15,22 +15,41 @@
         <table class="tableGrid" id="myTable">
             <thead>
                 <tr id="thTr">
-                    <th><B>商品代號</B></th>
+                    <th><B>區域</B></th>
+                    <th><B>縣市</B></th>
+                    <th><B>門市代號</B></th>
+                    <th><B>門市名稱</B></th>
+                    <th><B>代號</B></th>
                     <th><B>條碼</B></th>
-                    <th><B>品名</B></th>
-                    <th><B>上存</B></th>
-                    <th><B>進貨</B></th>
-                    <th><B>退貨</B></th>
-                    <th><B>銷貨</B></th>
+                    <th><B>品名/規格</B></th>
+                    <th><B>上存量</B></th>
+                    <th><B>進貨量</B></th>
+                    <th><B>退貨量</B></th>
+                    <th><B>銷貨量</B></th>
                     <th><B>每日銷貨總計</B></th>
-                    <th><B>誤差值</B></th>
-                    <th><B>庫存</B></th>
+                    <th><B>誤差值(%)</B></th>
+                    <th><B>庫存量</B></th>
                 </tr>
             </thead>
             <tbody>
+                {% for data in monthData %}
                 <tr id="tdTr">
-                    <td></td>
+                    <td>{{data.str_code.str_loc}}</td>
+                    <td>{{data.str_code.str_city}}</td>
+                    <td>{{data.str_code.str_code}}</td>
+                    <td>{{data.str_code.str_name}}</td>
+                    <td>{{data.prd_code.prd_code}}</td>
+                    <td>{{data.prd_code.prd_barcode}}</td>
+                    <td>{{data.prd_code.prd_name}}</td>
+                    <td>{{data.sum_m_save}}</td>
+                    <td>{{data.sum_m_buy}}</td>
+                    <td>{{data.sum_m_return}}</td>
+                    <td>{{data.sum_m_sale}}</td>
+                    <td><B>{{data.sum_m_sale_ttl}}</B></td>
+                    <td><B>{{data.sum_m_sale_err}}</B></td>
+                    <td>{{data.sum_m_stock}}</td>
                 </tr>
+                {% endfor %}
             <tbody>
         </table>
     </div>
@@ -47,7 +66,6 @@
 //페이지 로드시 실행
 window.onload=function(){
     searchDaily();
-    baseGrid();
     localStorage.removeItem("user_selected_date");
 
 }
