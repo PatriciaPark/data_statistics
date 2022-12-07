@@ -3,6 +3,132 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csd.css' %}">
+<style>
+    /* Loading css */
+    /** BEGIN CSS **/
+    body {background: #333333;}
+    @keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-moz-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-webkit-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-o-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-moz-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-webkit-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @-o-keyframes rotate-loading {
+        0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+        100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+    }
+    
+    @keyframes loading-text-opacity {
+        0%  {opacity: 0}
+        20% {opacity: 0}
+        50% {opacity: 1}
+        100%{opacity: 0}
+    }
+    
+    @-moz-keyframes loading-text-opacity {
+        0%  {opacity: 0}
+        20% {opacity: 0}
+        50% {opacity: 1}
+        100%{opacity: 0}
+    }
+    
+    @-webkit-keyframes loading-text-opacity {
+        0%  {opacity: 0}
+        20% {opacity: 0}
+        50% {opacity: 1}
+        100%{opacity: 0}
+    }
+    
+    @-o-keyframes loading-text-opacity {
+        0%  {opacity: 0}
+        20% {opacity: 0}
+        50% {opacity: 1}
+        100%{opacity: 0}
+    }
+    .loading-container,
+    .loading {
+        height: 100px;
+        position: relative;
+        width: 100px;
+        border-radius: 100%;
+    }
+    
+    
+    .loading-container { margin: 40px auto }
+    
+    .loading {
+        border: 2px solid transparent;
+        border-color: transparent #fff transparent #FFF;
+        -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+        -moz-transform-origin: 50% 50%;
+        -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+        -o-transform-origin: 50% 50%;
+        -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+        -webkit-transform-origin: 50% 50%;
+        animation: rotate-loading 1.5s linear 0s infinite normal;
+        transform-origin: 50% 50%;
+    }
+    
+    .loading-container:hover .loading {
+        border-color: transparent #E45635 transparent #E45635;
+    }
+    .loading-container:hover .loading,
+    .loading-container .loading {
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+    
+    #loading-text {
+        -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+        -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+        -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+        animation: loading-text-opacity 2s linear 0s infinite normal;
+        color: #ffffff;
+        font-family: "Helvetica Neue, "Helvetica", ""arial";
+        font-size: 10px;
+        font-weight: bold;
+        margin-top: 45px;
+        opacity: 0;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        top: 0;
+        width: 100px;
+    }
+
+</style>
 {% if user.is_authenticated %} 
     <h3>CSD Daily 《{{month}}》</h3>
     <form method="GET">
@@ -30,14 +156,16 @@
             <tbody>
         </table>
     </div>
-
     <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="input-group">
             <input type="file" class="form-control" id="fileInput" name="fileInput">
             <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
         </div>
     </form>
-{% comment %} <script src ="{% static 'script/csd.js' %}"> </script> {% endcomment %}
+    {% comment %} <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-text">loading</div>
+    </div> {% endcomment %}
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
@@ -49,6 +177,43 @@
     const prd17010088Data = "{{prd17010088}}";
     const prd17010004Data = "{{prd17010004}}";
     const prd17010002Data = "{{prd17010002}}";
+
+
+    document.getElementById('submitBtn').onclick = function (e) {
+        LoadingWithMask();
+    };
+
+    function LoadingWithMask() {
+        //화면의 높이와 너비를 구합니다.
+        var maskHeight = document.body.clientHeight ;
+        var maskWidth  = document.body.clientWidth;
+        alert(maskHeight + " " + maskWidth); 
+        //화면에 출력할 마스크를 설정해줍니다.
+        var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+        var loadingImg = '';
+        loadingImg += "<div class='loading-container'>";
+        loadingImg += "<div class='loading'></div>";
+        loadingImg += "<div id='loading-text'>loading</div>";
+        loadingImg += "</div>";
+      
+        //화면에 레이어 추가
+        document.body.insertAdjacentHTML("beforeend",mask);
+        document.body.insertAdjacentHTML("beforeend",loadingImg);
+            
+        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+        //document.getElementById('mask').style.cssText = "width : maskWidth; height: maskHeight; opacity : 0.3";
+        document.getElementById('mask').style.width = maskWidth;
+        document.getElementById('mask').style.height = maskHeight;
+        document.getElementById('mask').style.opacity = 0.3;
+      
+        //마스크 표시
+        document.getElementById('mask').style.visibility = 'visible';
+      
+        //로딩중 이미지 표시
+        document.getElementsByClassName('loading-container')[0].style.visibility = 'visible';
+    }
+
+    //document.getElementsByClassName("loading-container")[0].style.visibility = 'hidden';
 </script>
 <script src="{% static 'script/csd.js' %}"></script>
 {% endblock %}
