@@ -3,13 +3,12 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime, timedelta
+from datetime import datetime
 from pandas import DataFrame
 import openpyxl, calendar
-import pandas as pd
 
 
-# Create your views here.
+# index
 def index(request):
     # html에서 선택한 날짜 받아오기
     try:
@@ -20,8 +19,6 @@ def index(request):
         year = datetime.today().year
         month = datetime.today().month
     
-    last_date = calendar.monthrange(int(year), int(month))[1]
-    
     # DB에서 상품별 합계 데이터 받아오기
     prd11530035 = list(SumDaily.objects.filter(prd_code = 11530035, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
     prd11060162 = list(SumDaily.objects.filter(prd_code = 11060162, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
@@ -31,10 +28,11 @@ def index(request):
     prd17010002 = list(SumDaily.objects.filter(prd_code = 17010002, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
     
     # html 화면에 출력할 데이터 담을 리스트                    
-    context = {'month':month, 'last_date':last_date, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
+    context = {'month':month, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
     
     return render(request, 'csd/index.html', context)
 
+# excel file upload
 def upload(request):
     if request.method == 'POST' and request.FILES['fileInput']:
         file = request.FILES['fileInput']
@@ -45,7 +43,7 @@ def upload(request):
         # 파일명에 한자가 들어가 있으면 위 코드 사용시 인코딩 문제로 에러 발생
         excel_file = '/media/'+ filename
         
-        #시트 이름 가져오기
+        # 시트 이름 가져오기
         wb = openpyxl.load_workbook('.'+excel_file, data_only=True)
         ws = wb.worksheets[0]
         sheetname = wb.sheetnames
@@ -72,29 +70,18 @@ def upload(request):
             fromdate_time_obj = datetime.strptime(date_y_m_d, '%Y-%m-%d')
             
             last_date = calendar.monthrange(int(date_year), int(date_month))[1]
-            print("****************** ",fromdate_time_obj)
+            print("***Updated... ",fromdate_time_obj)
             
-            # 엑셀 시트에 없는 날짜 추출 및 형변환
-            all_date = []
-            saved_date = []
-            
-            for j in range(last_date):
-                all_date.append(j+1)
-                
-            for k in range(0, len(sheetname)):     
-                saved_date.append(int(sheetname[k].split('.')[1]))
-
-            none_date = list(set(all_date)-set(saved_date))
-            # print('*****none_date',none_date)
-            for l in range(0,len(none_date)):
-                date_y_m_d_null = date_year + '-' + date_month + '-' + str(none_date[l])
-                fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
-                # print("fromdate_time_obj_null", fromdate_time_obj_null)      
-            
+            # 엑셀 합계 데이터 들어있는 셀 읽어오기 (F4~J4)
+            d_save  = wb.worksheets[i]['F4'].value
+            d_buy   = wb.worksheets[i]['G4'].value
+            d_return= wb.worksheets[i]['H4'].value
+            d_sale  = wb.worksheets[i]['I4'].value
+            d_stock = wb.worksheets[i]['J4'].value            
           
             # 데이터 DB 저장            
             for dbframe in df.itertuples():
-                # 제품/매장 테이블에서 외래키 참조
+                # 제품 테이블에서 외래키 참조
                 product = 0
                 
                 try:
@@ -115,43 +102,53 @@ def upload(request):
                 #     )
                 # obj.save()
                 
-                # 엑셀 합계 데이터 들어있는 셀 읽어오기 (F4~J4)
-                d_save  = wb.worksheets[i]['F4'].value
-                d_buy   = wb.worksheets[i]['G4'].value
-                d_return= wb.worksheets[i]['H4'].value
-                d_sale  = wb.worksheets[i]['I4'].value
-                d_stock = wb.worksheets[i]['J4'].value
+            # Save sum data to DB (tbl_sum_d)
+            obj_sum, created = SumDaily.objects.update_or_create(
+                sum_d_date  = fromdate_time_obj,
+                prd_code = product,
+                defaults={
+                    'sum_d_date'  : fromdate_time_obj,
+                    'sum_d_save'  : d_save,
+                    'sum_d_buy'   : d_buy,
+                    'sum_d_return': d_return,
+                    'sum_d_sale'  : d_sale,
+                    'sum_d_stock' : d_stock,
+                    'prd_code'    : product
+                }
+            )
+            obj_sum.save()
+            
+            # 엑셀 시트에 없는 날짜 추출 및 형변환
+            all_date = []
+            saved_date = []
+            
+            for j in range(last_date):
+                all_date.append(j+1)
                 
-                # Add missing dates to pandas dataframe
-                # first_day = date_year+'-'+date_month+'-01'
-                # last_day = date_year+'-'+date_month+'-'+ str(last_date)
-                # idx = pd.date_range(first_day, last_day, freq='D')
-                # df.reindex(idx, fill_value=0)
-                # dfNull = df.reindex(index=idx, columns=['sum_d_save', 'sum_d_buy', 'sum_d_return', 'sum_d_sale', 'sum_d_stock'], fill_value=0)
+            for k in range(0, len(sheetname)):     
+                saved_date.append(int(sheetname[k].split('.')[1]))
+
+            # missing date data
+            none_date = list(set(all_date)-set(saved_date))
+            
+            for l in range(0,len(none_date)):
+                date_y_m_d_null = date_year + '-' + date_month + '-' + str(none_date[l])
+                fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
                 
-                # Save sum data to DB (tbl_sum_d)
-                obj_sum, created = SumDaily.objects.update_or_create(
-                    sum_d_date  = fromdate_time_obj,
-                    sum_d_save  = d_save,
-                    sum_d_buy   = d_buy,
-                    sum_d_return= d_return,
-                    sum_d_sale  = d_sale,
-                    sum_d_stock = d_stock,
-                    prd_code    = product
-                    # str_code    = store
-                    )
-                obj_sum.save()
-               
-                # 없는 날짜 데이터 넣기
-                obj_none, created = SumDaily.objects.update_or_create(
+                # Save missing date data to DB
+                obj_sum, created = SumDaily.objects.get_or_create(
                     sum_d_date  = fromdate_time_obj_null,
-                    sum_d_save  = 0,
-                    sum_d_buy   = 0,
-                    sum_d_return= 0,
-                    sum_d_sale  = 0,
-                    sum_d_stock = 0,
-                    prd_code    = product
-                    )
-                obj_none.save()
-                    
+                    prd_code = product,
+                    defaults={
+                        'sum_d_date'  : fromdate_time_obj_null,
+                        'sum_d_save'  : 0,
+                        'sum_d_buy'   : 0,
+                        'sum_d_return': 0,
+                        'sum_d_sale'  : 0,
+                        'sum_d_stock' : 0,
+                        'prd_code'    : product
+                    }
+                )
+                obj_sum.save()
+                
     return redirect('/csd/?input-month='+date_year+'-'+date_month)

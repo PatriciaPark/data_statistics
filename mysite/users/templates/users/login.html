@@ -1,17 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
 
-<h1>로그인</h1>
 <form method="post" action="{% url 'users:login' %}">
   {% csrf_token %}
-  {% include 'users/form_errors.html' %}
-  <div>
-    <label>사용자 ID</label>
-    <input type="text" name="username" id="username">
-  </div>
-  <div>
-    <label>비밀번호</label>
-    <input type="password" name="password" id="password">
-  </div>
-  <button type="submit">로그인</button>
+  <div class="login-card">
+    <h3>Sign-in</h3>
+    <input type="text" name="username" id="username" placeholder="User ID">
+    <input type="password" name="password" id="password" placeholder="Password">
+    <input type="submit" name="login" class="login login-submit" value="Login">
+    {% include 'users/form_errors.html' %}
 </form>
+{% endblock %}

@@ -9,9 +9,12 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
+import mimetypes
 import os
+
+# Its MIME type ('text/html') is not executable, and strict MIME type checking is enabled
+mimetypes.add_type("text/javascript", ".js", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,6 +136,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [  
   os.path.join(BASE_DIR, 'config', 'static'),
   os.path.join(BASE_DIR, 'csd', 'static'),
+  os.path.join(BASE_DIR, 'csm', 'static'),
+  os.path.join(BASE_DIR, 'user', 'static'),
 ]
 
 MEDIA_URL = '/media/'
