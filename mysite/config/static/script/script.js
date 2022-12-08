@@ -4,7 +4,7 @@ function openNav() {
     document.getElementById("main").style.marginLeft = "20%";
 }
 
-// 외부영역 클릭 시 close menu 
+// 외부영역 클릭 시 close side menu 
 document.onclick = function (e) {
     if (e.target.id != "sideMenu") {
         document.getElementById("mySidenav").style.width = "0";

@@ -7,11 +7,9 @@ def main(request):
 def bad_request(request) :
     return render(request, "404.html", status=400)
  
- 
 # 404 Error
 def page_not_found(request) :
     return render(request, "404.html", status=404)
- 
  
 # 500 Error
 def server_error(request) :
