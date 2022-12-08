@@ -10,6 +10,13 @@ document.getElementById('fileInput').addEventListener('input', function(event) {
     document.getElementById('submitBtn').disabled = !this.value;
 }, false);
 
+// 파일 업로드시 로딩 애니메이션
+document.getElementById('submitBtn').onclick = function (e) {
+    var maskHeight = document.body.scrollHeight;
+    document.getElementById('loading-div').style.display = '';
+    document.getElementById('loading-div').style.height = maskHeight + 'px';
+};
+
 // 달력 날짜 선택시 로컬스토리지 저장
 document.getElementById('monthSearch').addEventListener('input', function(event){
     localStorage.setItem("user_selected_date", document.getElementById('monthSearch').value);

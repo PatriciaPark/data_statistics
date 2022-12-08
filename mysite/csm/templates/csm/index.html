@@ -3,6 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csm.css' %}">
+<link rel="stylesheet" href="{% static 'css/loading.css' %}">
 {% if user.is_authenticated %} 
     <h3>CSM Monthly《{{month}}》</h3>
     <div data-preset="energy" class="ldBar label-center" data-value="35"></div>
@@ -65,6 +66,11 @@
 {% endif %}
 <script>
     const monthData = "{{month}}";
+    
+    // error message
+    {% for message in messages %}
+        alert("{{message}}");
+    {% endfor %}
 </script>
-<script src="{% static 'script/csd.js' %}"></script>
+<script src="{% static 'script/csm.js' %}"></script>
 {% endblock %}
