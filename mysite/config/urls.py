@@ -25,13 +25,12 @@ handler404 = 'django.views.defaults.page_not_found'
 handler500 = 'django.views.defaults.server_error'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', main),
+    path('admin/', admin.site.urls),
     path('csd/', include('csd.urls')),
     path('csm/', include('csm.urls')),
     path('csp/', include('csp.urls')),
     path('users/', include('users.urls')),
-    # path('exceltest/', include('exceltest.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

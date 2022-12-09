@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'csm',
     'csp',
     'users',
-    'myapp',
-    # 'exceltest',
 ]
 
 MIDDLEWARE = [
