@@ -3,7 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% if user.is_authenticated %} 
-    <h1>CSP PSI</h1>
+    <h1 class="menuTitle">CSP PSI</h1>
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}

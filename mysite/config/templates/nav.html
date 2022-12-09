@@ -1,7 +1,7 @@
-<span style="color:#f2f2f2;" id="sideMenu" onclick="openNav()">&#9776; MENU</span>
-<span>||</span>
 {% if user.is_authenticated %} 
-<a href="{% url 'users:logout' %}">{{ user.username }}, Logout</a>
+<span style="color:#f2f2f2;" id="sideMenu" onclick="openNav()">&#9776; MENU</span>
+<span>|| </span>
+<a href="{% url 'users:logout' %}">&#9873; Logout ({{ user.username }})</a>
 {% else %}
-<a href="{% url 'users:login' %}">Sign-in</a>
+<a href="{% url 'users:login' %}">&#9872; Sign in</a>
 {% endif %}

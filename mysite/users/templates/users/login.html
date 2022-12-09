@@ -10,11 +10,15 @@
 {% endif %}
 <form method="post" action="{% url 'users:login' %}">
   {% csrf_token %}
-  <div class="login-card">
-    <h3>Sign-in</h3>
-    <input type="text" name="username" id="username" placeholder="User ID">
-    <input type="password" name="password" id="password" placeholder="Password">
-    <input type="submit" name="login" id="loginBtn" class="login login-submit" value="Login">
-    {% include 'users/form_errors.html' %}
+  <div style="postiion:relative;">
+    <img src="{% static 'image/popular_banner.png' %}" style="width:100vw; padding:0px;">
+    <div class="login-card">
+      <h3>Sign in</h3>
+      <input type="text" name="username" id="username" placeholder="User ID">
+      <input type="password" name="password" id="password" placeholder="Password">
+      <input type="submit" name="login" id="loginBtn" class="login login-submit" value="Login">
+      {% include 'users/form_errors.html' %}
+    </div>
+  <div>
 </form>
 {% endblock %}

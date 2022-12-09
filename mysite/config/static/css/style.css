@@ -2,9 +2,14 @@ html * {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .header {
-    background-color: #F1F1F1;
+    background-color: #f9f2eb;
     text-align: center;
     padding: 20px;
+}
+/* Page Title */
+.menuTitle{
+  padding: 20px;
+  color: #27190c;
 }
 
 /** The navbar container **/
@@ -33,7 +38,7 @@ html * {
 /* Create three unequal columns that floats next to each other */
 .column {
     float: left;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 /* Left and right column */
@@ -80,9 +85,9 @@ html * {
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 .column.middle {
   transition: margin-left .5s;
-  padding: 20px;
+  /* padding: 20px; */
   width: 100%;
-  background-color: #F1F1F1;
+  background-color: white;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -123,4 +128,9 @@ html * {
   color: white;
   border-radius: 5px;
 }
-
+#btnSearch:hover {background-color: #a90000}
+#btnSearch:active {
+    background-color: #6e0101;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+  }
