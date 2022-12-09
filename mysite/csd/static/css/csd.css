@@ -1,8 +1,3 @@
-/* 검색 영역 */
-.searchForm {
-    padding: 20px;
-}
-
 /* 그리드 영역 */
 .dataGrid {
     padding: 20px;
@@ -19,26 +14,48 @@
 .tableGrid thead { 
     position: -webkit-sticky; 
     position: sticky; 
+    background-color: #333;
     top: 0; 
     z-index: 1; 
 }
-.tableGrid th:first-child,
+.tableGrid th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #333;
+    color: white;
+    left: 0;
+}
 .tableGrid td:first-child { 
-    position: -webkit-sticky; 
-    position: sticky; 
-    left: 0; 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #fcf7e3;
+    left: 0;
 }
-.tableGrid th:nth-child(2),
+.tableGrid th:nth-child(2) {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #333;
+    color: white;
+    left: 111px; 
+}
 .tableGrid td:nth-child(2) { 
-    position: -webkit-sticky; 
-    position: sticky; 
-    left: 94px; 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #fcf7e3;
+    left: 111px; 
 }
-.tableGrid th:nth-child(3),
+.tableGrid th:nth-child(3) {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #333;
+    color: white;
+    left: 273px;
+}
 .tableGrid td:nth-child(3) { 
-    position: -webkit-sticky; 
-    position: sticky; 
-    left: 220px; 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #fcf7e3;
+    left: 273px;
 }
 
 th, td {
@@ -53,13 +70,10 @@ th {
     text-align: center;
 }
 
-tr:hover {background-color: coral;}
+tr:hover {
+    background-color: #ffe6aa;
+}
 
 .setBold {
     font-weight: bold;
-}
-
-/* 업로드 영역 */
-.input-group {
-    padding: 20px;
 }

@@ -7,10 +7,10 @@ html * {
     padding: 20px;
 }
 
-/* The navbar container */
+/** The navbar container **/
 .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #111;
 }
 
 /* Navbar links */
@@ -56,14 +56,14 @@ html * {
   padding: 10px 30px 10px 30px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #ddd;
   transition: 0.3s;
   width: 100%;
 }
 
 /* When you mouse over the navigation links, change their color */
 .column.side a:hover {
-  color: #f1f1f1;
+  color: #333;
 }
 
 /* Position and style the close button (top right corner) */
@@ -76,7 +76,7 @@ html * {
 } */
 
 
-/* Middle column */
+/** Middle column **/
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 .column.middle {
   transition: margin-left .5s;
@@ -107,8 +107,20 @@ html * {
     }
 }
 
-/* Search Form */
+/** Search Form **/
 .searchForm {
   padding: 20px;
   margin: auto;
 }
+
+/** 업로드 영역 **/
+.input-group {
+  padding: 20px;
+}
+/* submit button */
+#submitBtn, #btnSearch {
+  background-color: #700808;
+  color: white;
+  border-radius: 5px;
+}
+

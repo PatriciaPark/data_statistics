@@ -1,6 +1,6 @@
 .login-card {
     padding: 40px;
-    width: 274px;
+    width: 400px;
     background-color: #F7F7F7;
     margin: 0 auto 10px;
     border-radius: 2px;
@@ -92,4 +92,10 @@ input[type=password]:hover {
     width: 100%;
     text-align: center;
     font-size: 12px;
+}
+
+#loginBtn {
+    background-color: #700808;
+    color: white;
+    border-radius: 5px;
 }
