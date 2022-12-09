@@ -3,7 +3,11 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/users.css' %}">
-
+{% if user.is_authenticated %}
+<script>
+  window.location.replace("/");
+</script>
+{% endif %}
 <form method="post" action="{% url 'users:login' %}">
   {% csrf_token %}
   <div class="login-card">
