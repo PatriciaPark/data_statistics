@@ -119,7 +119,7 @@ html * {
 }
 /* submit button */
 #submitBtn, #btnSearch {
-  background-color: #700808;
+  background-color: #e60000;
   color: white;
   border-radius: 5px;
 }

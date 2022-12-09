@@ -95,7 +95,7 @@ input[type=password]:hover {
 }
 
 #loginBtn {
-    background-color: #700808;
+    background-color: #e60000;
     color: white;
     border-radius: 5px;
 }
