@@ -14,7 +14,7 @@
 .tableGrid thead { 
     position: -webkit-sticky; 
     position: sticky; 
-    background-color: #333;
+    background-color: #27190c;
     top: 0; 
     z-index: 1; 
 }
