@@ -61,99 +61,108 @@ def upload(request):
         cols = next(data)[0:]
         df = DataFrame(data, columns=cols)
         
-        try:
-            for i in range(0, len(sheetname)):
-                # 엑셀 sheet 이름에서 날짜 추출 
-                date_month  = str(sheetname[i].split('.')[0])
-                date_day    = str(sheetname[i].split('.')[1])
-                # 추출한 날짜 형변환
-                date_year = str(int(str(ws.cell(row=2,column=1).value).split('：')[1].split('年')[0].strip())+1911)
-                date_y_m_d = date_year + '-' + date_month + '-' + date_day
-                fromdate_time_obj = datetime.strptime(date_y_m_d, '%Y-%m-%d')
-                
-                last_date = calendar.monthrange(int(date_year), int(date_month))[1]
-                print("***Updated... ",fromdate_time_obj)
-                
-                # 엑셀 합계 데이터 들어있는 셀 읽어오기 (F4~J4)
-                d_save  = wb.worksheets[i]['F4'].value
-                d_buy   = wb.worksheets[i]['G4'].value
-                d_return= wb.worksheets[i]['H4'].value
-                d_sale  = wb.worksheets[i]['I4'].value
-                d_stock = wb.worksheets[i]['J4'].value            
+        # try:
+        for i in range(0, len(sheetname)):
+            # 엑셀 sheet 이름에서 날짜 추출 
+            date_month  = str(sheetname[i].split('.')[0])
+            date_day    = str(sheetname[i].split('.')[1])
+            # 추출한 날짜 형변환
+            date_year = str(int(str(ws.cell(row=2,column=1).value).split('：')[1].split('年')[0].strip())+1911)
+            date_y_m_d = date_year + '-' + date_month + '-' + date_day
+            fromdate_time_obj = datetime.strptime(date_y_m_d, '%Y-%m-%d')
             
-                # 데이터 DB 저장            
-                for dbframe in df.itertuples():
-                    # 제품 테이블에서 외래키 참조
-                    product = 0
-                    
-                    try:
-                        product = Product.objects.get(prd_code = str(dbframe.貨號))
-                    except ObjectDoesNotExist:
-                        product = None
-                        
-                    # 일일 데이터 DB 저장 (tbl_invoice_d)
-                    # obj, created = InvoiceDaily.objects.update_or_create(
-                    #     inv_d_date  = fromdate_time_obj,
-                    #     inv_d_save  = dbframe.上存量,
-                    #     inv_d_buy   = dbframe.進貨量,
-                    #     inv_d_return= dbframe.退貨量,
-                    #     inv_d_sale  = dbframe.銷貨量,
-                    #     inv_d_stock = dbframe.庫存量,
-                    #     prd_code    = product,
-                    #     str_code    = store
-                    #     )
-                    # obj.save()
-                    
-                # Save sum data to DB (tbl_sum_d)
-                obj_sum, created = SumDaily.objects.update_or_create(
-                    sum_d_date  = fromdate_time_obj,
+            last_date = calendar.monthrange(int(date_year), int(date_month))[1]
+            print("***Updated... ",fromdate_time_obj)
+            
+            # 엑셀 합계 데이터 들어있는 셀 읽어오기 (F4~J4)
+            d_save  = wb.worksheets[i]['F4'].value
+            d_buy   = wb.worksheets[i]['G4'].value
+            d_return= wb.worksheets[i]['H4'].value
+            d_sale  = wb.worksheets[i]['I4'].value
+            d_stock = wb.worksheets[i]['J4'].value            
+        
+            # 데이터 DB 저장            
+            for dbframe in df.itertuples():
+                # 제품 테이블에서 외래키 참조
+                product = 0
+                try:
+                    product = Product.objects.get(prd_code = str(dbframe.貨號))
+                except ObjectDoesNotExist:
+                    product = None
+                
+            # Save str data to DB (tbl_store)
+            obj_prd, created = Product.objects.update_or_create(
+                prd_code = product,
+                defaults={
+                    'prd_code' : dbframe.貨號,
+                    'prd_barcode' : dbframe.條碼,
+                    'prd_name' : dbframe._5
+                }
+            )
+            obj_prd.save()    
+                # 일일 데이터 DB 저장 (tbl_invoice_d)
+                # obj, created = InvoiceDaily.objects.update_or_create(
+                #     inv_d_date  = fromdate_time_obj,
+                #     inv_d_save  = dbframe.上存量,
+                #     inv_d_buy   = dbframe.進貨量,
+                #     inv_d_return= dbframe.退貨量,
+                #     inv_d_sale  = dbframe.銷貨量,
+                #     inv_d_stock = dbframe.庫存量,
+                #     prd_code    = product,
+                #     str_code    = store
+                #     )
+                # obj.save()
+            print('****prd_code ', dbframe.貨號)    
+            # Save sum data to DB (tbl_sum_d)
+            obj_sum, created = SumDaily.objects.update_or_create(
+                sum_d_date  = fromdate_time_obj,
+                prd_code = product,
+                defaults={
+                    'sum_d_date'  : fromdate_time_obj,
+                    'sum_d_save'  : d_save,
+                    'sum_d_buy'   : d_buy,
+                    'sum_d_return': d_return,
+                    'sum_d_sale'  : d_sale,
+                    'sum_d_stock' : d_stock,
+                    'prd_code'    : dbframe.貨號
+                }
+            )
+            obj_sum.save()
+            
+            # 엑셀 시트에 없는 날짜 추출 및 형변환
+            all_date = []
+            saved_date = []
+            
+            for j in range(last_date):
+                all_date.append(j+1)
+                
+            for k in range(0, len(sheetname)):     
+                saved_date.append(int(sheetname[k].split('.')[1]))
+
+            # missing date data
+            none_date = list(set(all_date)-set(saved_date))
+            
+            for l in range(0,len(none_date)):
+                date_y_m_d_null = date_year + '-' + date_month + '-' + str(none_date[l])
+                fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
+                
+                # Save missing date data to DB
+                obj_sum, created = SumDaily.objects.get_or_create(
+                    sum_d_date  = fromdate_time_obj_null,
                     prd_code = product,
                     defaults={
-                        'sum_d_date'  : fromdate_time_obj,
-                        'sum_d_save'  : d_save,
-                        'sum_d_buy'   : d_buy,
-                        'sum_d_return': d_return,
-                        'sum_d_sale'  : d_sale,
-                        'sum_d_stock' : d_stock,
-                        'prd_code'    : product
+                        'sum_d_date'  : fromdate_time_obj_null,
+                        'sum_d_save'  : 0,
+                        'sum_d_buy'   : 0,
+                        'sum_d_return': 0,
+                        'sum_d_sale'  : 0,
+                        'sum_d_stock' : 0,
+                        'prd_code'    : dbframe.貨號
                     }
                 )
                 obj_sum.save()
-                
-                # 엑셀 시트에 없는 날짜 추출 및 형변환
-                all_date = []
-                saved_date = []
-                
-                for j in range(last_date):
-                    all_date.append(j+1)
-                    
-                for k in range(0, len(sheetname)):     
-                    saved_date.append(int(sheetname[k].split('.')[1]))
-
-                # missing date data
-                none_date = list(set(all_date)-set(saved_date))
-                
-                for l in range(0,len(none_date)):
-                    date_y_m_d_null = date_year + '-' + date_month + '-' + str(none_date[l])
-                    fromdate_time_obj_null = datetime.strptime(date_y_m_d_null, '%Y-%m-%d')
-                    
-                    # Save missing date data to DB
-                    obj_sum, created = SumDaily.objects.get_or_create(
-                        sum_d_date  = fromdate_time_obj_null,
-                        prd_code = product,
-                        defaults={
-                            'sum_d_date'  : fromdate_time_obj_null,
-                            'sum_d_save'  : 0,
-                            'sum_d_buy'   : 0,
-                            'sum_d_return': 0,
-                            'sum_d_sale'  : 0,
-                            'sum_d_stock' : 0,
-                            'prd_code'    : product
-                        }
-                    )
-                    obj_sum.save()
-        except:
-            messages.warning(request, 'Invalid file')
-            return redirect('/csd/')
+        # except:
+        #     messages.warning(request, 'Invalid file')
+        #     return redirect('/csd/')
                     
     return redirect('/csd/?input-month='+date_year+'-'+date_month)

@@ -20,7 +20,7 @@ def index(request):
         year = datetime.today().year
         month = datetime.today().month
 
-    monthData = SumMonthly.objects.filter(sum_m_date__year=int(year), sum_m_date__month=int(month)).select_related('prd_code','str_code')
+    monthData = SumMonthly.objects.filter(sum_m_date__year=int(year), sum_m_date__month=int(month)).select_related('prd_code','str_code').order_by('sum_m_code','prd_code')
         
     # html 화면에 출력할 데이터 담을 리스트                    
     context = {'month':month, 'monthData':monthData}
@@ -79,29 +79,46 @@ def upload(request):
                     except ObjectDoesNotExist:
                         store = None
                     
+                    # Save str data to DB (tbl_store)
+                    obj_str, created = Store.objects.update_or_create(
+                        str_code = dbframe.門市代號,
+                        defaults={
+                            'str_code' : dbframe.門市代號,
+                            'str_city' : dbframe.縣市,
+                            'str_loc'  : dbframe.區域,
+                            'str_name' : dbframe.門市名稱
+                        }
+                    )
+                    obj_str.save()
+                    
                     # 일일 판매량 및 오차율    
                     m_sale  = wb.worksheets[i]['K4'].value # 판매총합 셀
                     dailySale, errorRate = 0, 0
                     dailySale = float(format(m_sale/last_date,".2f"))
+                    
                     try : 
                         errorRate = format(dbframe.銷貨量/dailySale,".2f")
                     except ZeroDivisionError:
                         errorRate = None
-                    
                     # Save sum data to DB (tbl_sum_m)
                     obj, created = SumMonthly.objects.update_or_create(
                         sum_m_date  = fromdate_time_obj,
-                        sum_m_save  = dbframe.上存量,
-                        sum_m_buy   = dbframe.進貨量,
-                        sum_m_return= dbframe.退貨量,
-                        sum_m_sale  = dbframe.銷貨量,
-                        sum_m_stock = dbframe.庫存量,
-                        sum_m_sale_ttl = dailySale,
-                        sum_m_sale_err = errorRate,
-                        prd_code    = product,
-                        str_code    = store
+                        str_code = store,
+                        defaults={
+                            'sum_m_date'  : fromdate_time_obj,
+                            'sum_m_save'  : dbframe.上存量,
+                            'sum_m_buy'   : dbframe.進貨量,
+                            'sum_m_return': dbframe.退貨量,
+                            'sum_m_sale'  : dbframe.銷貨量,
+                            'sum_m_stock' : dbframe.庫存量,
+                            'prd_code'    : product,
+                            'str_code'    : store,
+                            'sum_m_sale_ttl' : dailySale,
+                            'sum_m_sale_err' : errorRate
+                        }
                         )
                     obj.save()
+                
         except:
             messages.warning(request, 'Invalid file')
             return redirect('/csm/')
