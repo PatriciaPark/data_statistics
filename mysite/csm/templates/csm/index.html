@@ -10,6 +10,15 @@
     <form method="GET">
         <div class="searchForm">
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">
+            <select name="input-prd" id="selectSearch">  
+                <option value="11530035"> 活蔘28D </option>  
+                <option value="11060162"> 蔘精ET秘 </option>  
+                <option value="17010087"> 活蔘28D/蔘活力飲禮盒 </option>  
+                <option value="17010088"> 蔘石榴飲 </option>
+                <option value="17010004"> 蔘野櫻莓飲 </option>  
+                <option value="17010002"> 蔘精ET禮盒 </option>
+                <option value="12345678"> test </option>
+            </select> 
             <input type="submit" id="btnSearch" value="🔍︎">
         </div>
     </form>
@@ -67,6 +76,26 @@
 <script>
     const monthData = "{{month}}";
     
+
+
+    function objSort(obj, sort){
+        if(orderBy == "asc"){ //오름차순 정렬
+            orderBy = "desc";
+            obj.sort(function(a, b){
+            if (a[sort] > b[sort]) return 1;
+            else if (a[sort] < b[sort]) return -1;
+            });
+        }else{ //내림차순 정렬
+            orderBy = "asc";
+            obj.sort(function(a, b){
+            if (a[sort] > b[sort]) return -1;
+            else if (a[sort] < b[sort]) return 1;
+            });
+        }
+    }
+
+
+
     // error message
     {% for message in messages %}
         alert("{{message}}");

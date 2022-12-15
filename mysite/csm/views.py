@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from django.contrib import messages
 from datetime import datetime
 from pandas import DataFrame
@@ -69,27 +70,34 @@ def upload(request):
                     # 제품/매장 테이블에서 외래키 참조
                     product, store = 0,0
                     
+                    # Get or Save prd data to DB (tbl_product)
                     try:
                         product = Product.objects.get(prd_code = str(dbframe.貨號))
                     except ObjectDoesNotExist:
-                        product = None
-                        
+                        try:
+                            product = Product.objects.create(
+                                prd_code = str(dbframe.貨號),
+                                prd_barcode = str(dbframe.條碼),
+                                prd_name = dbframe._5
+                            )
+                            product.save()
+                        except IntegrityError:
+                            pass
+                    
+                    # Get or Save str data to DB (tbl_store)    
                     try:
                         store = Store.objects.get(str_code = str(dbframe.門市代號))
                     except ObjectDoesNotExist:
-                        store = None
-                    
-                    # Save str data to DB (tbl_store)
-                    obj_str, created = Store.objects.update_or_create(
-                        str_code = dbframe.門市代號,
-                        defaults={
-                            'str_code' : dbframe.門市代號,
-                            'str_city' : dbframe.縣市,
-                            'str_loc'  : dbframe.區域,
-                            'str_name' : dbframe.門市名稱
-                        }
-                    )
-                    obj_str.save()
+                        try:
+                            store = Store.objects.create(
+                                str_code = dbframe.門市代號,
+                                str_city = dbframe.縣市,
+                                str_loc  = dbframe.區域,
+                                str_name = dbframe.門市名稱
+                            )
+                            store.save()
+                        except IntegrityError:
+                            pass
                     
                     # 일일 판매량 및 오차율    
                     m_sale  = wb.worksheets[i]['K4'].value # 판매총합 셀

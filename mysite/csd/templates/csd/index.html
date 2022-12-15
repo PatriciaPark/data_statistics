@@ -4,8 +4,13 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csd.css' %}">
 <link rel="stylesheet" href="{% static 'css/loading.css' %}">
-<style type="text/css">
-</style>
+<style type="text/css"></style>
+{% comment %} 
+    *** 새 제품 추가시, ***
+    1. <tbody id="tblbody"> 안에 <tr id="tdTr7"></tr> 생성 : 새로 생성시마다 id 숫자 +1
+    2. <script> 단에 views에서 보낸 데이터 리스트 받아오기
+    3. csd.js 로 이동해서 baseGrid()에 함수 추가 후, 함수 생성 : 함수는 기존 다른 함수 참고
+{% endcomment %}
 {% if user.is_authenticated %} 
     <h3 class="menuTitle">全聯 Daily <B>{{month}}月</B></h3>
     <form method="GET">
@@ -23,13 +28,14 @@
                     <th><B>品名</B></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tblbody">
                 <tr id="tdTr"></tr>
                 <tr id="tdTr2"></tr>
                 <tr id="tdTr3"></tr>
                 <tr id="tdTr4"></tr>
                 <tr id="tdTr5"></tr>
                 <tr id="tdTr6"></tr>
+                <tr id="tdTr7"></tr>
             <tbody>
         </table>
     </div>
@@ -38,8 +44,7 @@
             <input type="file" class="form-control" id="fileInput" name="fileInput">
             <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
         </div>
-    </form>
-    
+    </form>  
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
@@ -51,6 +56,7 @@
     const prd17010088Data = "{{prd17010088}}";
     const prd17010004Data = "{{prd17010004}}";
     const prd17010002Data = "{{prd17010002}}";
+    const prdlistData = "{{prdlist}}";
     
     // error message
     {% for message in messages %}

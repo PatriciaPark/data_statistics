@@ -85,6 +85,7 @@ function baseGrid() {
     prd17010088();
     prd17010004();
     prd17010002();
+    prdlist();
 }
 
 function prd11530035(){
@@ -394,3 +395,54 @@ function prd17010002(){
         tdTr6.append(tdAvg);
     }
 }    
+
+function prdlist() {
+    const prdlist = prdlistData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    let tdTr7 = document.getElementById('tdTr7');
+
+    if(prdlist.length > 1) {
+        let tdCode = document.createElement('td');  // 상품코드 td
+        let tdBar = document.createElement('td');   // 바코드 td
+        let tdName = document.createElement('td');  // 상품명 td
+        let tdTotal = document.createElement('td'); // total td
+        let tdAvg = document.createElement('td');   // average td
+        tdTotal.classList.add('setBold');
+        tdAvg.classList.add('setBold');
+        let total = 0;
+        let count = 0;
+        for (var i = 0; i < prdlist.length/6; i++){
+            // 판매량 td
+            let td = document.createElement('td');
+            // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
+            if (i == 0) {
+                tdCode.innerHTML = prdlist[i*6+4];
+                tdTr7.append(tdCode);
+                tdBar.innerHTML = prdlist[i*6+3];
+                tdTr7.append(tdBar); 
+                tdName.innerHTML = prdlist[i*6+2];
+                tdTr7.append(tdName);
+                td.innerHTML = prdlist[i*6+5];
+                tdTr7.append(td);
+                total += parseInt(prdlist[i*6+5]);
+                count ++;
+            } else {
+                // 해당 날짜 데이터가 있음
+                if(prdlist[i*6+5] != 0) {
+                    td.innerHTML = prdlist[i*6+5]-total;
+                    tdTr7.append(td);
+                    total += parseInt(prdlist[i*6+5]-total);
+                    count ++;
+                // 해당 날짜 데이터 없음
+                } else {
+                    td.innerHTML = 0;
+                    tdTr7.append(td);   
+                }
+            }
+        }
+        // 값
+        tdTotal.innerHTML = total;
+        tdTr7.append(tdTotal);
+        tdAvg.innerHTML = Math.round(total/count);
+        tdTr7.append(tdAvg);
+    }
+}

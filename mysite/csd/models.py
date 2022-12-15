@@ -20,7 +20,7 @@ class Product(models.Model):
 # 매장테이블
 class Store(models.Model):
     str_code = models.CharField(help_text="store code", max_length=200, primary_key=True)
-    str_city = models.CharField(max_length=200, null=False, blank=False)
+    str_city = models.CharField(max_length=200)
     str_loc = models.CharField(help_text="store location",max_length=200)
     str_name = models.CharField(max_length=200, null=False, blank=False)
 
