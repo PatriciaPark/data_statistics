@@ -32,14 +32,15 @@ class SumMonthly(models.Model):
     sum_m_stock = models.IntegerField(null=False, blank=False)
     sum_m_sale_ttl = models.FloatField(null=True, blank=True)
     sum_m_sale_err = models.FloatField(null=True, blank=True)
+    sum_m_stock_mon = models.FloatField(null=True, blank=True)
     prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
-    str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL) 
+    str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
     
     def __str__(self):
         return "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (self.sum_m_date, self.str_code.str_loc, self.str_code.str_city, self.str_code.str_code, 
                                                            self.str_code.str_name, self.prd_code.prd_code, self.prd_code.prd_name, self.prd_code.prd_barcode, 
                                                            self.sum_m_save, self.sum_m_buy, self.sum_m_return, self.sum_m_sale, self.sum_m_stock,
-                                                           self.sum_m_sale_ttl, self.sum_m_sale_err)
+                                                           self.sum_m_sale_ttl, self.sum_m_sale_err, self.sum_m_stock_mon)
 
     class Meta:
         db_table = 'tbl_sum_m'

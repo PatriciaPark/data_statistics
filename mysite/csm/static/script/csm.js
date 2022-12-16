@@ -2,6 +2,7 @@
 window.onload = function () {
     searchDaily();
     localStorage.removeItem("user_selected_date");
+    localStorage.removeItem("user_selected_prd");
 }
 
 // 파일 선택시에만 버튼 활성화
@@ -11,15 +12,25 @@ document.getElementById('fileInput').addEventListener('input', function (event) 
 
 // 파일 업로드시 로딩 애니메이션
 document.getElementById('submitBtn').onclick = function (e) {
-    var maskHeight = document.body.scrollHeight;
-    document.getElementById('loading-div').style.display = '';
-    document.getElementById('loading-div').style.height = maskHeight + 'px';
+    loading();
 };
 
 // 달력 날짜 선택시 로컬스토리지 저장
 document.getElementById('monthSearch').addEventListener('input', function (event) {
     localStorage.setItem("user_selected_date", document.getElementById('monthSearch').value);
 });
+
+// 로딩 화면 함수
+function loading() {
+    var maskHeight = document.body.scrollHeight;
+    document.getElementById('loading-div').style.display = '';
+    document.getElementById('loading-div').style.height = maskHeight + 'px';
+}
+
+// select box 선택시 로컬스토리지 저장
+function selectedPrd() {
+    localStorage.setItem("user_selected_prd", document.getElementById('selectSearch').value);
+}
 
 // 검색창 달력 현재 달로 디폴트 세팅
 function defaultDate() {
@@ -50,5 +61,12 @@ function searchDaily() {
         }
     } else {
         document.getElementById('monthSearch').value = localStorage.getItem("user_selected_date");
+    }
+
+    // 검색창 select box 값 설정
+    if (!localStorage.getItem("user_selected_prd")) {
+        document.getElementById('selectSearch').value = "";
+    } else {
+        document.getElementById('selectSearch').value = localStorage.getItem("user_selected_prd");
     }
 }

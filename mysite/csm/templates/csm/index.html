@@ -10,18 +10,20 @@
     <form method="GET">
         <div class="searchForm">
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">
-            <select name="input-prd" id="selectSearch">  
-                <option value="11530035"> 活蔘28D </option>  
-                <option value="11060162"> 蔘精ET秘 </option>  
-                <option value="17010087"> 活蔘28D/蔘活力飲禮盒 </option>  
+            <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
+                <option value="" selected> ALL </option>
+                <option value="11530035"> 活蔘28D </option>
+                <option value="11060162"> 蔘精ET秘 </option>
+                <option value="17010087"> 活蔘28D/蔘活力飲禮盒 </option>
                 <option value="17010088"> 蔘石榴飲 </option>
-                <option value="17010004"> 蔘野櫻莓飲 </option>  
+                <option value="17010004"> 蔘野櫻莓飲 </option>
                 <option value="17010002"> 蔘精ET禮盒 </option>
                 <option value="12345678"> test </option>
             </select> 
             <input type="submit" id="btnSearch" value="🔍︎">
         </div>
     </form>
+    <p id="pInfo"><B>* 每日銷貨總計</B>: 銷貨量/當月總天數, <B>誤差值</B>: 銷貨量/每日銷貨總計, <B>庫存月份</B>: 庫存量/銷貨量</p>
     <div class="dataGrid">
         <table class="tableGrid" id="myTable">
             <thead>
@@ -29,17 +31,18 @@
                     <th><B>區域</B></th>
                     <th><B>縣市</B></th>
                     <th><B>門市代號</B></th>
-                    <th><B>門市名稱</B></th>
+                    <th><B>門市名稱</B><span id="prdName" name="prdName" value="▲"></span></th>
                     <th><B>代號</B></th>
                     <th><B>條碼</B></th>
                     <th><B>品名/規格</B></th>
-                    <th><B>上存量</B></th>
-                    <th><B>進貨量</B></th>
-                    <th><B>退貨量</B></th>
-                    <th><B>銷貨量</B></th>
+                    <th><B>上存量</B><span id="prdSave" name="prdSave">▲▼</span></th>
+                    <th><B>進貨量</B><span id="prdBuy" name="prdBuy">▲▼</span></th>
+                    <th><B>退貨量</B><span id="prdReturn" name="prdReturn">▲▼</span></th>
+                    <th><B>銷貨量</B><span id="prdSale" name="prdSale">▲▼</span></th>
                     <th><B>每日銷貨總計</B></th>
                     <th><B>誤差值(%)</B></th>
-                    <th><B>庫存量</B></th>
+                    <th><B>庫存量</B><span id="prdStock" name="prdStock">▲▼</span></th>
+                    <th><B>庫存月份</B></th>
                 </tr>
             </thead>
             <tbody>
@@ -57,8 +60,17 @@
                     <td>{{data.sum_m_return}}</td>
                     <td>{{data.sum_m_sale}}</td>
                     <td><B>{{data.sum_m_sale_ttl}}</B></td>
+                    {%if data.sum_m_stock_mon == None %}
+                    <td><B>-</B></td>
+                    {% else %}
                     <td><B>{{data.sum_m_sale_err}}</B></td>
+                    {% endif %}
                     <td>{{data.sum_m_stock}}</td>
+                    {%if data.sum_m_stock_mon >= 6 %}
+                    <td style="color:red">{{data.sum_m_stock_mon}}</td>
+                    {% else %}
+                    <td>{{data.sum_m_stock_mon}}</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             <tbody>
@@ -75,24 +87,32 @@
 {% endif %}
 <script>
     const monthData = "{{month}}";
-    
 
-
-    function objSort(obj, sort){
-        if(orderBy == "asc"){ //오름차순 정렬
-            orderBy = "desc";
-            obj.sort(function(a, b){
-            if (a[sort] > b[sort]) return 1;
-            else if (a[sort] < b[sort]) return -1;
-            });
-        }else{ //내림차순 정렬
-            orderBy = "asc";
-            obj.sort(function(a, b){
-            if (a[sort] > b[sort]) return -1;
-            else if (a[sort] < b[sort]) return 1;
-            });
+    // 숫자 데이터 정렬
+    document.getElementById('prdName').addEventListener('click', function (event) {
+        alert(document.getElementById('prdName').value);
+        if(document.getElementById('prdName').value == '▲') {
+            document.getElementById('prdName').value = '▼';
+        } else {
+            document.getElementById('prdName').value = '▲';
         }
-    }
+    });
+
+    document.getElementById('prdSave').addEventListener('click', function (event) {
+        alert('click');
+    });
+    document.getElementById('prdBuy').addEventListener('click', function (event) {
+        alert('click');
+    });
+    document.getElementById('prdReturn').addEventListener('click', function (event) {
+        alert('click');
+    });
+    document.getElementById('prdSale').addEventListener('click', function (event) {
+        alert('click');
+    });
+    document.getElementById('prdStock').addEventListener('click', function (event) {
+        alert('click');
+    });
 
 
 
