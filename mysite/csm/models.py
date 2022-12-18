@@ -37,7 +37,7 @@ class SumMonthly(models.Model):
     str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
     
     def __str__(self):
-        return "%s %s %s %s %s %s %s %s %s %s %s %s %s" % (self.sum_m_date, self.str_code.str_loc, self.str_code.str_city, self.str_code.str_code, 
+        return "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" % (self.sum_m_date, self.str_code.str_loc, self.str_code.str_city, self.str_code.str_code, 
                                                            self.str_code.str_name, self.prd_code.prd_code, self.prd_code.prd_name, self.prd_code.prd_barcode, 
                                                            self.sum_m_save, self.sum_m_buy, self.sum_m_return, self.sum_m_sale, self.sum_m_stock,
                                                            self.sum_m_sale_ttl, self.sum_m_sale_err, self.sum_m_stock_mon)

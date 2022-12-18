@@ -70,7 +70,7 @@ th {
     text-align: center;
 }
 
-tr:hover {
+tbody tr:hover {
     background-color: #f9f2eb;
 }
 

@@ -5,14 +5,26 @@
 
 .dataGrid {
     padding: 20px;
-    overflow: auto; 
+    overflow-x: auto;
 }
 
 .tableGrid {
     border-collapse: collapse;
     border: 1px solid;
     white-space: nowrap;
-    text-align: center;
+}
+
+.tableGrid thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #27190c;
+}
+
+.tableGrid th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 th, td {
@@ -27,12 +39,17 @@ th {
     text-align: center;
 }
 
-tr:hover {background-color: #f9f2eb;}
+tbody tr:hover {background-color: #f9f2eb;}
 
 .setBold {
     font-weight: bold;
 }
-
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    color: #27190c;
+}
 /* 항목 설명 p */
 #pInfo {
     position:absolute; 
