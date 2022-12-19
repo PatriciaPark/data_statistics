@@ -138,11 +138,16 @@ html * {
 .input-group {
   padding: 20px;
 }
+/** Button **/
 /* submit button */
 #submitBtn, #btnSearch {
   background-color: #e60000;
   color: white;
   border-radius: 5px;
+}
+#btnSearch {
+  height: 35px;
+  width: 35px;
 }
 #btnSearch:hover {background-color: #a90000}
 #btnSearch:active {
@@ -150,3 +155,16 @@ html * {
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
   }
+/* excel download button */
+.btnExcel {
+  background-color: limegreen;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+}
+.btnExcel:hover {background-color: rgb(5, 148, 5)}
+.btnExcel:active {
+  background-color: darkgreen;
+  box-shadow: 5px 5px 5px #666;
+  transform: translateY(2px);
+}

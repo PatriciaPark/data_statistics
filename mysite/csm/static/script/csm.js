@@ -1,6 +1,6 @@
 //페이지 로드시 실행
 window.onload = function () {
-    searchDaily();
+    searchMonthly();
     localStorage.removeItem("user_selected_date");
     localStorage.removeItem("user_selected_prd");
     localStorage.removeItem("user_selected_sort");
@@ -61,7 +61,7 @@ function updatedDate() {
 }
 
 // Search 버튼 클릭이벤트 - 월별 데이터 출력    
-function searchDaily() {
+function searchMonthly() {
     // 검색창 달력 현재달/마지막선택달
     if (!localStorage.getItem("user_selected_date")) {
         if (!monthData) {

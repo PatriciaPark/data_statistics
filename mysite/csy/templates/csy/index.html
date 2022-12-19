@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/csy.css' %}">
+<style type="text/css">
+ 
+</style>
+{% if user.is_authenticated %} 
+    <h3 class="menuTitle">CSY Yearly</h3>
+    <form method="GET">
+        <div class="searchForm">
+            <input type="number" min="2000" max="2099" step="1" value="2023" class="select"/>
+            <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
+                <option value="" selected>所有產品</option>
+                <option value="11530035">活蔘28D</option>
+                <option value="11060162">蔘精ET秘</option>
+                <option value="17010087">活蔘28D/蔘活力飲禮盒</option>
+                <option value="17010088">蔘石榴飲</option>
+                <option value="17010004">蔘野櫻莓飲</option>
+                <option value="17010002">蔘精ET禮盒</option>
+                <option value="12345678">test</option>
+            </select>
+            <input type="submit" id="btnSearch" value="🔍︎">
+            <input type="button" class="btnExcel" value="📥Excel">
+        </div>
+        <div class="dataGrid">
+            <table class="tableGrid" id="myTable">
+                <thead class="sticky-element">
+                    <tr>
+                        <th rowspan="2"><B>門市代號</B></th>
+                        <th rowspan="2"><B>縣市</B></th>
+                        <th rowspan="2"><B>門市名稱</B></th>
+                        <th rowspan="2"><B>上存量</B></th>
+                        <th rowspan="2"><B>進貨量</B></th>
+                        <th rowspan="2"><B>退貨量</B></th>
+                        <th colspan="12"><B>銷貨量</B></th>
+                        <th rowspan="2"><B>銷售加總</B></th>
+                        <th rowspan="2"><B>庫存量</B></th>
+                        <th rowspan="2"><B>月平均</B></th>
+                        <th rowspan="2"><B>庫存月份</B></th>
+                    </tr>
+                    <tr>
+                        <th><B>1月</B></th>
+                        <th><B>2月</B></th>
+                        <th><B>3月</B></th>
+                        <th><B>4月</B></th>
+                        <th><B>5月</B></th>
+                        <th><B>6月</B></th>
+                        <th><B>7月</B></th>
+                        <th><B>8月</B></th>
+                        <th><B>9月</B></th>
+                        <th><B>10月</B></th>
+                        <th><B>11月</B></th>
+                        <th><B>12月</B></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><B>Total</B></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+    </form>
+{% else %}
+    <meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<script type="text/javascript">
+   
+</script>
+<script src="{% static 'script/csy.js' %}"></script>
+{% endblock %}

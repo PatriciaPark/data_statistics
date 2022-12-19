@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('csd/', include('csd.urls')),
     path('csm/', include('csm.urls')),
+    path('csy/', include('csy.urls')),
     path('csp/', include('csp.urls')),
     path('users/', include('users.urls')),
 ]
