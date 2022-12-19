@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'css/loading.css' %}">
 {% if user.is_authenticated %} 
     <h3 class="menuTitle">全聯 Monthly <B>{{month}}月</B></h3>
-    <div data-preset="energy" class="ldBar label-center" data-value="35"></div>
+    {% comment %} <div data-preset="energy" class="ldBar label-center" data-value="35"></div> {% endcomment %}
     <form method="GET">
         <div class="searchForm">
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">

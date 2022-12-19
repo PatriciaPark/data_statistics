@@ -24,8 +24,8 @@ def index(request):
     # html에서 선택한 select box value 받아오기 및 정렬
     prdcode = request.GET.get('input-prd')  #상품코드
     sort = request.GET.get('input-sort')    #정렬
-    print('####prdcode', prdcode)
-    print('####sort', sort)
+    
+    # select box 선택에 따른 정렬
     if prdcode:
         if sort == 'strname': 
             monthData = SumMonthly.objects.filter(prd_code = prdcode, sum_m_date__year=int(year), sum_m_date__month=int(month)).select_related('prd_code','str_code').order_by('str_code__str_name', 'sum_m_code','prd_code')
