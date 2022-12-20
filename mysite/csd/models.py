@@ -36,21 +36,21 @@ class Store(models.Model):
     
 # 주문테이블(데일리)
 class InvoiceDaily(models.Model):
-    try:
-        inv_d_code = models.BigAutoField(primary_key=True)
-        inv_d_date = models.DateField( null=False, blank=False)
-        inv_d_save = models.IntegerField(null=True, blank=True)
-        inv_d_buy = models.IntegerField(null=True, blank=True)
-        inv_d_return = models.IntegerField(null=True, blank=True)
-        inv_d_sale = models.IntegerField(null=True, blank=True)
-        inv_d_stock = models.IntegerField(null=True, blank=True)
-        prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
-        str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
-    except models.DoesNotExist :
-        tbl_product = None
+    inv_d_code = models.BigAutoField(primary_key=True)
+    inv_d_date = models.DateField( null=False, blank=False)
+    inv_d_save = models.IntegerField(null=True, blank=True)
+    inv_d_buy = models.IntegerField(null=True, blank=True)
+    inv_d_return = models.IntegerField(null=True, blank=True)
+    inv_d_sale = models.IntegerField(null=True, blank=True)
+    inv_d_stock = models.IntegerField(null=True, blank=True)
+    prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
+    str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
+
 
     def __str__(self):
-        return (str(self.inv_d_date)+ ", "+ self.str_code.str_name + ", "+ self.prd_code.prd_name+ ", "+ str(self.prd_code.prd_barcode) +", "+ str(self.prd_code.prd_code))
+        return "%s %s %s %s %s %s %s %s %s %s %s" % (self.inv_d_date, self.prd_code, self.prd_code.prd_name,
+                                            self.str_code, self.str_code.str_name, self.str_code.str_city,
+                                            self.inv_d_save, self.inv_d_buy, self.inv_d_return, self.inv_d_sale, self.inv_d_stock)
 
     class Meta:
         db_table = 'tbl_invoice_d'

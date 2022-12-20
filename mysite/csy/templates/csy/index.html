@@ -7,10 +7,10 @@
  
 </style>
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">CSY Yearly</h3>
+    <h3 class="menuTitle">Yearly by Month</h3>
     <form method="GET">
         <div class="searchForm">
-            <input type="number" min="2000" max="2099" step="1" value="2023" class="select"/>
+            <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
             <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
                 <option value="" selected>所有產品</option>
                 <option value="11530035">活蔘28D</option>
@@ -19,7 +19,6 @@
                 <option value="17010088">蔘石榴飲</option>
                 <option value="17010004">蔘野櫻莓飲</option>
                 <option value="17010002">蔘精ET禮盒</option>
-                <option value="12345678">test</option>
             </select>
             <input type="submit" id="btnSearch" value="🔍︎">
             <input type="button" class="btnExcel" value="📥Excel">
@@ -56,30 +55,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for data in data %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{data.str_code.str_code}}</td>
+                        <td>{{data.str_code.str_city}}</td>
+                        <td>{{data.str_code.str_name}}</td>
+                        <td>{{data.sum_m_save}}</td>
+                        <td>{{data.sum_m_buy}}</td>
+                        <td>{{data.sum_m_return}}</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>SUM</td>
+                        <td>{{data.sum_m_stock}}</td>
+                        <td>SUM/12</td>
+                        <td>sum_m_stock/(SUM/12)</td>
                     </tr>
+                    {% endfor %}
                     <tr>
                         <td colspan="3"><B>Total</B></td>
                         <td>1</td>
@@ -110,7 +111,8 @@
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script type="text/javascript">
-   
+    const yearDate = "{{yearDate}}";
+
 </script>
 <script src="{% static 'script/csy.js' %}"></script>
 {% endblock %}
