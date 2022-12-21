@@ -100,6 +100,7 @@ def upload(request):
                 
                 # 불러온 달의 마지막일 (eg. 28일/30일/31일)
                 last_date = calendar.monthrange(int(date_year), int(date_month))[1]
+                print("***Updated... ",fromdate_time_obj)
                 
                 # 데이터 DB 저장
                 for dbframe in df.itertuples():

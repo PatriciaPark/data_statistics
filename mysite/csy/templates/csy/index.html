@@ -7,13 +7,12 @@
  
 </style>
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">Yearly by Month</h3>
+    <h3 class="menuTitle">Yearly by Month: <B>{{prdname.0}}</B></h3>{{totalsale.0.inv_d_date__month}}
     <form method="GET">
         <div class="searchForm">
             <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
             <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
-                <option value="" selected>所有產品</option>
-                <option value="11530035">活蔘28D</option>
+                <option value="11530035" selected>活蔘28D</option>
                 <option value="11060162">蔘精ET秘</option>
                 <option value="17010087">活蔘28D/蔘活力飲禮盒</option>
                 <option value="17010088">蔘石榴飲</option>
@@ -23,6 +22,8 @@
             <input type="submit" id="btnSearch" value="🔍︎">
             <input type="button" class="btnExcel" value="📥Excel">
         </div>
+        <p id="pCount">數據數 : {{data.count}} 條</p>
+        <p id="pInfo"><B>* 月平均</B>= 銷貨量/12, <B>庫存月份</B>= 庫存量/月平均</p>
         <div class="dataGrid">
             <table class="tableGrid" id="myTable">
                 <thead class="sticky-element">
@@ -55,54 +56,64 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% if data %}
                     {% for data in data %}
                     <tr>
-                        <td>{{data.str_code.str_code}}</td>
-                        <td>{{data.str_code.str_city}}</td>
-                        <td>{{data.str_code.str_name}}</td>
-                        <td>{{data.sum_m_save}}</td>
-                        <td>{{data.sum_m_buy}}</td>
-                        <td>{{data.sum_m_return}}</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>SUM</td>
-                        <td>{{data.sum_m_stock}}</td>
-                        <td>SUM/12</td>
-                        <td>sum_m_stock/(SUM/12)</td>
+                        <td>{{data.str_code}}</td>
+                        <td>{{data.str_code__str_city}}</td>
+                        <td>{{data.str_code__str_name}}</td>
+                        <td>{{data.inv_d_save__sum}}</td>
+                        <td>{{data.inv_d_buy__sum}}</td>
+                        <td>{{data.inv_d_return__sum}}</td>
+                        <input type="hidden" id="saleMonField">
+                        <td>{% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 4 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 5 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 6 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 7 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 8 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 9 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 10 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 11 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if saleMon.inv_d_date__month == 12 %}{{saleMon.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        
+                        <td>{{data.inv_d_sale__sum}}</td>
+                        <td>{{data.inv_d_stock__sum}}</td>
+                        <td>{% widthratio data.inv_d_sale__sum 12 1 %}</td>
+                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td>{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
                     </tr>
                     {% endfor %}
                     <tr>
                         <td colspan="3"><B>Total</B></td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
+                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.0.inv_d_date__month == 11 %}{{totalsale.0.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{% if totalsale.1.inv_d_date__month == 12 %}{{totalsale.1.inv_d_sale__sum}}{% endif %}</B></td>
+                        <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
+                        <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
+                        <input type="hidden" value="{% widthratio totaldata.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td><B>{% widthratio totaldata.inv_d_stock__sum monAvg 1 %}</B></td>
                     </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="22"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
                 <tbody>
             </table>
         </div>
@@ -112,6 +123,14 @@
 {% endif %}
 <script type="text/javascript">
     const yearDate = "{{yearDate}}";
+    const prdData = "{{prdcode}}";
+    const saleMon = "{{saleMon}}";
+
+    let saleMonField = document.getElementById("saleMonField");
+    console.log("** " + saleMon);
+    for(var i = 0; i < saleMon; i++){
+        
+    }
 
 </script>
 <script src="{% static 'script/csy.js' %}"></script>

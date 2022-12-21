@@ -33,7 +33,7 @@
             <input type="submit" id="btnSearch" value="🔍︎">
         </div>
         <p id="pCount">數據數 : {{monthData.count}} 條</p>
-        <p id="pInfo"><B>* 每日銷貨總計</B>: 銷貨量/當月總天數, <B>誤差值</B>: 銷貨量/每日銷貨總計, <B>庫存月份</B>: 庫存量/銷貨量</p>
+        <p id="pInfo"><B>* 每日銷貨總計</B>= 銷貨量/當月總天數, <B>誤差值</B>= 銷貨量/每日銷貨總計, <B>庫存月份</B>= 庫存量/銷貨量</p>
         <div class="dataGrid">
             <table class="tableGrid" id="myTable">
                 <thead class="sticky-element">
@@ -56,6 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% if monthData %}
                     {% for data in monthData %}
                     <tr id="tdTr">
                         <td>{{data.str_code.str_loc}}</td>
@@ -91,6 +92,11 @@
                         {% endif %}
                     </tr>
                     {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="15"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
                 <tbody>
             </table>
         </div>

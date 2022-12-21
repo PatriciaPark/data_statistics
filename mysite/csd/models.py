@@ -46,7 +46,6 @@ class InvoiceDaily(models.Model):
     prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
     str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
 
-
     def __str__(self):
         return "%s %s %s %s %s %s %s %s %s %s %s" % (self.inv_d_date, self.prd_code, self.prd_code.prd_name,
                                             self.str_code, self.str_code.str_name, self.str_code.str_city,

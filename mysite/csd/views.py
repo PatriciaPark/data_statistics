@@ -86,7 +86,7 @@ def upload(request):
                 d_stock = wb.worksheets[i]['J4'].value            
                 
                 # 데이터 DB 저장            
-                product = 0
+                product, store = 0, 0
                 for dbframe in df.itertuples():
                     # Get or Save prd data to DB (tbl_product)
                     try:
@@ -101,6 +101,37 @@ def upload(request):
                             product.save()
                         except IntegrityError:
                             pass
+                    
+                    # Get or Save str data to DB (tbl_store)    
+                    try:
+                        store = Store.objects.get(str_code = str(dbframe.門市代號))
+                    except ObjectDoesNotExist:
+                        try:
+                            store = Store.objects.create(
+                                str_code = dbframe.門市代號,
+                                str_name = dbframe.門市名稱
+                            )
+                            store.save()
+                        except IntegrityError:
+                            pass
+                    
+                    # 일일 데이터 DB 저장 (tbl_invoice_d)
+                    obj, created = InvoiceDaily.objects.update_or_create(
+                        inv_d_date  = fromdate_time_obj,
+                        prd_code    = product,
+                        str_code    = store,
+                        defaults={
+                            'inv_d_date'  : fromdate_time_obj,
+                            'inv_d_save'  : dbframe.上存量,
+                            'inv_d_buy'   : dbframe.進貨量,
+                            'inv_d_return': dbframe.退貨量,
+                            'inv_d_sale'  : dbframe.銷貨量,
+                            'inv_d_stock' : dbframe.庫存量,
+                            'prd_code'    : product,
+                            'str_code'    : store
+                        }
+                        )
+                    obj.save()
                     
                 # Save sum data to DB (tbl_sum_d)
                 obj_sum, created = SumDaily.objects.update_or_create(

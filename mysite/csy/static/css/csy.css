@@ -34,3 +34,15 @@ th {
     color: white;
     text-align: center;
 }
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    color: #27190c;
+}
+/* 항목 설명 p */
+#pInfo {
+    position:absolute; 
+    right: 15px;
+    color: #27190c;
+}

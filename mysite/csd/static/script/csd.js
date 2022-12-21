@@ -79,16 +79,16 @@ function baseGrid() {
     thTr.append(thA);    
 
     // 상품별 판매 데이터 출력
-    prd11530035();
-    prd11060162();
-    prd17010087();
-    prd17010088();
-    prd17010004();
-    prd17010002();
+    prd11530035(lastDate);
+    prd11060162(lastDate);
+    prd17010087(lastDate);
+    prd17010088(lastDate);
+    prd17010004(lastDate);
+    prd17010002(lastDate);
     prdlist();
 }
 
-function prd11530035(){
+function prd11530035(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd11530035 = prd11530035Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr = document.getElementById('tdTr');
@@ -138,10 +138,16 @@ function prd11530035(){
         tdTr.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶";
+        tdTr.append(td);
     }
 }
 
-function prd11060162(){
+function prd11060162(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd11060162 = prd11060162Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr2 = document.getElementById('tdTr2');
@@ -189,10 +195,16 @@ function prd11060162(){
         tdTr2.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr2.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入";
+        tdTr2.append(td);
     }
 }
 
-function prd17010087(){
+function prd17010087(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd17010087 = prd17010087Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr3 = document.getElementById('tdTr3');
@@ -240,10 +252,16 @@ function prd17010087(){
         tdTr3.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr3.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入";
+        tdTr3.append(td);
     }
 }
 
-function prd17010088(){
+function prd17010088(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd17010088 = prd17010088Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr4 = document.getElementById('tdTr4');
@@ -291,10 +309,16 @@ function prd17010088(){
         tdTr4.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr4.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入";
+        tdTr4.append(td);
     }
 }
 
-function prd17010004(){
+function prd17010004(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd17010004 = prd17010004Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr5 = document.getElementById('tdTr5');
@@ -342,10 +366,16 @@ function prd17010004(){
         tdTr5.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr5.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 預購正官庄高麗蔘野櫻莓飲";
+        tdTr5.append(td);
     }
 }
 
-function prd17010002(){
+function prd17010002(lastDate){
     // views.py에서 넘어온 상품별 데이터
     const prd17010002 = prd17010002Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr6 = document.getElementById('tdTr6');
@@ -393,6 +423,12 @@ function prd17010002(){
         tdTr6.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr6.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入";
+        tdTr6.append(td);
     }
 }    
 
