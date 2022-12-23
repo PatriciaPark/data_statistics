@@ -17,14 +17,14 @@ def index(request):
     # 상단에 표시할 상품명
     prdname = Product.objects.filter(prd_code = prdcode).values_list('prd_name', flat=True)
     # 데이터
-    data = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock')))
-    saleMon = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','inv_d_date__month').annotate(Sum('inv_d_sale')))
+    data = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+    saleMon = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_name','prd_code__prd_name','inv_d_date__month').annotate(Sum('inv_d_sale'))
     # 최하단 총합계 데이터
     totaldata = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
     totalsale = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('inv_d_date__month').annotate(Sum('inv_d_sale')))
     
-    print('saleMon',saleMon)
-    print('totalsale',totalsale)
+    print('count1',len(data))
+    print('count2',len(saleMon))
         
     context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 'saleMon':saleMon, 'totalsale':totalsale}
     

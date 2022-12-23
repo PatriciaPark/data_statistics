@@ -25,20 +25,46 @@
         <p id="pCount">數據數 : {{data.count}} 條</p>
         <p id="pInfo"><B>* 月平均</B>= 銷貨量/12, <B>庫存月份</B>= 庫存量/月平均</p>
         <div class="dataGrid">
-            <table class="tableGrid" id="myTable">
+            <table class="tableGrid" id="myTable1">
                 <thead class="sticky-element">
-                    <tr>
+                    <tr style="height:110px">
                         <th rowspan="2"><B>門市代號</B></th>
                         <th rowspan="2"><B>縣市</B></th>
                         <th rowspan="2"><B>門市名稱</B></th>
                         <th rowspan="2"><B>上存量</B></th>
                         <th rowspan="2"><B>進貨量</B></th>
                         <th rowspan="2"><B>退貨量</B></th>
+                    </tr>
+                </thead>
+                <tbody id="datafield">
+                    {% if data %}
+                    {% for data in data %}
+                    <tr>
+                        <td id="strcode">{{data.str_code}}</td>
+                        <td id="strcity">{{data.str_code__str_city}}</td>
+                        <td id="strname">{{data.str_code__str_name}}</td>
+                        <td id="strsumsave">{{data.inv_d_save__sum}}</td>
+                        <td id="strsumbuy">{{data.inv_d_buy__sum}}</td>
+                        <td id="strsumreturn">{{data.inv_d_return__sum}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3"><B>Total</B></td>
+                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
+                <tbody>
+            </table>
+            <table class="tableGrid" id="myTable2">
+                <thead class="sticky-element">
+                    <tr>
                         <th colspan="12"><B>銷貨量</B></th>
-                        <th rowspan="2"><B>銷售加總</B></th>
-                        <th rowspan="2"><B>庫存量</B></th>
-                        <th rowspan="2"><B>月平均</B></th>
-                        <th rowspan="2"><B>庫存月份</B></th>
                     </tr>
                     <tr>
                         <th><B>1月</B></th>
@@ -56,42 +82,24 @@
                     </tr>
                 </thead>
                 <tbody id="datafield">
-                    {% if data %}
-                    {% comment %} {% for data in data %}
-                    <tr>
-                        <td id="strcode">{{data.str_code}}</td>
-                        <td id="strcity">{{data.str_code__str_city}}</td>
-                        <td id="strname">{{data.str_code__str_name}}</td>
-                        <td id="strsumsave">{{data.inv_d_save__sum}}</td>
-                        <td id="strsumbuy">{{data.inv_d_buy__sum}}</td>
-                        <td id="strsumreturn">{{data.inv_d_return__sum}}</td>
-
-                        <td id="saleMonField1"> </td>
-                        <td id="saleMonField2"> </td>
-                        <td id="saleMonField3"> </td>
-                        <td id="saleMonField4"> </td>
-                        <td id="saleMonField5"> </td>
-                        <td id="saleMonField6"> </td>
-                        <td id="saleMonField7"> </td>
-                        <td id="saleMonField8"> </td>
-                        <td id="saleMonField9"> </td>
-                        <td id="saleMonField10"></td>
-                        <td id="saleMonField11"></td>
-                        <td id="saleMonField12"></td>
-                        
-                        <td id="strsumsale">{{data.inv_d_sale__sum}}</td>
-                        <td id="strsumstock">{{data.inv_d_stock__sum}}</td>
-                        <td id="strmonavg">{% widthratio data.inv_d_sale__sum 12 1 %}</td>
-                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
-                        <td id="strmonstock">{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
+                    {% if saleMon %}
+                    {% for saleMon in saleMon %}
+                    <tr>                    
+                        <td id="saleMonField1">{% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField2">{% if saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField3">{% if saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField4">{% if saleMon.inv_d_date__month == 4 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField5">{% if saleMon.inv_d_date__month == 5 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField6">{% if saleMon.inv_d_date__month == 6 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField7">{% if saleMon.inv_d_date__month == 7 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField8">{% if saleMon.inv_d_date__month == 8 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField9">{% if saleMon.inv_d_date__month == 9 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField10">{% if saleMon.inv_d_date__month == 10 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField11">{% if saleMon.inv_d_date__month == 11 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
+                        <td id="saleMonField12">{% if saleMon.inv_d_date__month == 12 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
                     </tr>
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                     <tr>
-                        <td colspan="3"><B>Total</B></td>
-                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
-                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
-                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
-
                         {% for totalsale in totalsale %}
                         <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
                         <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
@@ -106,7 +114,35 @@
                         <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
                         <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
                         {% endfor %}
-
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="12"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
+                <tbody>
+            </table>
+            <table class="tableGrid" id="myTable3">
+                <thead class="sticky-element">
+                    <tr style="height:110px">
+                        <th rowspan="2"><B>銷售加總</B></th>
+                        <th rowspan="2"><B>庫存量</B></th>
+                        <th rowspan="2"><B>月平均</B></th>
+                        <th rowspan="2"><B>庫存月份</B></th>
+                    </tr>
+                </thead>
+                <tbody id="datafield">
+                    {% if data %}
+                    {% for data in data %}
+                    <tr>                        
+                        <td id="strsumsale">{{data.inv_d_sale__sum}}</td>
+                        <td id="strsumstock">{{data.inv_d_stock__sum}}</td>
+                        <td id="strmonavg">{% widthratio data.inv_d_sale__sum 12 1 %}</td>
+                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td id="strmonstock">{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
                         <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
                         <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
@@ -115,7 +151,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="22"><B>No Data</B></td>
+                        <td colspan="4"><B>No Data</B></td>
                     </tr>
                     {% endif %}
                 <tbody>
@@ -135,96 +171,7 @@
     // 월간 판매 데이터 총합
     const totalsaleData = "{{totalsale}}";
 
-    const basedata = data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-    // 월간 판매 데이터
-    const saleMon = saleMonData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-    // 월간 판매 데이터 총합
-    const totalsale = totalsaleData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-
-    // tbody
-    let datafield = document.getElementById("datafield");
-    // 월간 판매 데이터 필드
-    let saleMonField = document.getElementById("saleMonField");
-    console.log(data);
     
-    let tr = document.createElement('tr');
-    if(saleMon.length > 1) {
-        let strcode = document.createElement('td');         // 門市代號
-        let strcity = document.createElement('td');         // 縣市
-        let strname = document.createElement('td');         // 門市名稱
-        let strsumsave = document.createElement('td');      // 上存量
-        let strsumbuy = document.createElement('td');       // 進貨量
-        let strsumreturn = document.createElement('td');    // 退貨量
-        let strsumsale = document.createElement('td');      // 銷售加總
-        let strsumstock = document.createElement('td');     // 庫存量
-        let strmonavg = document.createElement('td');       // 月平均
-        let strmonstock = document.createElement('td');     // 庫存月份
-
-        // 銷貨量 1月 ~ 12月
-        for(var i = 0; i < saleMon.length; i++){
-            strcode.innerHTML = saleMon[i*6+1];
-            strcity.innerHTML = saleMon[i*6+1];
-            let td = document.createElement('td'); 
-            
-            if(saleMon[i*6+3] == 1){
-                //document.getElementById("saleMonField1").innerHTML = saleMon[i*6+5];
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-            } else if (saleMon[i*6+3] == 2) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField2").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 3) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField3").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 4) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField4").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 5) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField5").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 6) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField6").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 7) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField7").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 8) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField8").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 9) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField9").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 10) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField10").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 11) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField11").innerHTML = saleMon[i*6+5];
-            } else if (saleMon[i*6+3] == 12) {
-                td.innerHTML = saleMon[i*6+5];
-                tr.append(td);
-                //document.getElementById("saleMonField12").innerHTML = saleMon[i*6+5];
-            } else {
-                td.innerHTML = '-';
-                tr.append(td);
-            }
-            datafield.append(tr);
-        }
-
-    }
-
-    console.log();
-
 </script>
 <script src="{% static 'script/csy.js' %}"></script>
 {% endblock %}
