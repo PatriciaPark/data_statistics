@@ -25,7 +25,103 @@
         <p id="pCount">數據數 : {{data.count}} 條</p>
         <p id="pInfo"><B>* 月平均</B>= 銷貨量/12, <B>庫存月份</B>= 庫存量/月平均</p>
         <div class="dataGrid">
-            <table class="tableGrid" id="myTable1">
+            <table class="tableGrid" id="myTable">
+                <thead class="sticky-element">
+                    <tr>
+                        <th rowspan="2"><B>門市代號</B></th>
+                        <th rowspan="2"><B>縣市</B></th>
+                        <th rowspan="2"><B>門市名稱</B></th>
+                        <th rowspan="2"><B>上存量</B></th>
+                        <th rowspan="2"><B>進貨量</B></th>
+                        <th rowspan="2"><B>退貨量</B></th>
+                        <th colspan="12"><B>銷貨量</B></th>
+                        <th rowspan="2"><B>銷售加總</B></th>
+                        <th rowspan="2"><B>庫存量</B></th>
+                        <th rowspan="2"><B>月平均</B></th>
+                        <th rowspan="2"><B>庫存月份</B></th>
+                    </tr>
+                    <tr>
+                        <th><B>1月</B></th>
+                        <th><B>2月</B></th>
+                        <th><B>3月</B></th>
+                        <th><B>4月</B></th>
+                        <th><B>5月</B></th>
+                        <th><B>6月</B></th>
+                        <th><B>7月</B></th>
+                        <th><B>8月</B></th>
+                        <th><B>9月</B></th>
+                        <th><B>10月</B></th>
+                        <th><B>11月</B></th>
+                        <th><B>12月</B></th>
+                    </tr>
+                </thead>
+                <tbody id="datafield">
+                    {% if data %}
+                    {% for data in data %}
+                    <tr>
+                        <td id="strcode">{{data.str_code}}</td>
+                        <td id="strcity">{{data.str_code__str_city}}</td>
+                        <td id="strname">{{data.str_code__str_name}}</td>
+                        <td id="strsumsave">{{data.inv_d_save__sum}}</td>
+                        <td id="strsumbuy">{{data.inv_d_buy__sum}}</td>
+                        <td id="strsumreturn">{{data.inv_d_return__sum}}</td>
+                        
+                        
+                        <td id="saleMonField1">-</td>
+                        <td id="saleMonField2">-</td>
+                        <td id="saleMonField3">-</td>
+                        <td id="saleMonField4">-</td>
+                        <td id="saleMonField5">-</td>
+                        <td id="saleMonField6">-</td>
+                        <td id="saleMonField7">{{saleNov.0.inv_d_sale__sum}}</td>
+                        <td id="saleMonField8">{{saleNov.0.inv_d_sale__sum}}</td>
+                        <td id="saleMonField9">{{forloop.counter}}</td>
+                        <td id="saleMonField10">{{saleOct.forloop.counter.inv_d_sale__sum}}</td>
+                        <td id="saleMonField11">{{saleNov.forloop.counter.inv_d_sale__sum}}</td>
+                        <td id="saleMonField12">{{saleDec.forloop.counter.inv_d_sale__sum}}</td>
+                        
+                        <td id="strsumsale">{{data.inv_d_sale__sum}}</td>
+                        <td id="strsumstock">{{data.inv_d_stock__sum}}</td>
+                        <td id="strmonavg">{% widthratio data.inv_d_sale__sum 12 1 %}</td>
+                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td id="strmonstock">{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3"><B>Total</B></td>
+                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
+
+                        {% comment %} {% for totalsale in totalsale %} {% endcomment %}
+                        <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        {% comment %} {% endfor %} {% endcomment %}
+
+                        <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
+                        <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
+                        <input type="hidden" value="{% widthratio totaldata.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td><B>{% widthratio totaldata.inv_d_stock__sum monAvg 1 %}</B></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="22"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
+                <tbody>
+            </table>
+            {% comment %} <table class="tableGrid" id="myTable1">
                 <thead class="sticky-element">
                     <tr style="height:110px">
                         <th rowspan="2"><B>門市代號</B></th>
@@ -36,7 +132,7 @@
                         <th rowspan="2"><B>退貨量</B></th>
                     </tr>
                 </thead>
-                <tbody id="datafield">
+                <tbody>
                     {% if data %}
                     {% for data in data %}
                     <tr>
@@ -59,7 +155,7 @@
                         <td colspan="6"><B>No Data</B></td>
                     </tr>
                     {% endif %}
-                <tbody>
+                </tbody>
             </table>
             <table class="tableGrid" id="myTable2">
                 <thead class="sticky-element">
@@ -82,9 +178,36 @@
                     </tr>
                 </thead>
                 <tbody id="datafield">
-                    {% if saleMon %}
+                    {% if totalsale %}
                     {% for saleMon in saleMon %}
-                    <tr>                    
+                    <tr id="trSaleMon">
+                        <td id="saleJan"></td>
+                        <td id="saleFeb"></td>
+                        <td id="saleMar"></td>
+                        <td id="saleApr"></td>
+                        <td id="saleMay"></td>
+                        <td id="saleJun"></td>
+                        <td id="saleJul"></td>
+                        <td id="saleAug"></td>
+                        <td id="saleSep"></td>
+                        <td id="saleOct"></td>
+                        <td id="saleNov"></td>
+                        <td id="saleDec"></td>
+                        <td>
+                            {% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 4 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 5 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 6 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 7 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 8 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 9 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 10 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 11 %}{{saleMon.inv_d_sale__sum}}
+                            {% elif saleMon.inv_d_date__month == 12 %}{{saleMon.inv_d_sale__sum}}
+                            {% endif %}
+                        </td>
                         <td id="saleMonField1">{% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
                         <td id="saleMonField2">{% if saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
                         <td id="saleMonField3">{% if saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
@@ -101,18 +224,18 @@
                     {% endfor %}
                     <tr>
                         {% for totalsale in totalsale %}
-                        <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
+                        <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
                         {% endfor %}
                     </tr>
                     {% else %}
@@ -120,7 +243,7 @@
                         <td colspan="12"><B>No Data</B></td>
                     </tr>
                     {% endif %}
-                <tbody>
+                </tbody>
             </table>
             <table class="tableGrid" id="myTable3">
                 <thead class="sticky-element">
@@ -131,7 +254,7 @@
                         <th rowspan="2"><B>庫存月份</B></th>
                     </tr>
                 </thead>
-                <tbody id="datafield">
+                <tbody>
                     {% if data %}
                     {% for data in data %}
                     <tr>                        
@@ -154,8 +277,8 @@
                         <td colspan="4"><B>No Data</B></td>
                     </tr>
                     {% endif %}
-                <tbody>
-            </table>
+                </tbody>
+            </table> {% endcomment %}
         </div>
     </form>
 {% else %}
@@ -167,11 +290,80 @@
     // 기본 데이터
     const data = "{{data}}";
     // 월간 판매 데이터
-    const saleMonData = "{{saleMon}}";
+    {% comment %} const saleOctData = "{{saleOct}}";
+    const saleNovData = "{{saleNov}}";
+    const saleDecData = "{{saleDec}}"; {% endcomment %}
+    
     // 월간 판매 데이터 총합
     const totalsaleData = "{{totalsale}}";
 
+    {% comment %} const saleOct = saleOctData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    const saleNov = saleNovData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    const saleDec = saleDecData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/); {% endcomment %}
+
+    {% comment %} console.log(saleNov); {% endcomment %}
     
+    {% comment %} let trSaleMon = document.getElementById('trSaleMon');
+    let tdSaleNov = document.getElementById('saleNov');
+    let tdSaleDec = document.getElementById('saleDec'); {% endcomment %}
+
+    {% comment %} let datafield = document.getElementById('datafield');
+
+    if(saleOct.length > 1 || saleNov.length > 1 || tdSaleDec.length > 1) {
+        let tr = document.createElement('tr');
+        
+        let td1 = document.createElement('td');
+        let td2 = document.createElement('td');
+        let td3 = document.createElement('td');
+        let td4 = document.createElement('td');
+        let td5 = document.createElement('td');
+        let td6 = document.createElement('td');
+        let td7 = document.createElement('td');
+        let td8 = document.createElement('td');
+        let td9 = document.createElement('td');
+        let td10 = document.createElement('td');
+        let td11 = document.createElement('td');
+        let td12 = document.createElement('td');
+        
+        if(saleOct.length > 1) {
+            for(var i = 0; i < saleOct.length/4; i++) {
+                //tr.setAttribute("id", "tr"+i);
+                td10.innerHTML = saleOct[i*4+3];
+                tr.append(td10);
+                datafield.append(tr.cloneNode(true));
+            }
+        } else {
+            td10.innerHTML = '-';
+            tr.append(td10);
+            datafield.append(tr.cloneNode(true));
+        }
+
+        if(saleNov.length > 1) {
+            for(var i = 0; i < saleNov.length/4; i++) {
+                td11.innerHTML = saleNov[i*4+3];
+                tr.append(td11);
+                datafield.append(tr.cloneNode(true));
+            }
+        } else {
+            td11.innerHTML = '-';
+            tr.append(td11);
+            datafield.append(tr.cloneNode(true));
+        }
+
+        if(saleDec.length > 1) {
+            for(var i = 0; i < saleDec.length/4; i++) {
+                td12.innerHTML = saleDec[i*4+3];
+                tr.append(td12);
+                datafield.append(tr.cloneNode(true));
+            }
+        } else {
+            td12.innerHTML = '-';
+            tr.append(td12);
+            datafield.append(tr.cloneNode(true));
+        }
+
+    } {% endcomment %}
+
 </script>
 <script src="{% static 'script/csy.js' %}"></script>
 {% endblock %}
