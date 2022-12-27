@@ -59,32 +59,57 @@
                     {% if data %}
                     {% for data in data %}
                     <tr>
-                        <td id="strcode">{{data.str_code}}</td>
-                        <td id="strcity">{{data.str_code__str_city}}</td>
-                        <td id="strname">{{data.str_code__str_name}}</td>
-                        <td id="strsumsave">{{data.inv_d_save__sum}}</td>
-                        <td id="strsumbuy">{{data.inv_d_buy__sum}}</td>
-                        <td id="strsumreturn">{{data.inv_d_return__sum}}</td>
-                        
-                        
-                        <td id="saleMonField1">-</td>
-                        <td id="saleMonField2">-</td>
-                        <td id="saleMonField3">-</td>
-                        <td id="saleMonField4">-</td>
-                        <td id="saleMonField5">-</td>
-                        <td id="saleMonField6">-</td>
-                        <td id="saleMonField7">{{saleNov.0.inv_d_sale__sum}}</td>
-                        <td id="saleMonField8">{{saleNov.0.inv_d_sale__sum}}</td>
-                        <td id="saleMonField9">{{forloop.counter}}</td>
-                        <td id="saleMonField10">{{saleOct.forloop.counter.inv_d_sale__sum}}</td>
-                        <td id="saleMonField11">{{saleNov.forloop.counter.inv_d_sale__sum}}</td>
-                        <td id="saleMonField12">{{saleDec.forloop.counter.inv_d_sale__sum}}</td>
-                        
-                        <td id="strsumsale">{{data.inv_d_sale__sum}}</td>
-                        <td id="strsumstock">{{data.inv_d_stock__sum}}</td>
-                        <td id="strmonavg">{% widthratio data.inv_d_sale__sum 12 1 %}</td>
+                        <td>{{data.str_code}}</td>
+                        <td>{{data.str_code__str_city}}</td>
+                        <td>{{data.str_code__str_name}}</td>
+                        <td>{{data.inv_d_save__sum}}</td>
+                        <td>{{data.inv_d_buy__sum}}</td>
+                        <td>{{data.inv_d_return__sum}}</td>
+                        {% comment %} 월별 판매 합 {% endcomment %}
+                        {% with i=forloop.counter0 %}
+                        {% load index %}
+                            {% with  saleJan|index:i as sale1 %}
+                            <td style="color:blue">{{sale1.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleFeb|index:i as sale2 %}
+                            <td style="color:blue">{{sale2.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleMar|index:i as sale3 %}
+                            <td style="color:blue">{{sale3.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleApr|index:i as sale4 %}
+                            <td style="color:blue">{{sale4.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleMay|index:i as sale5 %}
+                            <td style="color:blue">{{sale5.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleJun|index:i as sale6 %}
+                            <td style="color:blue">{{sale6.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleJul|index:i as sale7 %}
+                            <td style="color:blue">{{sale7.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleAug|index:i as sale8 %}
+                            <td style="color:blue">{{sale8.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleSep|index:i as sale9 %}
+                            <td style="color:blue">{{sale9.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleOct|index:i as sale10 %}
+                            <td style="color:blue">{{sale10.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleNov|index:i as sale11 %}
+                            <td style="color:blue">{{sale11.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                            {% with  saleDec|index:i as sale12 %}
+                            <td style="color:blue">{{sale12.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            {% endwith %}
+                        {% endwith %}
+                        <td>{{data.inv_d_sale__sum}}</td>
+                        <td>{{data.inv_d_stock__sum}}</td>
+                        <td>{% widthratio data.inv_d_sale__sum 12 1 %}</td>
                         <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
-                        <td id="strmonstock">{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
+                        <td>{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
                     </tr>
                     {% endfor %}
                     <tr>
@@ -92,22 +117,20 @@
                         <td><B>{{totaldata.inv_d_save__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_return__sum}}</B></td>
-
-                        {% comment %} {% for totalsale in totalsale %} {% endcomment %}
-                        <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% endif %}</td>
-                        {% comment %} {% endfor %} {% endcomment %}
-
+                        {% comment %} 월별 판매 총합 {% endcomment %}
+                        <td style="color:blue"><B>{{totalsaleJan.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleFeb.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMar.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleApr.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMay.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJun.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJul.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleAug.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleSep.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleOct.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleNov.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleDec.inv_d_sale__sum|default:'-'}}</B></td>
+                        {% comment %} 판매, 재고, 월평균, 월재고 {% endcomment %}
                         <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
                         <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
@@ -121,164 +144,6 @@
                     {% endif %}
                 <tbody>
             </table>
-            {% comment %} <table class="tableGrid" id="myTable1">
-                <thead class="sticky-element">
-                    <tr style="height:110px">
-                        <th rowspan="2"><B>門市代號</B></th>
-                        <th rowspan="2"><B>縣市</B></th>
-                        <th rowspan="2"><B>門市名稱</B></th>
-                        <th rowspan="2"><B>上存量</B></th>
-                        <th rowspan="2"><B>進貨量</B></th>
-                        <th rowspan="2"><B>退貨量</B></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if data %}
-                    {% for data in data %}
-                    <tr>
-                        <td id="strcode">{{data.str_code}}</td>
-                        <td id="strcity">{{data.str_code__str_city}}</td>
-                        <td id="strname">{{data.str_code__str_name}}</td>
-                        <td id="strsumsave">{{data.inv_d_save__sum}}</td>
-                        <td id="strsumbuy">{{data.inv_d_buy__sum}}</td>
-                        <td id="strsumreturn">{{data.inv_d_return__sum}}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="3"><B>Total</B></td>
-                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
-                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
-                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="6"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-            <table class="tableGrid" id="myTable2">
-                <thead class="sticky-element">
-                    <tr>
-                        <th colspan="12"><B>銷貨量</B></th>
-                    </tr>
-                    <tr>
-                        <th><B>1月</B></th>
-                        <th><B>2月</B></th>
-                        <th><B>3月</B></th>
-                        <th><B>4月</B></th>
-                        <th><B>5月</B></th>
-                        <th><B>6月</B></th>
-                        <th><B>7月</B></th>
-                        <th><B>8月</B></th>
-                        <th><B>9月</B></th>
-                        <th><B>10月</B></th>
-                        <th><B>11月</B></th>
-                        <th><B>12月</B></th>
-                    </tr>
-                </thead>
-                <tbody id="datafield">
-                    {% if totalsale %}
-                    {% for saleMon in saleMon %}
-                    <tr id="trSaleMon">
-                        <td id="saleJan"></td>
-                        <td id="saleFeb"></td>
-                        <td id="saleMar"></td>
-                        <td id="saleApr"></td>
-                        <td id="saleMay"></td>
-                        <td id="saleJun"></td>
-                        <td id="saleJul"></td>
-                        <td id="saleAug"></td>
-                        <td id="saleSep"></td>
-                        <td id="saleOct"></td>
-                        <td id="saleNov"></td>
-                        <td id="saleDec"></td>
-                        <td>
-                            {% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 4 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 5 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 6 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 7 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 8 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 9 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 10 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 11 %}{{saleMon.inv_d_sale__sum}}
-                            {% elif saleMon.inv_d_date__month == 12 %}{{saleMon.inv_d_sale__sum}}
-                            {% endif %}
-                        </td>
-                        <td id="saleMonField1">{% if saleMon.inv_d_date__month == 1 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField2">{% if saleMon.inv_d_date__month == 2 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField3">{% if saleMon.inv_d_date__month == 3 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField4">{% if saleMon.inv_d_date__month == 4 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField5">{% if saleMon.inv_d_date__month == 5 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField6">{% if saleMon.inv_d_date__month == 6 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField7">{% if saleMon.inv_d_date__month == 7 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField8">{% if saleMon.inv_d_date__month == 8 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField9">{% if saleMon.inv_d_date__month == 9 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField10">{% if saleMon.inv_d_date__month == 10 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField11">{% if saleMon.inv_d_date__month == 11 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                        <td id="saleMonField12">{% if saleMon.inv_d_date__month == 12 %}{{saleMon.inv_d_sale__sum}}{% endif %}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        {% for totalsale in totalsale %}
-                        <td>{% if totalsale.inv_d_date__month == 1 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 2 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 3 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 4 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 5 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 6 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 7 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 8 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 9 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 10 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 11 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        <td>{% if totalsale.inv_d_date__month == 12 %}{{totalsale.inv_d_sale__sum}}{% else %}-{% endif %}</td>
-                        {% endfor %}
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="12"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-            <table class="tableGrid" id="myTable3">
-                <thead class="sticky-element">
-                    <tr style="height:110px">
-                        <th rowspan="2"><B>銷售加總</B></th>
-                        <th rowspan="2"><B>庫存量</B></th>
-                        <th rowspan="2"><B>月平均</B></th>
-                        <th rowspan="2"><B>庫存月份</B></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if data %}
-                    {% for data in data %}
-                    <tr>                        
-                        <td id="strsumsale">{{data.inv_d_sale__sum}}</td>
-                        <td id="strsumstock">{{data.inv_d_stock__sum}}</td>
-                        <td id="strmonavg">{% widthratio data.inv_d_sale__sum 12 1 %}</td>
-                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
-                        <td id="strmonstock">{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
-                        <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
-                        <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
-                        <input type="hidden" value="{% widthratio totaldata.inv_d_sale__sum 12 1 as monAvg %}">
-                        <td><B>{% widthratio totaldata.inv_d_stock__sum monAvg 1 %}</B></td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="4"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table> {% endcomment %}
         </div>
     </form>
 {% else %}
@@ -287,83 +152,6 @@
 <script type="text/javascript">
     const yearDate = "{{yearDate}}";
     const prdData = "{{prdcode}}";
-    // 기본 데이터
-    const data = "{{data}}";
-    // 월간 판매 데이터
-    {% comment %} const saleOctData = "{{saleOct}}";
-    const saleNovData = "{{saleNov}}";
-    const saleDecData = "{{saleDec}}"; {% endcomment %}
-    
-    // 월간 판매 데이터 총합
-    const totalsaleData = "{{totalsale}}";
-
-    {% comment %} const saleOct = saleOctData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-    const saleNov = saleNovData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
-    const saleDec = saleDecData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/); {% endcomment %}
-
-    {% comment %} console.log(saleNov); {% endcomment %}
-    
-    {% comment %} let trSaleMon = document.getElementById('trSaleMon');
-    let tdSaleNov = document.getElementById('saleNov');
-    let tdSaleDec = document.getElementById('saleDec'); {% endcomment %}
-
-    {% comment %} let datafield = document.getElementById('datafield');
-
-    if(saleOct.length > 1 || saleNov.length > 1 || tdSaleDec.length > 1) {
-        let tr = document.createElement('tr');
-        
-        let td1 = document.createElement('td');
-        let td2 = document.createElement('td');
-        let td3 = document.createElement('td');
-        let td4 = document.createElement('td');
-        let td5 = document.createElement('td');
-        let td6 = document.createElement('td');
-        let td7 = document.createElement('td');
-        let td8 = document.createElement('td');
-        let td9 = document.createElement('td');
-        let td10 = document.createElement('td');
-        let td11 = document.createElement('td');
-        let td12 = document.createElement('td');
-        
-        if(saleOct.length > 1) {
-            for(var i = 0; i < saleOct.length/4; i++) {
-                //tr.setAttribute("id", "tr"+i);
-                td10.innerHTML = saleOct[i*4+3];
-                tr.append(td10);
-                datafield.append(tr.cloneNode(true));
-            }
-        } else {
-            td10.innerHTML = '-';
-            tr.append(td10);
-            datafield.append(tr.cloneNode(true));
-        }
-
-        if(saleNov.length > 1) {
-            for(var i = 0; i < saleNov.length/4; i++) {
-                td11.innerHTML = saleNov[i*4+3];
-                tr.append(td11);
-                datafield.append(tr.cloneNode(true));
-            }
-        } else {
-            td11.innerHTML = '-';
-            tr.append(td11);
-            datafield.append(tr.cloneNode(true));
-        }
-
-        if(saleDec.length > 1) {
-            for(var i = 0; i < saleDec.length/4; i++) {
-                td12.innerHTML = saleDec[i*4+3];
-                tr.append(td12);
-                datafield.append(tr.cloneNode(true));
-            }
-        } else {
-            td12.innerHTML = '-';
-            tr.append(td12);
-            datafield.append(tr.cloneNode(true));
-        }
-
-    } {% endcomment %}
-
 </script>
 <script src="{% static 'script/csy.js' %}"></script>
 {% endblock %}

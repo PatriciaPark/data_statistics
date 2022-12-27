@@ -33,14 +33,30 @@ def index(request):
     saleDec = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year,inv_d_date__month=12).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')))
     # 최하단 총합계 데이터
     totaldata = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
-    totalsale = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('inv_d_date__month').annotate(Sum('inv_d_sale'))
+    # 월별 판매 총합 데이터
+    totalsaleJan = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=1).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleFeb = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=2).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleMar = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=3).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleApr = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=4).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleMay = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=5).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleJun = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=6).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleJul = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=7).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleAug = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=8).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleSep = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=9).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleOct = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=10).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleNov = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=11).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
+    totalsaleDec = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=12).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
     
-    print('totalsale',len(saleOct))
-    print('saleMon',len(saleNov))
+    print('data',len(data))
+    print('saleDec',len(saleDec))
     # print('data',data.query)
-    print('saleMon',saleNov)
         
-    context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 'totalsale':totalsale , 'saleOct':saleOct, 'saleNov':saleNov, 'saleDec':saleDec}
+    context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
+               'saleJan':saleJan, 'saleFeb':saleFeb, 'saleMar':saleMar, 'saleApr':saleApr, 'saleMay':saleMay, 'saleJun':saleJun, 
+               'saleJul':saleJul, 'saleAug':saleAug, 'saleSep':saleSep, 'saleOct':saleOct, 'saleNov':saleNov, 'saleDec':saleDec,
+               'totalsaleJan':totalsaleJan, 'totalsaleFeb':totalsaleFeb, 'totalsaleMar':totalsaleMar, 'totalsaleApr':totalsaleApr,
+               'totalsaleMay':totalsaleMay, 'totalsaleJun':totalsaleJun, 'totalsaleJul':totalsaleJul, 'totalsaleAug':totalsaleAug, 
+               'totalsaleSep':totalsaleSep, 'totalsaleOct':totalsaleOct, 'totalsaleNov':totalsaleNov, 'totalsaleDec':totalsaleDec}
     
     return render(request, 'csy/index.html', context)
 
