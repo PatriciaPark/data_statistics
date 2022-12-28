@@ -1,3 +1,4 @@
+/* table grid */
 .dataGrid {
     padding: 20px;
     overflow-x: auto;
@@ -32,4 +33,17 @@ th {
     background-color: #27190c;
     color: white;
     text-align: center;
+}
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    color: #27190c;
+    margin-bottom: 0px;
+}
+/* 항목 설명 p */
+#pInfo {
+    position:absolute; 
+    right: 10%;
+    color: #27190c;
 }

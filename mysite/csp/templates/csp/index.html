@@ -10,33 +10,155 @@
     <h3 class="menuTitle">PX Calendar Sales</h3>
     <form method="GET">
         <div class="searchForm">
-            <input type="number" min="2000" max="2099" step="1" value="2023" class="select"/>
+            <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
             <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
-                <option value="" selected>所有產品</option>
-                <option value="11530035">活蔘28D</option>
+                <option value="11530035" selected>活蔘28D</option>
                 <option value="11060162">蔘精ET秘</option>
                 <option value="17010087">活蔘28D/蔘活力飲禮盒</option>
                 <option value="17010088">蔘石榴飲</option>
                 <option value="17010004">蔘野櫻莓飲</option>
                 <option value="17010002">蔘精ET禮盒</option>
-                <option value="12345678">test</option>
             </select>
             <input type="submit" id="btnSearch" value="🔍︎">
-            <input type="button" class="btnExcel" value="📥Excel">
+            <input type="button" class="btnExcel" value="📥Excel" onclick="fnExceldown('myTable','yearlyByMonth');">
         </div>
+        <p id="pCount">數據數 : {{data.count}} 條</p>
+        <p id="pInfo"><B>* 月平均</B>= 銷貨量/12, <B>庫存月份</B>= 庫存量/月平均</p>
         <div class="dataGrid">
             <table class="tableGrid" id="myTable">
                 <thead class="sticky-element">
                     <tr>
-                        <th><B>區域</B></th>
-                        <th><B>縣市</B></th>
+                        <th rowspan="2"><B>門市代號</B></th>
+                        <th rowspan="2"><B>縣市</B></th>
+                        <th rowspan="2"><B>門市名稱</B></th>
+                        <th><B>1月-1</B></th>
+                        <th><B>1月-2</B></th>
+                        <th><B>2月-1</B></th>
+                        <th><B>2月-2</B></th>
+                        <th><B>3月-1</B></th>
+                        <th><B>3月-2</B></th>
+                        <th><B>4月-1</B></th>
+                        <th><B>4月-2</B></th>
+                        <th><B>5月-1</B></th>
+                        <th><B>5月-2</B></th>
+                        <th><B>6月-1</B></th>
+                        <th><B>6月-2</B></th>
+                        <th><B>7月-1</B></th>
+                        <th><B>7月-2</B></th>
+                        <th><B>8月-1</B></th>
+                        <th><B>8月-2</B></th>
+                        <th><B>9月-1</B></th>
+                        <th><B>9月-2</B></th>
+                        <th><B>10月-1</B></th>
+                        <th><B>10月-2</B></th>
+                        <th><B>11月-1</B></th>
+                        <th><B>11月-2</B></th>
+                        <th><B>12月-1</B></th>
+                        <th><B>12月-2</B></th>
+                        <th rowspan="2"><B>Total</B></th>
+                    </tr>
+                    <tr>
+                        <th><B>1月</B></th>
+                        <th><B>2月</B></th>
+                        <th><B>3月</B></th>
+                        <th><B>4月</B></th>
+                        <th><B>5月</B></th>
+                        <th><B>6月</B></th>
+                        <th><B>7月</B></th>
+                        <th><B>8月</B></th>
+                        <th><B>9月</B></th>
+                        <th><B>10月</B></th>
+                        <th><B>11月</B></th>
+                        <th><B>12月</B></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="datafield">
+                    {% if data %}
+                    {% for data in data %}
                     <tr>
-                        <td>asd</td>
-                        <td>asd</td>
+                        <td>{{data.str_code}}</td>
+                        <td>{{data.str_code__str_city}}</td>
+                        <td>{{data.str_code__str_name}}</td>
+                        <td>{{data.inv_d_save__sum}}</td>
+                        <td>{{data.inv_d_buy__sum}}</td>
+                        <td>{{data.inv_d_return__sum}}</td>
+                        {% comment %} 월별 판매 합 {% endcomment %}
+                        {% with i=forloop.counter0 %}
+                        {% load index %}
+                            {% with  saleJan|index:i as sale1 %}
+                            <td style="color:blue">{{sale1.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleFeb|index:i as sale2 %}
+                            <td style="color:blue">{{sale2.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleMar|index:i as sale3 %}
+                            <td style="color:blue">{{sale3.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleApr|index:i as sale4 %}
+                            <td style="color:blue">{{sale4.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleMay|index:i as sale5 %}
+                            <td style="color:blue">{{sale5.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleJun|index:i as sale6 %}
+                            <td style="color:blue">{{sale6.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleJul|index:i as sale7 %}
+                            <td style="color:blue">{{sale7.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleAug|index:i as sale8 %}
+                            <td style="color:blue">{{sale8.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleSep|index:i as sale9 %}
+                            <td style="color:blue">{{sale9.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleOct|index:i as sale10 %}
+                            <td style="color:blue">{{sale10.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleNov|index:i as sale11 %}
+                            <td style="color:blue">{{sale11.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                            {% with  saleDec|index:i as sale12 %}
+                            <td style="color:blue">{{sale12.inv_d_sale__sum|default:'0'}}</td>
+                            {% endwith %}
+                        {% endwith %}
+                        <td>{{data.inv_d_sale__sum}}</td>
+                        <td>{{data.inv_d_stock__sum}}</td>
+                        <td>{% widthratio data.inv_d_sale__sum 12 1 %}</td>
+                        <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td>{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
                     </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3"><B>Total</B></td>
+                        <td><B>{{totaldata.inv_d_save__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_return__sum}}</B></td>
+                        {% comment %} 월별 판매 총합 {% endcomment %}
+                        <td style="color:blue"><B>{{totalsaleJan.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleFeb.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMar.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleApr.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMay.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJun.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJul.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleAug.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleSep.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleOct.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleNov.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleDec.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        {% comment %} 판매, 재고, 월평균, 월재고 {% endcomment %}
+                        <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
+                        <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
+                        <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
+                        <input type="hidden" value="{% widthratio totaldata.inv_d_sale__sum 12 1 as monAvg %}">
+                        <td><B>{% widthratio totaldata.inv_d_stock__sum monAvg 1 %}</B></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="22"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
                 <tbody>
             </table>
         </div>
@@ -45,7 +167,8 @@
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script type="text/javascript">
-   
+    const yearDate = "{{yearDate}}";
+    const prdData = "{{prdcode}}";
 </script>
 <script src="{% static 'script/csp.js' %}"></script>
 {% endblock %}

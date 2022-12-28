@@ -3,6 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csy.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
  
 </style>
@@ -20,7 +21,7 @@
                 <option value="17010002">蔘精ET禮盒</option>
             </select>
             <input type="submit" id="btnSearch" value="🔍︎">
-            <input type="button" class="btnExcel" value="📥Excel">
+            <input type="button" class="btnExcel" value="📥Excel" onclick="fnExceldown('myTable','yearlyByMonth');">
         </div>
         <p id="pCount">數據數 : {{data.count}} 條</p>
         <p id="pInfo"><B>* 月平均</B>= 銷貨量/12, <B>庫存月份</B>= 庫存量/月平均</p>
@@ -69,40 +70,40 @@
                         {% with i=forloop.counter0 %}
                         {% load index %}
                             {% with  saleJan|index:i as sale1 %}
-                            <td style="color:blue">{{sale1.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale1.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleFeb|index:i as sale2 %}
-                            <td style="color:blue">{{sale2.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale2.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleMar|index:i as sale3 %}
-                            <td style="color:blue">{{sale3.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale3.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleApr|index:i as sale4 %}
-                            <td style="color:blue">{{sale4.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale4.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleMay|index:i as sale5 %}
-                            <td style="color:blue">{{sale5.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale5.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleJun|index:i as sale6 %}
-                            <td style="color:blue">{{sale6.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale6.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleJul|index:i as sale7 %}
-                            <td style="color:blue">{{sale7.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale7.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleAug|index:i as sale8 %}
-                            <td style="color:blue">{{sale8.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale8.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleSep|index:i as sale9 %}
-                            <td style="color:blue">{{sale9.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale9.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleOct|index:i as sale10 %}
-                            <td style="color:blue">{{sale10.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale10.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleNov|index:i as sale11 %}
-                            <td style="color:blue">{{sale11.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale11.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                             {% with  saleDec|index:i as sale12 %}
-                            <td style="color:blue">{{sale12.inv_d_sale__sum|default_if_none:'-'}}</td>
+                            <td style="color:blue">{{sale12.inv_d_sale__sum|default:'0'}}</td>
                             {% endwith %}
                         {% endwith %}
                         <td>{{data.inv_d_sale__sum}}</td>
@@ -118,18 +119,18 @@
                         <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_return__sum}}</B></td>
                         {% comment %} 월별 판매 총합 {% endcomment %}
-                        <td style="color:blue"><B>{{totalsaleJan.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleFeb.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleMar.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleApr.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleMay.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleJun.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleJul.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleAug.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleSep.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleOct.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleNov.inv_d_sale__sum|default:'-'}}</B></td>
-                        <td style="color:blue"><B>{{totalsaleDec.inv_d_sale__sum|default:'-'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJan.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleFeb.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMar.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleApr.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleMay.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJun.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleJul.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleAug.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleSep.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleOct.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleNov.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        <td style="color:blue"><B>{{totalsaleDec.inv_d_sale__sum|default_if_none:'0'}}</B></td>
                         {% comment %} 판매, 재고, 월평균, 월재고 {% endcomment %}
                         <td><B>{{totaldata.inv_d_sale__sum}}</B></td>
                         <td><B>{{totaldata.inv_d_stock__sum}}</B></td>

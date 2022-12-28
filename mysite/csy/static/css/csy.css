@@ -2,16 +2,6 @@
 .dataGrid {
     padding: 20px;
     overflow-x: auto;
-    display: flex;
-}
-#myTable1 {
-    flex: 1;
-}
-#myTable2 {
-    flex: 3;
-}
-#myTable3 {
-    flex: 1;
 }
 
 .tableGrid {
@@ -49,10 +39,11 @@ th {
     position:absolute; 
     left: 25px;
     color: #27190c;
+    margin-bottom: 0px;
 }
 /* 항목 설명 p */
 #pInfo {
     position:absolute; 
-    right: 15px;
+    right: 10%;
     color: #27190c;
 }
