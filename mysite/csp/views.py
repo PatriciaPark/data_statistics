@@ -72,10 +72,6 @@ def index(request):
     totalsaleNov2 = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__gte=dt.date(int(year),11,24), inv_d_date__lte=dt.date(int(year),12,7)).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
     totalsaleDec  = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__gte=dt.date(int(year),12,8), inv_d_date__lte=dt.date(int(year),12,21)).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
     totalsaleDec2 = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__gte=dt.date(int(year),12,22), inv_d_date__lte=dt.date(int(year)+1,1,4)).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
-    
-    print('data',len(data))
-    print('saleDec',len(saleDec))
-    # print('data',data.query)
         
     context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
                'saleJan':saleJan, 'saleFeb':saleFeb, 'saleMar':saleMar, 'saleApr':saleApr, 'saleMay':saleMay, 'saleJun':saleJun, 
@@ -89,6 +85,4 @@ def index(request):
                'totalsaleMay2':totalsaleMay2, 'totalsaleJun2':totalsaleJun2, 'totalsaleJul2':totalsaleJul2, 'totalsaleAug2':totalsaleAug2, 
                'totalsaleSep2':totalsaleSep2, 'totalsaleOct2':totalsaleOct2, 'totalsaleNov2':totalsaleNov2, 'totalsaleDec2':totalsaleDec2}
 
-    
-  
     return render(request, 'csp/index.html', context)

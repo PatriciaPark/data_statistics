@@ -73,6 +73,7 @@ function fnExceldown(id, title){
     var msie = ua.indexOf("MSIE ");
 
     var fileName = title + '_' + prdData + '_' + yearDate + '.xls';
+
     //Explorer 환경에서 다운로드
     if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
         if (window.navigator.msSaveBlob) {

@@ -5,7 +5,7 @@ def main(request):
 
 # 400 Error
 def bad_request(request) :
-    return render(request, "404.html", status=400)
+    return render(request, "400.html", status=400)
  
 # 404 Error
 def page_not_found(request) :
@@ -13,4 +13,4 @@ def page_not_found(request) :
  
 # 500 Error
 def server_error(request) :
-    return render(request, "404.html", status=500)
+    return render(request, "500.html", status=500)
