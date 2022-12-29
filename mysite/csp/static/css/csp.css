@@ -41,9 +41,3 @@ th {
     color: #27190c;
     margin-bottom: 0px;
 }
-/* 항목 설명 p */
-#pInfo {
-    position:absolute; 
-    right: 10%;
-    color: #27190c;
-}
