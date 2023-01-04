@@ -19,7 +19,7 @@ def index(request):
         month = date[5:]    #11
     except TypeError:
         year = datetime.today().year
-        month = datetime.today().month
+        month = datetime.today().strftime('%m')
         
     # html에서 선택한 select box value 받아오기 및 정렬
     prdcode = request.GET.get('input-prd')  #상품코드
