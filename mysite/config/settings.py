@@ -150,7 +150,6 @@ STATICFILES_DIRS = [
   os.path.join(BASE_DIR, 'csd', 'static'),
   os.path.join(BASE_DIR, 'csm', 'static'),
   os.path.join(BASE_DIR, 'users', 'static'),
-  os.path.join(BASE_DIR, 'config/static'),
 ]
 
 MEDIA_URL = '/media/'
