@@ -34,6 +34,9 @@ th {
     color: white;
     text-align: center;
 }
+
+tbody tr:hover {background-color: #f9f2eb;}
+
 /* data count */
 #pCount {
     position:absolute; 
