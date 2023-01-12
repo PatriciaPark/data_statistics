@@ -13,6 +13,9 @@ def index(request):
     if year is None:
         year = datetime.today().year
     
+    # select box list
+    product = Product.objects.all()
+    
     # html에서 선택한 select box value 받아오기
     prdcode = request.GET.get('input-prd')  #상품코드
         
@@ -73,7 +76,7 @@ def index(request):
     totalsaleDec  = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__gte=dt.date(int(year),12,8), inv_d_date__lte=dt.date(int(year),12,21)).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
     totalsaleDec2 = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__gte=dt.date(int(year),12,22), inv_d_date__lte=dt.date(int(year)+1,1,4)).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
         
-    context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
+    context = {'product':product, 'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
                'saleJan':saleJan, 'saleFeb':saleFeb, 'saleMar':saleMar, 'saleApr':saleApr, 'saleMay':saleMay, 'saleJun':saleJun, 
                'saleJul':saleJul, 'saleAug':saleAug, 'saleSep':saleSep, 'saleOct':saleOct, 'saleNov':saleNov, 'saleDec':saleDec, 
                'saleJan2':saleJan2, 'saleFeb2':saleFeb2, 'saleMar2':saleMar2, 'saleApr2':saleApr2, 'saleMay2':saleMay2, 'saleJun2':saleJun2, 
