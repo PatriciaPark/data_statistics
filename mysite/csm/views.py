@@ -20,6 +20,9 @@ def index(request):
     except TypeError:
         year = datetime.today().year
         month = datetime.today().strftime('%m')
+    
+    # select box list
+    product = Product.objects.all()
         
     # html에서 선택한 select box value 받아오기 및 정렬
     prdcode = request.GET.get('input-prd')  #상품코드
@@ -62,7 +65,7 @@ def index(request):
             monthData = SumMonthly.objects.filter(sum_m_date__year=int(year), sum_m_date__month=int(month)).select_related('prd_code','str_code').order_by('sum_m_code','prd_code')
 
     # html 화면에 출력할 데이터 담을 리스트                    
-    context = {'month':month, 'monthData':monthData, 'prdcode':prdcode, 'sort':sort}
+    context = {'product':product, 'month':month, 'monthData':monthData, 'prdcode':prdcode, 'sort':sort}
 
     return render(request, 'csm/index.html', context)
 

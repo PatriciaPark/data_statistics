@@ -12,13 +12,9 @@
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">
             <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
                 <option value="" selected>所有產品</option>
-                <option value="11530035">活蔘28D</option>
-                <option value="11060162">蔘精ET秘</option>
-                <option value="17010087">活蔘28D/蔘活力飲禮盒</option>
-                <option value="17010088">蔘石榴飲</option>
-                <option value="17010004">蔘野櫻莓飲</option>
-                <option value="17010002">蔘精ET禮盒</option>
-                <option value="12345678">test</option>
+                {% for prd in product %}
+                <option value="{{prd.prd_code}}">{{prd.prd_name}}</option>
+                {% endfor %}
             </select>
             <select name="input-sort" id="selectSort" class="select" onChange="selectedSort()">
                 <option value="" selected>降序排列</option>

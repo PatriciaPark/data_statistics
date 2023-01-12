@@ -13,12 +13,9 @@
         <div class="searchForm">
             <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
             <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
-                <option value="11530035" selected>活蔘28D</option>
-                <option value="11060162">蔘精ET秘</option>
-                <option value="17010087">活蔘28D/蔘活力飲禮盒</option>
-                <option value="17010088">蔘石榴飲</option>
-                <option value="17010004">蔘野櫻莓飲</option>
-                <option value="17010002">蔘精ET禮盒</option>
+                {% for prd in product %}
+                <option value="{{prd.prd_code}}">{{prd.prd_name}}</option>
+                {% endfor %}
             </select>
             <input type="submit" id="btnSearch" value="🔍︎">
             <input type="button" class="btnExcel" value="📥Excel" onclick="fnExceldown('myTable','pxYearlySales');">

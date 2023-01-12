@@ -11,6 +11,9 @@ def index(request):
     except TypeError:
         year = datetime.today().year
     
+    # select box list
+    product = Product.objects.all()
+    
     # html에서 선택한 select box value 받아오기
     prdcode = request.GET.get('input-prd')  #상품코드
     
@@ -47,7 +50,7 @@ def index(request):
     totalsaleNov = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=11).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
     totalsaleDec = InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=12).select_related('prd_code','str_code').values('str_code').aggregate(Sum('inv_d_sale'))
 
-    context = {'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
+    context = {'product':product, 'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata, 
                'saleJan':saleJan, 'saleFeb':saleFeb, 'saleMar':saleMar, 'saleApr':saleApr, 'saleMay':saleMay, 'saleJun':saleJun, 
                'saleJul':saleJul, 'saleAug':saleAug, 'saleSep':saleSep, 'saleOct':saleOct, 'saleNov':saleNov, 'saleDec':saleDec,
                'totalsaleJan':totalsaleJan, 'totalsaleFeb':totalsaleFeb, 'totalsaleMar':totalsaleMar, 'totalsaleApr':totalsaleApr,
