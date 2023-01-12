@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
 from django.db.models import Sum
 from csd.models import InvoiceDaily, Product
 from datetime import datetime
