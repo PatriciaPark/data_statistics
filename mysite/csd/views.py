@@ -20,7 +20,7 @@ def index(request):
     except TypeError:
         year = datetime.today().year
         month = datetime.today().strftime('%m')
-    
+
     # DB에서 상품별 합계 데이터 받아오기
     prd11530035 = list(SumDaily.objects.filter(prd_code = 11530035, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
     prd11060162 = list(SumDaily.objects.filter(prd_code = 11060162, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入

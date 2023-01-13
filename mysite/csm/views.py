@@ -20,7 +20,7 @@ def index(request):
     except TypeError:
         year = datetime.today().year
         month = datetime.today().strftime('%m')
-        
+
     # select box list
     product = Product.objects.all()
     

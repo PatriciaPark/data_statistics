@@ -47,10 +47,13 @@ INSTALLED_APPS = [
     'csm',
     'csy',
     'csp',
+    'csr',
     'users',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,6 +64,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 TEMPLATES = [
     {
@@ -84,15 +91,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'work_automation',
+#         'USER': 'root',
+#         'PASSWORD': 'dudwlsla',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'work_automation',
-        'USER': 'root',
-        'PASSWORD': 'dudwlsla',
-        'HOST': 'localhost',
+        'NAME': 'kgc-chbs',
+        'USER': 'admin',
+        'PASSWORD': 'qweQWE123!#',
+        'HOST': 'kgc-chbs.cnmgxmzrayoa.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -133,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [  
   os.path.join(BASE_DIR, 'config', 'static'),
