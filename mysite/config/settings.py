@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'csm',
     'csy',
     'csp',
+    'csr',
     'users',
     'corsheaders',
 ]
