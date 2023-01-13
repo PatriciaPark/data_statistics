@@ -27,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#g^i!=wf@4f*0zh5#=9hv)yt%*99w%$_26v!3m(16-lt^0c@#&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.209.157.29']
 
 
 # Application definition
@@ -91,29 +91,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'work_automation',
-        'USER': 'root',
-        'PASSWORD': 'dudwlsla',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': BASE_DIR / 'db.sqlite3',
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'kgc-chbs',
-#         'USER': 'admin',
-#         'PASSWORD': 'qweQWE123!#',
-#         'HOST': 'kgc-chbs.cnmgxmzrayoa.ap-northeast-2.rds.amazonaws.com',
+#         'NAME': 'work_automation',
+#         'USER': 'root',
+#         'PASSWORD': 'dudwlsla',
+#         'HOST': 'localhost',
 #         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kgc-chbs',
+        'USER': 'admin',
+        'PASSWORD': 'qweQWE123!#',
+        'HOST': 'kgc-chbs.cnmgxmzrayoa.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
 
 
 # Password validation
