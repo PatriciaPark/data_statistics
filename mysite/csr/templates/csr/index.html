@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style type="text/css"></style>
+{% if user.is_authenticated %} 
+    <h3 class="menuTitle">CSR <B></B></h3>
+    
+{% else %}
+    <meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<script>
+
+</script>
+{% endblock %}
