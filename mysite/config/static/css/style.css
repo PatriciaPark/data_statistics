@@ -184,20 +184,19 @@ html * {
     transform: translateY(2px);
 }
 /* Update button */
-#btnUpdate:enabled {
+#btnUpdate {
   background-color: rgb(255, 140, 0);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 80px;
 }
-#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
-#btnUpdate:active:enabled {
+#btnUpdate:hover {background-color: rgb(210, 105, 30)}
+#btnUpdate:active {
     background-color: rgb(210, 105, 30);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
-#btnUpdate:disabled,
 #btnUpdate[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
