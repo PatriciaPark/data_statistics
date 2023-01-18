@@ -45,7 +45,7 @@ th {
     border: 1px solid #27190c;
     margin-top: 20px;
 }
-input.inputText:read-only {
+input[type=text]:read-only {
     background-color: #ddd;
     border: 1px solid;
     border-radius: 3px;
