@@ -171,29 +171,29 @@ html * {
 }
 /* Write button */
 #btnWrite {
-  background-color: lightskyblue;
+  background-color: rgb(135, 206, 250);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 70px;
 }
-#btnWrite:hover {background-color: lightslategray}
+#btnWrite:hover {background-color: rgb(119, 136, 153)}
 #btnWrite:active {
-    background-color: lightslategray;
+    background-color: rgb(119, 136, 153);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
 /* Update button */
 #btnUpdate:enabled {
-  background-color: darkorange;
+  background-color: rgb(255, 140, 0);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 80px;
 }
-#btnUpdate:hover:enabled {background-color: chocolate}
+#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
 #btnUpdate:active:enabled {
-    background-color: chocolate;
+    background-color: rgb(210, 105, 30);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
@@ -205,14 +205,14 @@ html * {
 }
 /* excel download button */
 .btnExcel {
-  background-color: limegreen;
+  background-color: rgb(50, 205, 50);
   color: white;
   border-radius: 5px;
   height: 35px;
 }
 .btnExcel:hover {background-color: rgb(5, 148, 5)}
 .btnExcel:active {
-  background-color: darkgreen;
+  background-color: rgb(0, 100, 0);
   box-shadow: 5px 5px 5px #666;
   transform: translateY(2px);
 }
