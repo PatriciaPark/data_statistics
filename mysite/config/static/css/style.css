@@ -151,10 +151,58 @@ html * {
 }
 #btnSearch:hover {background-color: #a90000}
 #btnSearch:active {
-    background-color: #6e0101;
+    background-color: #a90000;
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
-  }
+}
+/* reset button */
+#btnReset {
+  background-color: rgb(78, 78, 78);
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
+}
+#btnReset:hover {background-color: rgb(61, 61, 61)}
+#btnReset:active {
+    background-color: rgb(61, 61, 61);
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* Write button */
+#btnWrite {
+  background-color: lightskyblue;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
+}
+#btnWrite:hover {background-color: lightslategray}
+#btnWrite:active {
+    background-color: lightslategray;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* Update button */
+#btnUpdate {
+  background-color: darkorange;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 80px;
+}
+#btnUpdate:hover:enabled {background-color: chocolate}
+#btnUpdate:active:enabled {
+    background-color: chocolate;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+#btnUpdate:disabled,
+#btnUpdate[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
 /* excel download button */
 .btnExcel {
   background-color: limegreen;
