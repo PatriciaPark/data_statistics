@@ -1,0 +1,67 @@
+/* table grid */
+.dataGrid {
+    float:left; 
+    padding: 20px;
+}
+
+.tableGrid {
+    border-collapse: collapse;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.tableGrid thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #27190c;
+}
+
+.tableGrid th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27190c;
+    color: white;
+    text-align: center;
+}
+
+#datafield tr:hover {background-color: #f9f2eb;}
+
+/* input data div */
+.dataInput {
+    position: relative;
+    top: 0;
+    float: left;
+    border: 1px solid #27190c;
+    margin-top: 20px;
+}
+input:read-only {
+    background-color: #ddd;
+    border: 1px solid;
+    border-radius: 3px;
+    height: 30px;
+}
+
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    color: #27190c;
+    margin-bottom: 0px;
+}
+
+/* 클릭한 행 배경색 및 텍스트 효과 고정 */
+.selected {
+    background-color: #f9f2eb;
+    font-weight: bold;
+}

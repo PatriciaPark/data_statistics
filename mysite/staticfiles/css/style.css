@@ -1,0 +1,218 @@
+html * {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+    background-color: #f9f2eb;
+    text-align: center;
+    padding: 20px;
+}
+/* Page Title */
+.menuTitle{
+  padding: 20px;
+  color: #27190c;
+}
+
+/** The navbar container **/
+.topnav {
+    overflow: hidden;
+    background-color: #111;
+    height: auto;
+    min-height: 40px;
+    line-height: 40px;
+}
+
+/* Navbar links */
+.topnav a, span {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Links - change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    /* padding: 10px; */
+}
+
+/* Left and right column */
+.column.side {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.column.side a {
+  display: block;
+  padding: 10px 30px 10px 30px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ddd;
+  transition: 0.3s;
+  width: 100%;
+}
+
+/* When you mouse over the navigation links, change their color */
+.column.side a:hover {
+  color: #333;
+}
+
+/* Position and style the close button (top right corner) */
+/* .column.side .closebtn {
+  position: absolute;
+  top: 0;
+  font-size: 36px;
+  margin-left: 50%;
+  width: 25%;
+} */
+
+
+/** Middle column **/
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+.column.middle {
+  transition: margin-left .5s;
+  /* padding: 20px; */
+  width: 100%;
+  background-color: white;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .column.side {padding-top: 15px;}
+  .column.side a {font-size: 18px;}
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.middle,
+    .column.side {
+        width: 100%;
+    }
+}
+
+/** Search Form **/
+.searchForm {
+  padding: 20px;
+  margin: auto;
+}
+/* calander month */
+.searchMonth {
+  position: relative;
+  min-width: 200px;
+  height: 35px;
+  border-radius: 2px;
+}
+/* select box */
+.select {
+  position: relative;
+  min-width: 200px;
+  height: 35px;
+  border-radius: 2px;
+}
+
+/** 업로드 영역 **/
+.input-group {
+  padding: 20px;
+}
+/** Button **/
+/* submit button */
+#submitBtn, #btnSearch {
+  background-color: #e60000;
+  color: white;
+  border-radius: 5px;
+}
+#btnSearch {
+  height: 35px;
+  width: 35px;
+}
+#btnSearch:hover {background-color: #a90000}
+#btnSearch:active {
+    background-color: #a90000;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* reset button */
+#btnReset {
+  background-color: rgb(78, 78, 78);
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
+}
+#btnReset:hover {background-color: rgb(61, 61, 61)}
+#btnReset:active {
+    background-color: rgb(61, 61, 61);
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* Write button */
+#btnWrite {
+  background-color: lightskyblue;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
+}
+#btnWrite:hover {background-color: lightslategray}
+#btnWrite:active {
+    background-color: lightslategray;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* Update button */
+#btnUpdate {
+  background-color: darkorange;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 80px;
+}
+#btnUpdate:hover:enabled {background-color: chocolate}
+#btnUpdate:active:enabled {
+    background-color: chocolate;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+#btnUpdate:disabled,
+#btnUpdate[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+/* excel download button */
+.btnExcel {
+  background-color: limegreen;
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+}
+.btnExcel:hover {background-color: rgb(5, 148, 5)}
+.btnExcel:active {
+  background-color: darkgreen;
+  box-shadow: 5px 5px 5px #666;
+  transform: translateY(2px);
+}

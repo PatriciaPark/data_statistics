@@ -1,0 +1,79 @@
+/* 그리드 영역 */
+.dataGrid {
+    padding: 20px;
+    overflow: auto; 
+}
+
+.tableGrid {
+    border-collapse: collapse;
+    border: 1px solid;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tableGrid thead { 
+    position: -webkit-sticky; 
+    position: sticky; 
+    background-color: #27190c;
+    top: 0; 
+    z-index: 1; 
+}
+.tableGrid th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #27190c;
+    color: white;
+    left: 0;
+}
+.tableGrid td:first-child { 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #f9f2eb;
+    left: 0;
+}
+.tableGrid th:nth-child(2) {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #27190c;
+    color: white;
+    left: 111px; 
+}
+.tableGrid td:nth-child(2) { 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #f9f2eb;
+    left: 111px; 
+}
+.tableGrid th:nth-child(3) {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #27190c;
+    color: white;
+    left: 273px;
+}
+.tableGrid td:nth-child(3) { 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #f9f2eb;
+    left: 273px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27190c;
+    color: white;
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #f9f2eb;
+}
+
+.setBold {
+    font-weight: bold;
+}

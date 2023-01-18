@@ -1,0 +1,46 @@
+/* table grid */
+.dataGrid {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.tableGrid {
+    border-collapse: collapse;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.tableGrid thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #27190c;
+}
+
+.tableGrid th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27190c;
+    color: white;
+    text-align: center;
+}
+
+tbody tr:hover {background-color: #f9f2eb;}
+
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    color: #27190c;
+    margin-bottom: 0px;
+}
