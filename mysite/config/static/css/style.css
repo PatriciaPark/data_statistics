@@ -184,34 +184,34 @@ input#btnWrite:active {
     transform: translateY(2px);
 }
 /* Update button */
-input#btnUpdate:enabled {
+input[type=button]#btnUpdate:enabled {
   background-color: rgb(255, 140, 0);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 80px;
 }
-input#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
-input#btnUpdate:active:enabled {
+input[type=button]#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
+input[type=button]#btnUpdate:active:enabled {
     background-color: rgb(210, 105, 30);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
-input#btnUpdate:disabled,
-input#btnUpdate[disabled]{
+input[type=button]#btnUpdate:disabled,
+input[type=button]#btnUpdate[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
 }
 /* excel download button */
-input.btnExcel {
+input[type=button].btnExcel {
   background-color: rgb(50, 205, 50);
   color: white;
   border-radius: 5px;
   height: 35px;
 }
-input.btnExcel:hover {background-color: rgb(5, 148, 5)}
-input.btnExcel:active {
+input[type=button].btnExcel:hover {background-color: rgb(5, 148, 5)}
+input[type=button].btnExcel:active {
   background-color: rgb(0, 100, 0);
   box-shadow: 5px 5px 5px #666;
   transform: translateY(2px);
