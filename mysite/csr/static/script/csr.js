@@ -5,6 +5,8 @@ window.onload = function () {
 // select box 선택시 로컬스토리지 저장 : store location
 function selectedLoc() {
     localStorage.setItem("user_selected_loc", document.getElementById("selectSearchLoc").value);
+    // location 정보 변환시 city 정보는 reset
+    document.getElementById("selectSearchCity").value = "";
     document.getElementById("selectForm").submit();
 }
 
