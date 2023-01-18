@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -158,8 +159,9 @@ STATICFILES_DIRS = [
   os.path.join(BASE_DIR, 'config', 'static'),
   os.path.join(BASE_DIR, 'csd', 'static'),
   os.path.join(BASE_DIR, 'csm', 'static'),
-  os.path.join(BASE_DIR, 'users', 'static'),
+  os.path.join(BASE_DIR, 'csr', 'static'),
   os.path.join(BASE_DIR, 'store', 'static'),
+  os.path.join(BASE_DIR, 'users', 'static'),
 ]
 
 MEDIA_URL = '/media/'
