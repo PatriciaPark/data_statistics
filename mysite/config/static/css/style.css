@@ -170,48 +170,48 @@ html * {
     transform: translateY(2px);
 }
 /* Write button */
-input#btnWrite {
+#btnWrite {
   background-color: rgb(135, 206, 250);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 70px;
 }
-input#btnWrite:hover {background-color: rgb(119, 136, 153)}
-input#btnWrite:active {
+#btnWrite:hover {background-color: rgb(119, 136, 153)}
+#btnWrite:active {
     background-color: rgb(119, 136, 153);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
 /* Update button */
-input[type=submit]#btnUpdate:enabled {
+#btnUpdate:enabled {
   background-color: rgb(255, 140, 0);
   color: white;
   border-radius: 5px;
   height: 35px;
   width: 80px;
 }
-input[type=submit]#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
-input[type=submit]#btnUpdate:active:enabled {
+#btnUpdate:hover:enabled {background-color: rgb(210, 105, 30)}
+#btnUpdate:active:enabled {
     background-color: rgb(210, 105, 30);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
-input[type=submit]#btnUpdate:disabled,
-input[type=submit]#btnUpdate[disabled]{
+#btnUpdate:disabled,
+#btnUpdate[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
 }
 /* excel download button */
-input[type=button].btnExcel {
+.btnExcel {
   background-color: rgb(50, 205, 50);
   color: white;
   border-radius: 5px;
   height: 35px;
 }
-input[type=button].btnExcel:hover {background-color: rgb(5, 148, 5)}
-input[type=button].btnExcel:active {
+.btnExcel:hover {background-color: rgb(5, 148, 5)}
+.btnExcel:active {
   background-color: rgb(0, 100, 0);
   box-shadow: 5px 5px 5px #666;
   transform: translateY(2px);
