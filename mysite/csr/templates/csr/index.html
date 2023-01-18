@@ -2,9 +2,36 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/csr.css' %}">
 <style type="text/css"></style>
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">CSR <B></B></h3>
+    <h3 class="menuTitle">Store Review</h3>
+    <form method="GET" id="selectForm">
+        <div class="searchForm">
+            <select name="input-loc" id="selectSearchLoc" class="select" onChange="selectedLoc()">
+                <option value="default" selected>Location</option>
+                {% for loc in loc %}
+                <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                {% endfor %}
+            </select>
+            <select name="input-city" id="selectSearchCity" class="select" onChange="selectedCity()">
+                <option value="default" selected>City</option>
+                {% for city in city %}
+                <option value="{{city.str_city}}">{{city.str_city}}</option>
+                {% endfor %}
+            </select>
+            <select name="input-str" id="selectSearchStr" class="select" onChange="selectedStr()">
+                <option value="default" selected>Store</option>
+                {% for str in str %}
+                <option value="{{str.str_name}}">{{str.str_name}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" id="btnSearch" value="🔍︎">
+            <input type="reset" id="btnReset" value="Reset">
+            <input type="button" id="btnWrite" value="Add">
+        </div>
+    </form>
+
     
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
@@ -12,4 +39,5 @@
 <script>
 
 </script>
+<script src="{% static 'script/csr.js' %}"></script>
 {% endblock %}

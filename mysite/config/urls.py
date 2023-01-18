@@ -32,6 +32,7 @@ urlpatterns = [
     path('csy/', include('csy.urls')),
     path('csp/', include('csp.urls')),
     path('csr/', include('csr.urls')),
+    path('store/', include('store.urls')),
     path('users/', include('users.urls')),
 ]
 
