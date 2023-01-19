@@ -200,6 +200,9 @@ html * {
 #btnUpdate:disabled,
 #btnUpdate[disabled]{
   border: 1px solid #999999;
+  border-radius: 5px;
+  height: 35px;
+  width: 80px;
   background-color: #cccccc;
   color: #666666;
 }

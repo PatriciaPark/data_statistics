@@ -80,7 +80,7 @@ class DataDaily(models.Model):
 # 합계 테이블 (데일리)
 class SumDaily(models.Model):
     sum_d_code = models.BigAutoField(primary_key=True)
-    sum_d_date = models.DateField( null=False, blank=False)
+    sum_d_date = models.DateField(null=False, blank=False)
     sum_d_save = models.IntegerField(null=False, blank=False)
     sum_d_buy = models.IntegerField(null=False, blank=False)
     sum_d_return = models.IntegerField(null=False, blank=False)

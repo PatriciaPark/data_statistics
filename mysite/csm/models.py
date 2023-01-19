@@ -24,7 +24,7 @@ class DataMonthly(models.Model):
 # 합계 테이블 (monthly)
 class SumMonthly(models.Model):
     sum_m_code = models.BigAutoField(primary_key=True)
-    sum_m_date = models.DateField( null=False, blank=False)
+    sum_m_date = models.DateField(null=False, blank=False)
     sum_m_save = models.IntegerField(null=False, blank=False)
     sum_m_buy = models.IntegerField(null=False, blank=False)
     sum_m_return = models.IntegerField(null=False, blank=False)
