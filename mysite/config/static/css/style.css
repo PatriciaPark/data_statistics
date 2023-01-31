@@ -169,7 +169,23 @@ html * {
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
 }
-/* Write button */
+/* Close button */
+#btnClose {
+  float: right;
+  margin-top: 10px;
+  background-color: rgb(78, 78, 78);
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
+}
+#btnClose:hover {background-color: rgb(61, 61, 61)}
+#btnClose:active {
+    background-color: rgb(61, 61, 61);
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+/* Add button */
 #btnWrite {
   background-color: lightskyblue;
   color: white;

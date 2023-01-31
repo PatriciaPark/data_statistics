@@ -1,5 +1,24 @@
 window.onload = function () {
     searchStrReview();
+
+    // Pop-up for adding new review
+    var target = document.querySelectorAll('.btn_open');
+    var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+    var targetID;
+
+    // open popup 팝업 열기
+    for(var i = 0; i < target.length; i++){
+        target[i].addEventListener('click', function(){
+        targetID = this.getAttribute('href');
+        document.querySelector(targetID).style.display = 'block';
+        });
+    }
+    // close popup 팝업 닫기
+    for(var j = 0; j < target.length; j++){
+        btnPopClose[j].addEventListener('click', function(){
+        this.parentNode.parentNode.style.display = 'none';
+        });
+    }
 }
 
 // select box 선택시 로컬스토리지 저장 : store location
@@ -49,3 +68,55 @@ function searchStrReview() {
         document.getElementById("selectSearchStr").value = localStorage.getItem("user_selected_str");
     }
 }
+
+// jQuery Code
+// select first select box value : change second select box value
+$('#selectAddLoc').on("propertychange change keyup input click", function() {
+    // send ajax request when the first select is changed:
+    $.ajax({
+        url : '/csr/select/',
+        type : 'GET',
+        data : {
+            location : $(this).val()
+        },
+        dataType: 'json',
+        success : function(response) {
+            // this function executes on receiving a successful response from the backend:
+            var secondSelect = $('#selectAddCity');
+            secondSelect.empty();
+            $('#selectAddStr').empty();
+    
+            // iterate over the instances in the response and add them to the second select
+            for (var instance in response.data) {
+                secondSelect.append($('<option>', {
+                    value : response.data[instance].str_city,
+                    text : response.data[instance].str_city
+                }));
+            }
+        }
+    })
+});
+// select second select box value : change third select box value
+$('#selectAddCity').on("propertychange change keyup input click", function() {
+    $.ajax({
+        url : '/csr/select2/',
+        type : 'GET',
+        data : {
+            city : $(this).val()
+        },
+        dataType: 'json',
+        success : function(response) {
+            // this function executes on receiving a successful response from the backend:
+            var secondSelect = $('#selectAddStr');
+            secondSelect.empty();
+    
+            // iterate over the instances in the response and add them to the second select
+            for (var instance in response.data) {
+                secondSelect.append($('<option>', {
+                    value : response.data[instance].str_code,
+                    text : response.data[instance].str_name
+                }));
+            }
+        }
+    })
+});

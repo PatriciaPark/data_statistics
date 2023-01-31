@@ -1,8 +1,4 @@
 /* div css */
-.dataInput {
-    float:left; 
-    padding: 20px;
-}
 .dataGrid {
     float:left; 
     padding: 20px;
@@ -32,6 +28,55 @@ th {
 #datafield tr:hover {background-color: #f9f2eb;}
 /* data count */
 #pCount {
+    position:absolute; 
+    left: 25px;
     color: #27190c;
     margin-bottom: 0px;
+}
+/* popup css */
+/* New button */
+#btnNew {
+    text-decoration:none;
+    display: inline-block;
+    border-radius: 5px;
+    text-align:center;
+    line-height: 32px;
+    width: 70px;
+    border-style: solid;
+    border-color: black;
+    background-color: orange;
+    color: white;
+}
+#btnNew:hover {background-color: lightslategray}
+#btnNew:active {
+    background-color: lightslategray;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+}
+.wrap{
+    padding:10px;
+}
+
+.pop_wrap{
+    position:fixed; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    background:rgba(0,0,0,.5); 
+    font-size:0; 
+    text-align:center;
+}
+.pop_wrap:after{
+    display:inline-block; 
+    height:100%; 
+    vertical-align:middle; 
+    content:'';
+}
+.pop_wrap .pop_inner{
+    display:inline-block; 
+    padding:20px 30px; 
+    background:#fff;
+    vertical-align:middle; 
+    font-size:15px;
 }

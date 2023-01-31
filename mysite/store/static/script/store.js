@@ -51,11 +51,11 @@ function searchStrReview() {
     }
 }
 // Update validation check
-function updateField() {
-    let value1 = document.getElementById("first-select").value
-    let value2 = document.getElementById("second-select").value
-    let value3 = document.getElementById("dataCode").value
-    let value4 = document.getElementById("dataName").value
+function updateInfo() {
+    let value1 = document.getElementById("first-select").value;
+    let value2 = document.getElementById("second-select").value;
+    let value3 = document.getElementById("dataCode").value;
+    let value4 = document.getElementById("dataName").value;
     if(value1 != '' && value2 != '' && value3 != '' && value4 != '') {
         alert("OK");
         return true;
