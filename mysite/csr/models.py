@@ -5,7 +5,7 @@ from csd.models import Store
 # 매장 리뷰 테이블
 class StoreReview(models.Model):
     str_rcode = models.BigAutoField(primary_key=True)
-    str_img = models.ImageField(upload_to='media/%Y/%m/%d/', height_field=None, width_field=None, max_length=100)
+    str_img = models.ImageField(upload_to='./media/%Y%m%d/', height_field=None, width_field=None, max_length=100)
     str_comm = models.CharField(max_length=500, null=False, blank=False)
     str_rate = models.IntegerField(null=True, blank=True)
     str_date = models.DateTimeField(auto_now_add = True)
