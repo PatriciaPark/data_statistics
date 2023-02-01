@@ -65,7 +65,7 @@ def index(request):
             monthData = SumMonthly.objects.filter(sum_m_date__year=int(year), sum_m_date__month=int(month)).select_related('prd_code','str_code').order_by('sum_m_code','prd_code')
 
     # html 화면에 출력할 데이터 담을 리스트                    
-    context = {'product':product, 'month':month, 'monthData':monthData, 'prdcode':prdcode, 'sort':sort}
+    context = {'product':product, 'year':year, 'month':month, 'monthData':monthData, 'prdcode':prdcode, 'sort':sort}
 
     return render(request, 'csm/index.html', context)
 
