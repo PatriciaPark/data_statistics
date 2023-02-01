@@ -16,17 +16,18 @@ def index(request):
     str = Store.objects.filter(str_loc=getloc, str_city=getCity).values('str_name')
     
     # read data
+    # 지역만 선택
     if getloc != 'all' and (getCity is None or getCity == 'all') and (getStore is None or getStore == 'all'):
-        print('data1')
-        data = StoreReview.objects.filter(str_code__str_loc=getloc).select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id','str_date').order_by('str_code__str_city')
+        data = StoreReview.objects.filter(str_code__str_loc=getloc).select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id__username','str_date').order_by('-str_date')
+    # 지역 및 시까지 선택
     elif getloc != 'all' and getCity is not None and (getStore is None or getStore == 'all'):
-        print('data2')
-        data = StoreReview.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity).select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id','str_date').order_by('str_code__str_city')
+        data = StoreReview.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity).select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id__username','str_date').order_by('-str_date')
+    #지역, 시, 매장 선택
+    elif getloc != 'all' and getCity is not None and getStore is not None:
+        data = StoreReview.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore).select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id__username','str_date').order_by('-str_date')
     else:
-        print('data3')
-        data = StoreReview.objects.select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id','str_date').order_by('str_code__str_city')
+        data = StoreReview.objects.select_related('str_code').values('str_code__str_loc','str_code__str_city','str_code__str_name','str_img','str_comm','str_rate','user_id__username','str_date').order_by('-str_date')
     
-    print(data)
     context = {'loc':loc, 'city':city, 'str':str, 'data':data}
     
     return render(request, 'csr/index.html', context)
@@ -40,15 +41,14 @@ def create(request):
     getImg = request.FILES.get('add_img')
     getUser = request.user
     
-    print('getStrCode:', getStrCode, ', getComm:', getComm, ', getRate:', getRate, 'getUser:', getUser)
-    
+    user = User.objects.get(username = getUser)
     store = Store.objects.get(str_code = getStrCode)
     # Review 데이터 DB insert
     obj = StoreReview.objects.create(
         str_img = getImg,
         str_comm = getComm,
         str_rate = getRate,
-        user_id = getUser,
+        user_id = user,
         str_code = store
     )
     obj.save()

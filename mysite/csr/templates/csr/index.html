@@ -28,7 +28,7 @@
                 {% endfor %}
             </select>
             <input type="submit" id="btnSearch" value="🔍︎">
-            <input type="reset" id="btnReset" value="Reset">
+            <input type="reset" id="btnReset" value="Reset" onclick="resetForm()">
             <a href="#newPopup" class="btn_open" id="btnNew" style="text">New</a>
         </div>
         <p id="pCount">數據數 : {{data.count}} 條</p>
@@ -53,11 +53,18 @@
                         <td>{{data.str_code__str_loc}}</td>
                         <td>{{data.str_code__str_city}}</td>
                         <td>{{data.str_code__str_name}}</td>
-                        <td><img src="{{data.str_img}}"></td>
+                        <td><img src="../media/{{data.str_img}}" width="100px" height="100px"></td>
                         <td>{{data.str_comm}}</td>
-                        <td>{{data.str_rate}}</td>
-                        <td>{{data.user_id}}</td>
-                        <td>{{data.str_date}}</td>
+                        <td>
+                            {% if data.str_rate == 1 %}⭐
+                            {% elif data.str_rate == 2 %}⭐⭐
+                            {% elif data.str_rate == 3 %}⭐⭐⭐
+                            {% elif data.str_rate == 4 %}⭐⭐⭐⭐
+                            {% elif data.str_rate == 5 %}⭐⭐⭐⭐⭐
+                            {% endif %}
+                        </td>
+                        <td>{{data.user_id__username}}</td>
+                        <td>{{data.str_date|date:'Y-m-d H:i'}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}

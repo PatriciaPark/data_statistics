@@ -20,7 +20,16 @@ window.onload = function () {
         });
     }
 }
-
+// click reset button event
+function resetForm() {
+    document.getElementById("selectSearchLoc").value = "all";
+    document.getElementById("selectSearchCity").value = "all";
+    document.getElementById("selectSearchStr").value = "all";
+    localStorage.removeItem("user_selected_loc");
+    localStorage.removeItem("user_selected_city");
+    localStorage.removeItem("user_selected_str");
+    document.getElementById("selectForm").submit();
+}
 // select box 선택시 로컬스토리지 저장 : store location
 function selectedLoc() {
     localStorage.setItem("user_selected_loc", document.getElementById("selectSearchLoc").value);
