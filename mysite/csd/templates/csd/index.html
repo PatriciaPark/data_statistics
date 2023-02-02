@@ -49,7 +49,8 @@
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script>
-    const monthData = "{{month}}";
+    const yearData = "{{year}}";
+    const monthData = "{{month|date:'mm'}}";
     const prd11530035Data = "{{prd11530035}}";
     const prd11060162Data = "{{prd11060162}}";
     const prd17010087Data = "{{prd17010087}}";

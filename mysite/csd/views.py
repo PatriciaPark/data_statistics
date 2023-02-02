@@ -33,7 +33,7 @@ def index(request):
     # print('###prdlist ',prdlist)
     
     # html 화면에 출력할 데이터 담을 리스트                    
-    context = {'month':month, 'prdlist':prdlist, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
+    context = {'year':year, 'month':month, 'prdlist':prdlist, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
     
     return render(request, 'csd/index.html', context)
 
