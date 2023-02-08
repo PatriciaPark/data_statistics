@@ -298,4 +298,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# startbootstrap-sb-admin-2-gh-pages
+node_modules
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,django,python
