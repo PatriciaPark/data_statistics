@@ -12,7 +12,12 @@
     3. csd.js 로 이동해서 baseGrid()에 함수 추가 후, 함수 생성 : 함수는 기존 다른 함수 참고
 {% endcomment %}
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">全聯 Daily <B>{{month}}月</B></h3>
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">全聯 Daily <B>{{month}}月</B></h1>
+
+    </div>
     <form method="GET">
         <div class="searchForm">
             <input type="month" name="input-month" id="monthSearch" class="searchMonth">
