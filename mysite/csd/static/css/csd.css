@@ -23,39 +23,41 @@
     position: sticky;
     background-color: #27190c;
     color: white;
-    left: 0;
+    /* left: 0; */
 }
 .tableGrid td:first-child { 
     position: -webkit-sticky;
     position: sticky;
     background-color: #f9f2eb;
-    left: 0;
+    /* left: 0; */
 }
 .tableGrid th:nth-child(2) {
     position: -webkit-sticky;
     position: sticky;
     background-color: #27190c;
     color: white;
-    left: 111px; 
+    /* left: 111px;  */
 }
 .tableGrid td:nth-child(2) { 
     position: -webkit-sticky;
     position: sticky;
     background-color: #f9f2eb;
-    left: 111px; 
+    /* left: 111px;  */
 }
 .tableGrid th:nth-child(3) {
     position: -webkit-sticky;
     position: sticky;
     background-color: #27190c;
     color: white;
-    left: 273px;
+    left: 0;
+    /* left: 273px; */
 }
 .tableGrid td:nth-child(3) { 
     position: -webkit-sticky;
     position: sticky;
     background-color: #f9f2eb;
-    left: 273px;
+    left: 0;
+    /* left: 273px; */
 }
 
 th, td {

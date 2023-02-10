@@ -12,44 +12,57 @@
     3. csd.js 로 이동해서 baseGrid()에 함수 추가 후, 함수 생성 : 함수는 기존 다른 함수 참고
 {% endcomment %}
 {% if user.is_authenticated %} 
-    <div class="container-fluid">
+    
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">全聯 Daily <B>{{month}}月</B></h1>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">全聯 Daily <B>{{month}}月</B></h1>
 
-    </div>
-    <form method="GET">
-        <div class="searchForm">
-            <input type="month" name="input-month" id="monthSearch" class="searchMonth">
-            <input type="submit" id="btnSearch" value="🔍︎">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET">
+                <div class="searchForm">
+                    {% comment %} <input type="month" name="input-month" id="monthSearch" class="searchMonth">
+                    <input type="submit" id="btnSearch" value="🔍︎"> {% endcomment %}
+                    <input type="month" name="input-month" class="form-control bg-light border-0 small searchMonth" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-    <div class="dataGrid">
-        <table class="tableGrid" id="myTable">
-            <thead>
-                <tr id="thTr">
-                    <th><B>商品代號</B></th>
-                    <th><B>條碼</B></th>
-                    <th><B>品名</B></th>
-                </tr>
-            </thead>
-            <tbody id="tblbody">
-                <tr id="tdTr"></tr>
-                <tr id="tdTr2"></tr>
-                <tr id="tdTr3"></tr>
-                <tr id="tdTr4"></tr>
-                <tr id="tdTr5"></tr>
-                <tr id="tdTr6"></tr>
-                <tr id="tdTr7"></tr>
-            <tbody>
-        </table>
-    </div>
-    <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="input-group">
-            <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
+        <div class="card-body">
+            <div class="table-responsive">
+        {% comment %} <div class="dataGrid"> {% endcomment %}
+            {% comment %} <table class="tableGrid" id="myTable"> {% endcomment %}
+                <table class="table table-bordered tableGrid" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr id="thTr">
+                            <th>商品代號</th>
+                            <th>條碼</th>
+                            <th>品名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="tdTr"></tr>
+                        <tr id="tdTr2"></tr>
+                        <tr id="tdTr3"></tr>
+                        <tr id="tdTr4"></tr>
+                        <tr id="tdTr5"></tr>
+                        <tr id="tdTr6"></tr>
+                        <tr id="tdTr7"></tr>
+                    <tbody>
+                </table>
+            </div>
         </div>
-    </form>  
+        <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="input-group">
+                <input type="file" class="form-control" id="fileInput" name="fileInput">
+                <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
+            </div>
+        </form>  
+    </div>
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
