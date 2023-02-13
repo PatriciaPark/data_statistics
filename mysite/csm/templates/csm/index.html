@@ -5,98 +5,106 @@
 <link rel="stylesheet" href="{% static 'css/csm.css' %}">
 <link rel="stylesheet" href="{% static 'css/loading.css' %}">
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">全聯 Monthly <B>{{month}}月</B></h3>
+    <h1 class="h3 mb-4 text-gray-800">
+        <i class="fas fa-location-arrow"></i> 全聯 > DATA > Monthly > <B>{{month}}月</B>
+    </h1>
     {% comment %} <div data-preset="energy" class="ldBar label-center" data-value="35"></div> {% endcomment %}
-    <form method="GET">
-        <div class="searchForm">
-            <input type="month" name="input-month" id="monthSearch" class="searchMonth">
-            <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
-                <option value="" selected>所有產品</option>
-                {% for prd in product %}
-                <option value="{{prd.prd_code}}">{{prd.prd_name}}</option>
-                {% endfor %}
-            </select>
-            <select name="input-sort" id="selectSort" class="select" onChange="selectedSort()">
-                <option value="" selected>降序排列</option>
-                <option value="strname">門市名稱</option>
-                <option value="prdSave">上存量</option>
-                <option value="prdBuy">進貨量</option>
-                <option value="prdReturn">退貨量</option>
-                <option value="prdSale">銷貨量</option>
-                <option value="prdStock">庫存量</option>
-                <option value="prdStockMon">庫存月份</option>
-            </select>
-            <input type="submit" id="btnSearch" value="🔍︎">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET">
+                <div class="searchForm">
+                    <input type="month" name="input-month" id="monthSearch" class="bg-light border-0 searchMonth">
+                    <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
+                        <option value="" selected>所有產品</option>
+                        {% for prd in product %}
+                        <option value="{{prd.prd_code}}">{{prd.prd_name|cut:' '}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-sort" id="selectSort" class="select" onChange="selectedSort()">
+                        <option value="" selected>降序排列</option>
+                        <option value="strname">門市名稱</option>
+                        <option value="prdSave">上存量</option>
+                        <option value="prdBuy">進貨量</option>
+                        <option value="prdReturn">退貨量</option>
+                        <option value="prdSale">銷貨量</option>
+                        <option value="prdStock">庫存量</option>
+                        <option value="prdStockMon">庫存月份</option>
+                    </select>
+                    <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                </div>
+            </form>
         </div>
-        <p id="pCount">數據數 : {{monthData.count}} 條</p>
-        <p id="pInfo"><B>* 每日銷貨總計</B>= 銷貨量/當月總天數, <B>誤差值</B>= 銷貨量/每日銷貨總計, <B>庫存月份</B>= 庫存量/銷貨量</p>
-        <div class="dataGrid">
-            <table class="tableGrid" id="myTable">
-                <thead class="sticky-element">
-                    <tr id="thTr">
-                        <th><B>區域</B></th>
-                        <th><B>縣市</B></th>
-                        <th><B>門市代號</B></th>
-                        <th><B>門市名稱</B></th>
-                        <th><B>代號</B></th>
-                        <th><B>條碼</B></th>
-                        <th><B>品名/規格</B></th>
-                        <th><B>上存量</B></th>
-                        <th><B>進貨量</B></th>
-                        <th><B>退貨量</B></th>
-                        <th><B>銷貨量</B></th>
-                        <th><B>每日銷貨總計</B></th>
-                        <th><B>誤差值(%)</B></th>
-                        <th><B>庫存量</B></th>
-                        <th><B>庫存月份</B></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if monthData %}
-                    {% for data in monthData %}
-                    <tr id="tdTr">
-                        <td>{{data.str_code.str_loc}}</td>
-                        <td>{{data.str_code.str_city}}</td>
-                        <td>{{data.str_code.str_code}}</td>
-                        <td>{{data.str_code.str_name}}</td>
-                        <td>{{data.prd_code.prd_code}}</td>
-                        <td>{{data.prd_code.prd_barcode}}</td>
-                        <td>{{data.prd_code.prd_name}}</td>
-                        <td>{{data.sum_m_save}}</td>
-                        <td>{{data.sum_m_buy}}</td>
-                        <td>{{data.sum_m_return}}</td>
-                        <td>{{data.sum_m_sale}}</td>
-                        <td><B>{{data.sum_m_sale_ttl}}</B></td>
+        <div class="card shadow mb-4">
+            <p id="pCount">數據數 : {{monthData.count}} 條</p>
+            <p id="pInfo"><B>* 每日銷貨總計</B>= 銷貨量/當月總天數, <B>誤差值</B>= 銷貨量/每日銷貨總計, <B>庫存月份</B>= 庫存量/銷貨量</p>
+            <div class="dataGrid">
+                <table class="tableGrid" id="myTable">
+                    <thead class="sticky-top">
+                        <tr id="thTr">
+                            <th class="bg-gradient-primary"><B>區域</B></th>
+                            <th class="bg-gradient-primary"><B>縣市</B></th>
+                            <th class="bg-gradient-primary"><B>門市代號</B></th>
+                            <th class="bg-gradient-primary"><B>門市名稱</B></th>
+                            <th class="bg-gradient-primary"><B>代號</B></th>
+                            <th class="bg-gradient-primary"><B>條碼</B></th>
+                            <th class="bg-gradient-primary"><B>品名/規格</B></th>
+                            <th class="bg-gradient-primary"><B>上存量</B></th>
+                            <th class="bg-gradient-primary"><B>進貨量</B></th>
+                            <th class="bg-gradient-primary"><B>退貨量</B></th>
+                            <th class="bg-gradient-primary"><B>銷貨量</B></th>
+                            <th class="bg-gradient-primary"><B>每日銷貨總計</B></th>
+                            <th class="bg-gradient-primary"><B>誤差值(%)</B></th>
+                            <th class="bg-gradient-primary"><B>庫存量</B></th>
+                            <th class="bg-gradient-primary"><B>庫存月份</B></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if monthData %}
+                        {% for data in monthData %}
+                        <tr id="tdTr">
+                            <td>{{data.str_code.str_loc}}</td>
+                            <td>{{data.str_code.str_city}}</td>
+                            <td>{{data.str_code.str_code}}</td>
+                            <td>{{data.str_code.str_name}}</td>
+                            <td>{{data.prd_code.prd_code}}</td>
+                            <td>{{data.prd_code.prd_barcode}}</td>
+                            <td>{{data.prd_code.prd_name}}</td>
+                            <td>{{data.sum_m_save}}</td>
+                            <td>{{data.sum_m_buy}}</td>
+                            <td>{{data.sum_m_return}}</td>
+                            <td>{{data.sum_m_sale}}</td>
+                            <td><B>{{data.sum_m_sale_ttl}}</B></td>
 
-                        {%if data.sum_m_sale_err == None %}
-                            <td><B>-</B></td>
-                        {% else %}
-                            <td><B>{{data.sum_m_sale_err}}</B></td>
-                        {% endif %}
-
-                        <td>{{data.sum_m_stock}}</td>
-
-                        {% comment %} 월재고율 6이상 빨간색으로 표시 {% endcomment %}
-                        {%if data.sum_m_stock_mon == None %}
-                            <td><B>-</B></td>
-                        {% else %}
-                            {%if data.sum_m_stock_mon >= 6 %}
-                                <td style="color:red">{{data.sum_m_stock_mon}}</td>
+                            {%if data.sum_m_sale_err == None %}
+                                <td><B>-</B></td>
                             {% else %}
-                                <td>{{data.sum_m_stock_mon}}</td>
+                                <td><B>{{data.sum_m_sale_err}}</B></td>
                             {% endif %}
+
+                            <td>{{data.sum_m_stock}}</td>
+
+                            {% comment %} 월재고율 6이상 빨간색으로 표시 {% endcomment %}
+                            {%if data.sum_m_stock_mon == None %}
+                                <td><B>-</B></td>
+                            {% else %}
+                                {%if data.sum_m_stock_mon >= 6 %}
+                                    <td style="color:red">{{data.sum_m_stock_mon}}</td>
+                                {% else %}
+                                    <td>{{data.sum_m_stock_mon}}</td>
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="15"><B>No Data</B></td>
+                        </tr>
                         {% endif %}
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <td colspan="15"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                <tbody>
-            </table>
+                    <tbody>
+                </table>
+            </div>
         </div>
-    </form>    
+    </div>
     <form action="/csm/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="input-group">
             <input type="file" class="form-control" id="fileInput" name="fileInput">

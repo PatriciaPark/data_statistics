@@ -44,7 +44,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    全聯
+                    <h6 style="color:white;"><B>全聯</B></h6>
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
@@ -76,8 +76,8 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Store Management:</h6>
-                            <a class="collapse-item" href="/csr">Store Review</a>
-                            <a class="collapse-item" href="/store">Store Management</a>
+                            <a class="collapse-item" href="/csr">Review</a>
+                            <a class="collapse-item" href="/store">Information</a>
                         </div>
                     </div>
                 </li>
@@ -85,46 +85,81 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
-                
-
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Addons
+                    <h6 style="color:white;"><B>全國電子</B></h6>
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                        aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData2"
+                        aria-expanded="true" aria-controls="collapseData2">
+                        <i class="fas fa-fw fa-database"></i>
+                        <span>DATA</span>
                     </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div id="collapseData2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Login Screens:</h6>
-                            <a class="collapse-item" href="login.html">Login</a>
-                            <a class="collapse-item" href="register.html">Register</a>
-                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Other Pages:</h6>
-                            <a class="collapse-item" href="404.html">404 Page</a>
-                            <a class="collapse-item" href="blank.html">Blank Page</a>
+                            <h6 class="collapse-header">Data by Period:</h6>
+                            <a class="collapse-item" href="#">Monthly</a>
+                            <a class="collapse-item" href="#">Monthly Detail</a>
                         </div>
                     </div>
                 </li>
 
-                <!-- Nav Item - Charts -->
+                <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Charts</span></a>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMgt2"
+                        aria-expanded="true" aria-controls="collapseMgt2">
+                        <i class="fas fa-fw fa-store"></i>
+                        <span>STORE</span>
+                    </a>
+                    <div id="collapseMgt2" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Store Management:</h6>
+                            <a class="collapse-item" href="#">Information</a>
+                        </div>
+                    </div>
                 </li>
 
-                <!-- Nav Item - Tables -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    <h6 style="color:white;"><B>神腦</B></h6>
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData3"
+                        aria-expanded="true" aria-controls="collapseData3">
+                        <i class="fas fa-fw fa-database"></i>
+                        <span>DATA</span>
+                    </a>
+                    <div id="collapseData3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Data by Period:</h6>
+                            <a class="collapse-item" href="#">Monthly</a>
+                            <a class="collapse-item" href="#">Monthly Detail</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMgt3"
+                        aria-expanded="true" aria-controls="collapseMgt3">
+                        <i class="fas fa-fw fa-store"></i>
+                        <span>STORE</span>
+                    </a>
+                    <div id="collapseMgt3" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Store Management:</h6>
+                            <a class="collapse-item" href="#">Information</a>
+                        </div>
+                    </div>
                 </li>
 
                 <!-- Divider -->
@@ -147,12 +182,14 @@
 
                     <!-- Topbar -->
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        
+                        <h4><i class="fas fa-poll"></i> KGC TAIWAN B2B DATA SERVICE</h4>
 
                         <!-- Sidebar Toggle (Topbar) -->
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
-
+                    
                         <!-- Topbar Search -->
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group" hidden>
@@ -168,7 +205,7 @@
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
-
+{% comment %}
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -192,7 +229,7 @@
                                     </form>
                                 </div>
                             </li>
-{% comment %} 
+ 
                             <!-- Nav Item - Alerts -->
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -309,9 +346,9 @@
                                     <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                                 </div>
                             </li>
+                            {% endcomment %}
 
                             <div class="topbar-divider d-none d-sm-block"></div> 
-{% endcomment %}
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
@@ -396,12 +433,5 @@
 
         <!-- Custom scripts for all pages-->
         <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-        <!-- Page level plugins -->
-        <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-        <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
     </body>
 </html>

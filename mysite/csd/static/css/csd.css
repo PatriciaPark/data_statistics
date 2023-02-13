@@ -5,7 +5,6 @@
 }
 
 .tableGrid {
-    border-collapse: collapse;
     border: 1px solid;
     white-space: nowrap;
     text-align: center;
@@ -13,41 +12,28 @@
 
 .tableGrid thead { 
     position: -webkit-sticky; 
-    position: sticky; 
-    background-color: #27190c;
+    position: sticky;
     top: 0; 
-    z-index: 1; 
 }
 .tableGrid th:first-child {
-    position: -webkit-sticky;
-    position: sticky;
-    background-color: #27190c;
     color: white;
     /* left: 0; */
 }
-.tableGrid td:first-child { 
-    position: -webkit-sticky;
-    position: sticky;
-    background-color: #f9f2eb;
+.tableGrid td:first-child {
+    background-color: rgb(208, 237, 247);
     /* left: 0; */
 }
 .tableGrid th:nth-child(2) {
-    position: -webkit-sticky;
-    position: sticky;
-    background-color: #27190c;
     color: white;
     /* left: 111px;  */
 }
-.tableGrid td:nth-child(2) { 
-    position: -webkit-sticky;
-    position: sticky;
-    background-color: #f9f2eb;
+.tableGrid td:nth-child(2) {
+    background-color: rgb(208, 237, 247);
     /* left: 111px;  */
 }
 .tableGrid th:nth-child(3) {
     position: -webkit-sticky;
     position: sticky;
-    background-color: #27190c;
     color: white;
     left: 0;
     /* left: 273px; */
@@ -55,7 +41,7 @@
 .tableGrid td:nth-child(3) { 
     position: -webkit-sticky;
     position: sticky;
-    background-color: #f9f2eb;
+    background-color: rgb(208, 237, 247);
     left: 0;
     /* left: 273px; */
 }
@@ -67,13 +53,12 @@ th, td {
 }
 
 th {
-    background-color: #27190c;
     color: white;
     text-align: center;
 }
 
 tbody tr:hover {
-    background-color: #f9f2eb;
+    background-color: rgb(208, 237, 247);
 }
 
 .setBold {

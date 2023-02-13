@@ -65,10 +65,15 @@ function baseGrid() {
     // total/average th
     const thT = document.createElement('th');
     const thA = document.createElement('th');
+    // css를 위한 class 설정
+    thT.setAttribute("class", "bg-gradient-primary");
+    thA.setAttribute("class", "bg-gradient-primary");
 
     // 일자 출력
     for (hashDate = 0; hashDate < lastDate; hashDate++){
         let th = document.createElement('th');
+        // css를 위한 class 설정
+        th.setAttribute("class", "bg-gradient-primary");
         th.innerHTML = hashDate+1;
         thTr.append(th);
     }

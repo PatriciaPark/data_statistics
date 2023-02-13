@@ -1,7 +1,4 @@
-html * {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
+/* Global CSS */
 .header {
     background-color: #f9f2eb;
     text-align: center;
@@ -139,22 +136,6 @@ html * {
   padding: 20px;
 }
 /** Button **/
-/* submit button */
-#submitBtn, #btnSearch {
-  background-color: #e60000;
-  color: white;
-  border-radius: 5px;
-}
-#btnSearch {
-  height: 35px;
-  width: 35px;
-}
-#btnSearch:hover {background-color: #a90000}
-#btnSearch:active {
-    background-color: #a90000;
-    box-shadow: 5px 5px 5px #666;
-    transform: translateY(2px);
-}
 /* reset button */
 #btnReset {
   background-color: rgb(78, 78, 78);
@@ -223,7 +204,7 @@ html * {
   color: #666666;
 }
 /* excel download button */
-.btnExcel {
+/* .btnExcel {
   background-color: limegreen;
   color: white;
   border-radius: 5px;
@@ -234,4 +215,4 @@ html * {
   background-color: darkgreen;
   box-shadow: 5px 5px 5px #666;
   transform: translateY(2px);
-}
+} */
