@@ -14,12 +14,7 @@
 .tableGrid thead {
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
-}
-.tableGrid th:first-child {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    top:0px;
 }
 
 th, td {
@@ -39,9 +34,13 @@ tbody tr:hover {background-color: rgb(208, 237, 247);}
 #pCount {
     position:absolute; 
     left: 25px;
+    background-color: white;
+    width: 95.9%;
 }
 /* 항목 설명 p */
 #pInfo {
     position:absolute; 
     right: 25px;
+    width: max-content;
+    background-color: white;
 }

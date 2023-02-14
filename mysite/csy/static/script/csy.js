@@ -1,7 +1,8 @@
 window.onload = function () {
     searchYearly();
-    localStorage.removeItem("user_selected_year");
-    localStorage.removeItem("user_selected_prd");
+    searchStrReview();
+    // localStorage.removeItem("user_selected_year");
+    // localStorage.removeItem("user_selected_prd");
 }
 
 // 달력 날짜 선택시 로컬스토리지 저장
@@ -55,6 +56,28 @@ function searchYearly() {
     }
 }
 
+// 검색창 select box 설정
+function searchStrReview() {
+    // location
+    if (localStorage.getItem("user_selected_loc")) {
+        document.getElementById("selectAddLoc").value = localStorage.getItem("user_selected_loc");
+    } else {
+        document.getElementById("selectAddLoc").value = "all";
+    }
+    // city
+    if (localStorage.getItem("user_selected_city")) {
+        document.getElementById("selectAddCity").value = localStorage.getItem("user_selected_city");
+    } else {
+        document.getElementById("selectAddCity").value = "all";
+    }
+    // store
+    if (localStorage.getItem("user_selected_str")) {
+        document.getElementById("selectAddStr").value = localStorage.getItem("user_selected_str");
+    } else {
+        document.getElementById("selectAddStr").value = "all";
+    }
+}
+
 // excel download
 function fnExceldown(id, title){
     var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
@@ -95,3 +118,76 @@ function fnExceldown(id, title){
         document.body.removeChild(elem);
     }
 }
+
+// jQuery Code
+// select first select box value : change second select box value
+$('#selectAddLoc').on("propertychange change keyup input click", function() {
+    // send ajax request when the first select is changed:
+    $.ajax({
+        url : '/csy/select/',
+        type : 'GET',
+        data : {
+            location : $(this).val()
+        },
+        dataType: 'json',
+        success : function(response) {
+            // this function executes on receiving a successful response from the backend:
+            localStorage.setItem("user_selected_loc", $('#selectAddLoc').val());
+            var secondSelect = $('#selectAddCity');
+            secondSelect.empty();
+            secondSelect.append($('<option>', {
+                value : 'all',
+                text : 'City'
+            }));
+            var thirdSelect = $('#selectAddStr').empty();
+            thirdSelect.append($('<option>', {
+                value : 'all',
+                text : 'Store'
+            }));
+    
+            // iterate over the instances in the response and add them to the second select
+            for (var instance in response.data) {
+                secondSelect.append($('<option>', {
+                    value : response.data[instance].str_city,
+                    text : response.data[instance].str_city
+                }));
+            }
+            localStorage.removeItem("user_selected_city");
+            localStorage.removeItem("user_selected_str");
+        }
+    })
+});
+// select second select box value : change third select box value
+$('#selectAddCity').on("propertychange change keyup input click", function() {
+    $.ajax({
+        url : '/csy/select2/',
+        type : 'GET',
+        data : {
+            city : $(this).val()
+        },
+        dataType: 'json',
+        success : function(response) {
+            // this function executes on receiving a successful response from the backend:
+            localStorage.setItem("user_selected_city", $('#selectAddCity').val());
+            var secondSelect = $('#selectAddStr');
+            secondSelect.empty();
+            secondSelect.append($('<option>', {
+                value : 'all',
+                text : 'Store'
+            }));
+    
+            // iterate over the instances in the response and add them to the second select
+            for (var instance in response.data) {
+                secondSelect.append($('<option>', {
+                    value : response.data[instance].str_code,
+                    text : response.data[instance].str_name
+                }));
+            }
+            localStorage.removeItem("user_selected_str");
+        }
+    })
+});
+
+$('#selectAddStr').on("propertychange change keyup input click", function() {
+    localStorage.setItem("user_selected_str", $('#selectAddStr').val());
+});

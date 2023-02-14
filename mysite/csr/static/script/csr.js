@@ -93,7 +93,15 @@ $('#selectAddLoc').on("propertychange change keyup input click", function() {
             // this function executes on receiving a successful response from the backend:
             var secondSelect = $('#selectAddCity');
             secondSelect.empty();
-            $('#selectAddStr').empty();
+            secondSelect.append($('<option>', {
+                value : 'all',
+                text : 'City'
+            }));
+            var thirdSelect = $('#selectAddStr').empty();
+            thirdSelect.append($('<option>', {
+                value : 'all',
+                text : 'Store'
+            }));
     
             // iterate over the instances in the response and add them to the second select
             for (var instance in response.data) {
@@ -118,6 +126,10 @@ $('#selectAddCity').on("propertychange change keyup input click", function() {
             // this function executes on receiving a successful response from the backend:
             var secondSelect = $('#selectAddStr');
             secondSelect.empty();
+            secondSelect.append($('<option>', {
+                value : 'all',
+                text : 'City'
+            }));
     
             // iterate over the instances in the response and add them to the second select
             for (var instance in response.data) {
