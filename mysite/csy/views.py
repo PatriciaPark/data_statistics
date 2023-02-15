@@ -20,13 +20,13 @@ def index(request):
     getCity = request.GET.get('add-city')
     getStore = request.GET.get('add-str')
 
-    # select box list
-    product = Product.objects.all()
-    
     # set select box value
     loc = Store.objects.values('str_loc').distinct()
     city = Store.objects.filter(str_loc=getloc).values('str_city').distinct()
     str = Store.objects.filter(str_loc=getloc, str_city=getCity).values('str_name')
+    
+    # select box list
+    product = Product.objects.all()
     
     # 상단에 표시할 상품명
     prdname = Product.objects.filter(prd_code = prdcode).values_list('prd_name', flat=True)

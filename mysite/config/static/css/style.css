@@ -137,7 +137,7 @@
 }
 /** Button **/
 /* reset button */
-#btnReset {
+/* #btnReset {
   background-color: rgb(78, 78, 78);
   color: white;
   border-radius: 5px;
@@ -149,9 +149,9 @@
     background-color: rgb(61, 61, 61);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
-}
+} */
 /* Close button */
-#btnClose {
+/* #btnClose {
   float: right;
   margin-top: 10px;
   background-color: rgb(78, 78, 78);
@@ -165,9 +165,9 @@
     background-color: rgb(61, 61, 61);
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
-}
+} */
 /* Add button */
-#btnWrite {
+/* #btnWrite {
   background-color: lightskyblue;
   color: white;
   border-radius: 5px;
@@ -179,9 +179,9 @@
     background-color: lightslategray;
     box-shadow: 5px 5px 5px #666;
     transform: translateY(2px);
-}
+} */
 /* Update button */
-#btnUpdate:enabled {
+/* #btnUpdate:enabled {
   background-color: darkorange;
   color: white;
   border-radius: 5px;
@@ -202,7 +202,7 @@
   width: 80px;
   background-color: #cccccc;
   color: #666666;
-}
+} */
 /* excel download button */
 /* .btnExcel {
   background-color: limegreen;

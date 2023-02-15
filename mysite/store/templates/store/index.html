@@ -5,99 +5,124 @@
 <link rel="stylesheet" href="{% static 'css/store.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css"></style>
-{% if user.is_authenticated %} 
-    <h3 class="menuTitle">Store Management</h3>
-    <form method="GET" id="selectForm">
-        <div class="searchForm">
-            <select name="input-loc" id="selectSearchLoc" class="select" onChange="selectedLoc()">
-                <option value="all" selected>Location</option>
-                {% for loc in loc %}
-                <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
-                {% endfor %}
-            </select>
-            <select name="input-city" id="selectSearchCity" class="select" onChange="selectedCity()">
-                <option value="all" selected>City</option>
-                {% for city in city %}
-                <option value="{{city.str_city}}">{{city.str_city}}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" id="btnSearch" value="🔍︎">
-            <input type="reset" id="btnReset" value="Reset" onclick="resetForm()">
+{% if user.is_authenticated %}
+    <h1 class="h3 mb-4 text-gray-800">
+        <i class="fas fa-location-arrow"></i> 全聯 > Store > Management
+    </h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET" id="selectForm">
+                <div class="searchForm">
+                    <select name="input-loc" id="selectSearchLoc" class="select" onChange="selectedLoc()">
+                        <option value="all" selected>Location</option>
+                        {% for loc in loc %}
+                        <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-city" id="selectSearchCity" class="select" onChange="selectedCity()">
+                        <option value="all" selected>City</option>
+                        {% for city in city %}
+                        <option value="{{city.str_city}}">{{city.str_city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                    <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
+                </div>
+            </form>
         </div>
-        <p id="pCount">數據數 : {{data.count}} 條</p>
-        <div class="dataGrid">
-            <table class="tableGrid" id="myTable">
-                <thead class="sticky-element">
-                    <tr>
-                        <th><B>區域</B></th>
-                        <th><B>縣市</B></th>
-                        <th><B>門市代號</B></th>
-                        <th><B>門市名稱</B></th>
-                    </tr>
-                </thead>
-                <tbody id="datafield">
-                    {% if data %}
-                    {% for data in data %}
-                    <tr>
-                        <td>{{data.str_loc}}</td>
-                        <td>{{data.str_city}}</td>
-                        <td>{{data.str_code}}</td>
-                        <td>{{data.str_name}}</td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <td colspan="4"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                <tbody>
-            </table>
-        </div>
-    </form>
-    <form action="/store/update/" method="POST" id="dataForm">{% csrf_token %}
-        <div class="dataInput">
-            <table>
-                <thead class="sticky-element">
-                    <tr>
-                        <th colspan="2">Store Info</th>
-                    </tr>
-                </thead>
-                <tbody class="sticky-element">
-                    <tr>
-                        <td>區域</td>
-                        <td>
-                            <select name="info-loc" id="first-select" class="select">
-                                {% for loc in loc %}
-                                <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+
+        <div class="row">
+
+            <div class="col-lg-6">
+
+                <div class="card shadow mb-4">
+                    <p id="pCount">數據數 : {{data.count}} 條</p>
+                    <div class="dataGrid">
+                        <table class="tableGrid" id="myTable">
+                            <thead class="sticky-element">
+                                <tr>
+                                    <th class="bg-gradient-primary"><B>區域</B></th>
+                                    <th class="bg-gradient-primary"><B>縣市</B></th>
+                                    <th class="bg-gradient-primary"><B>門市代號</B></th>
+                                    <th class="bg-gradient-primary"><B>門市名稱</B></th>
+                                </tr>
+                            </thead>
+                            <tbody id="datafield">
+                                {% if data %}
+                                {% for data in data %}
+                                <tr>
+                                    <td>{{data.str_loc}}</td>
+                                    <td>{{data.str_city}}</td>
+                                    <td>{{data.str_code}}</td>
+                                    <td>{{data.str_name}}</td>
+                                </tr>
                                 {% endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>縣市</td>
-                        <td>
-                            <select name="info-city" id="second-select" class="select">
-                                {% comment %} {% for city in city %}
-                                <option value="{{city.str_city}}">{{city.str_city}}</option>
-                                {% endfor %} {% endcomment %}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>門市代號</td>
-                        <td><input type="text" name="info-code" id="dataCode" class="inputText" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>門市名稱</td>
-                        <td><input type="text" name="info-name" id="dataName" class="inputText" readonly></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" id="btnUpdate" value="Update" onclick="return updateInfo();"></td>
-                    </tr>
-                </tbody>
-            </table>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4"><B>No Data</B></td>
+                                </tr>
+                                {% endif %}
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card shadow mb-4">
+                    <div class="dataInput">
+                        <form action="/store/update/" method="POST" id="dataForm">{% csrf_token %}
+                            <table class="tableGrid">
+                                <thead class="sticky-element">
+                                    <tr>
+                                        <th class="bg-gradient-primary" colspan="2">Store Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sticky-element">
+                                    <tr>
+                                        <td>區域</td>
+                                        <td>
+                                            <select name="info-loc" id="first-select" class="select">
+                                                {% for loc in loc %}
+                                                <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>縣市</td>
+                                        <td>
+                                            <select name="info-city" id="second-select" class="select">
+                                                {% comment %} {% for city in city %}
+                                                <option value="{{city.str_city}}">{{city.str_city}}</option>
+                                                {% endfor %} {% endcomment %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>門市代號</td>
+                                        <td><input type="text" name="info-code" id="dataCode" class="inputText" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td>門市名稱</td>
+                                        <td><input type="text" name="info-name" id="dataName" class="inputText" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><input type="submit" id="btnUpdate" class="btn btn-primary" value="Update" onclick="return updateInfo();"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-    </form>
+
+    </div>
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}

@@ -16,7 +16,7 @@
             <form method="GET">
                 <div class="searchForm">
                     <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
-                    
+                    {% comment %} select box (location-city-store) {% endcomment %}
                     <select name="add-loc" id="selectAddLoc" class="select">
                         <option value="all" selected>Location</option>
                         {% for loc in loc %}
@@ -35,7 +35,7 @@
                         <option value="{{str.str_name}}">{{str.str_name}}</option>
                         {% endfor %}
                     </select>
-
+                    {% comment %} select box (product list) {% endcomment %}
                     <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
                         {% for prd in product %}
                         <option value="{{prd.prd_code}}">{{prd.prd_name|cut:' '}}</option>

@@ -4,9 +4,10 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csm.css' %}">
 <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% if user.is_authenticated %} 
     <h1 class="h3 mb-4 text-gray-800">
-        <i class="fas fa-location-arrow"></i> 全聯 > DATA > Monthly > <B>{{month}}月</B>
+        <i class="fas fa-location-arrow"></i> 全聯 > DATA > Monthly > <B>{{year}}年{{month}}月</B>
     </h1>
     {% comment %} <div data-preset="energy" class="ldBar label-center" data-value="35"></div> {% endcomment %}
     <div class="card shadow mb-4">
@@ -14,6 +15,26 @@
             <form method="GET">
                 <div class="searchForm">
                     <input type="month" name="input-month" id="monthSearch" class="bg-light border-0 searchMonth">
+                    {% comment %} select box (location-city-store) {% endcomment %}
+                    <select name="add-loc" id="selectAddLoc" class="select">
+                        <option value="all" selected>Location</option>
+                        {% for loc in loc %}
+                        <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="add-city" id="selectAddCity" class="select">
+                        <option value="all" selected>City</option>
+                        {% for city in city %}
+                        <option value="{{city.str_city}}">{{city.str_city}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="add-str" id="selectAddStr" class="select">
+                        <option value="all" selected>Store</option>
+                        {% for str in str %}
+                        <option value="{{str.str_name}}">{{str.str_name}}</option>
+                        {% endfor %}
+                    </select>
+                    {% comment %} select box (product list) {% endcomment %}                    
                     <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
                         <option value="" selected>所有產品</option>
                         {% for prd in product %}
@@ -38,8 +59,8 @@
             <p id="pCount">數據數 : {{monthData.count}} 條</p>
             <p id="pInfo"><B>* 每日銷貨總計</B>= 銷貨量/當月總天數, <B>誤差值</B>= 銷貨量/每日銷貨總計, <B>庫存月份</B>= 庫存量/銷貨量</p>
             <div class="dataGrid">
-                <table class="tableGrid" id="myTable">
-                    <thead class="sticky-top">
+                <table class="tableGrid">
+                    <thead>
                         <tr id="thTr">
                             <th class="bg-gradient-primary"><B>區域</B></th>
                             <th class="bg-gradient-primary"><B>縣市</B></th>
@@ -60,6 +81,17 @@
                     </thead>
                     <tbody>
                         {% if monthData %}
+                        <tr>
+                            <td colspan="7"><B>Total</B></td>
+                            <td><B>{{sumSave.sum_m_save__sum}}</B></td>
+                            <td><B>{{sumBuy.sum_m_buy__sum}}</B></td>
+                            <td><B>{{sumReturn.sum_m_return__sum}}</B></td>
+                            <td><B>{{sumSale.sum_m_sale__sum}}</B></td>
+                            <td><B>{{ttlSumDl|floatformat:2}}</B></td>
+                            <td><B>{{ttlerr|floatformat:2}}</B></td>
+                            <td><B>{{sumStock.sum_m_stock__sum}}</B></td>
+                            <td><B>{% widthratio sumStock.sum_m_stock__sum sumSale.sum_m_sale__sum 1 %}</B></td>
+                        </tr>
                         {% for data in monthData %}
                         <tr id="tdTr">
                             <td>{{data.str_code.str_loc}}</td>
@@ -108,7 +140,7 @@
     <form action="/csm/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="input-group">
             <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
+            <input type="submit" class="btn btn-primary" id="submitBtn" value="Upload File" disabled>
         </div>
     </form>
 {% else %}

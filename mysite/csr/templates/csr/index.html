@@ -6,75 +6,103 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css"></style>
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">Store Review</h3>
-    <form method="GET" id="selectForm">
-        <div class="searchForm">
-            <select name="input-loc" id="selectSearchLoc" class="select" onChange="selectedLoc()">
-                <option value="all" selected>Location</option>
-                {% for loc in loc %}
-                <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
-                {% endfor %}
-            </select>
-            <select name="input-city" id="selectSearchCity" class="select" onChange="selectedCity()">
-                <option value="all" selected>City</option>
-                {% for city in city %}
-                <option value="{{city.str_city}}">{{city.str_city}}</option>
-                {% endfor %}
-            </select>
-            <select name="input-str" id="selectSearchStr" class="select" onChange="selectedStr()">
-                <option value="all" selected>Store</option>
-                {% for str in str %}
-                <option value="{{str.str_name}}">{{str.str_name}}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" id="btnSearch" value="🔍︎">
-            <input type="reset" id="btnReset" value="Reset" onclick="resetForm()">
-            <a href="#newPopup" class="btn_open" id="btnNew" style="text">New</a>
+    <h1 class="h3 mb-4 text-gray-800">
+        <i class="fas fa-location-arrow"></i> 全聯 > Store > Review
+    </h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET" id="selectForm">
+                <div class="searchForm">
+                    <select name="input-loc" id="selectSearchLoc" class="select">
+                        <option value="all" selected>Location</option>
+                        {% for loc in loc %}
+                        <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-city" id="selectSearchCity" class="select">
+                        <option value="all" selected>City</option>
+                        {% for city in city %}
+                        <option value="{{city.str_city}}">{{city.str_city}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-str" id="selectSearchStr" class="select">
+                        <option value="all" selected>Store</option>
+                        {% for str in str %}
+                        <option value="{{str.str_name}}">{{str.str_name}}</option>
+                        {% endfor %}
+                    </select>
+
+                    {% comment %} <select name="input-loc" id="selectSearchLoc" class="select" onChange="selectedLoc()">
+                        <option value="all" selected>Location</option>
+                        {% for loc in loc %}
+                        <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-city" id="selectSearchCity" class="select" onChange="selectedCity()">
+                        <option value="all" selected>City</option>
+                        {% for city in city %}
+                        <option value="{{city.str_city}}">{{city.str_city}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="input-str" id="selectSearchStr" class="select" onChange="selectedStr()">
+                        <option value="all" selected>Store</option>
+                        {% for str in str %}
+                        <option value="{{str.str_name}}">{{str.str_name}}</option>
+                        {% endfor %}
+                    </select> {% endcomment %}
+
+                    <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                    <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
+                    <button class="btn btn-info"><a href="#newPopup" class="btn_open" id="btnNew" style="text">New</a></button>
+                </div>
+            </form>
         </div>
-        <p id="pCount">數據數 : {{data.count}} 條</p>
-        <div class="dataGrid">
-            <table class="tableGrid" >
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>City</th>
-                        <th>Store</th>
-                        <th>Image</th>
-                        <th>Comment</th>
-                        <th>Rate</th>
-                        <th>Writer</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if data %}
-                    {% for data in data %}
-                    <tr>
-                        <td>{{data.str_code__str_loc}}</td>
-                        <td>{{data.str_code__str_city}}</td>
-                        <td>{{data.str_code__str_name}}</td>
-                        <td><img src="../media/{{data.str_img}}" width="100px" height="100px" onclick="window.open(this.src)"></td>
-                        <td>{{data.str_comm}}</td>
-                        <td>
-                            {% if data.str_rate == 1 %}⭐
-                            {% elif data.str_rate == 2 %}⭐⭐
-                            {% elif data.str_rate == 3 %}⭐⭐⭐
-                            {% elif data.str_rate == 4 %}⭐⭐⭐⭐
-                            {% elif data.str_rate == 5 %}⭐⭐⭐⭐⭐
-                            {% endif %}
-                        </td>
-                        <td>{{data.user_id__username}}</td>
-                        <td>{{data.str_date|date:'Y-m-d H:i'}}</td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <td colspan="8"><B>No Data</B></td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </form>
+        <div class="card shadow mb-4">
+            <p id="pCount">數據數 : {{data.count}} 條</p>
+            <div class="dataGrid">
+                <table class="tableGrid" >
+                    <thead>
+                        <tr>
+                            <th class="bg-gradient-primary">Location</th>
+                            <th class="bg-gradient-primary">City</th>
+                            <th class="bg-gradient-primary">Store</th>
+                            <th class="bg-gradient-primary">Image</th>
+                            <th class="bg-gradient-primary">Comment</th>
+                            <th class="bg-gradient-primary">Rate</th>
+                            <th class="bg-gradient-primary">Writer</th>
+                            <th class="bg-gradient-primary">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if data %}
+                        {% for data in data %}
+                        <tr>
+                            <td nowrap>{{data.str_code__str_loc}}</td>
+                            <td nowrap>{{data.str_code__str_city}}</td>
+                            <td nowrap>{{data.str_code__str_name}}</td>
+                            <td><img src="../media/{{data.str_img}}" width="100px" height="100px" onclick="window.open(this.src)"></td>
+                            <td width="300px" style="word-wrap:break-word;word-break:break-all">{{data.str_comm}}</td>
+                            <td>
+                                {% if data.str_rate == 1 %}⭐
+                                {% elif data.str_rate == 2 %}⭐⭐
+                                {% elif data.str_rate == 3 %}⭐⭐⭐
+                                {% elif data.str_rate == 4 %}⭐⭐⭐⭐
+                                {% elif data.str_rate == 5 %}⭐⭐⭐⭐⭐
+                                {% endif %}
+                            </td>
+                            <td>{{data.user_id__username}}</td>
+                            <td>{{data.str_date|date:'Y-m-d H:i'}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="8"><B>No Data</B></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     {% comment %} Pop-up {% endcomment %}
     <div class="wrap">
@@ -83,7 +111,7 @@
                 <form action="/csr/create/" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <table class="tableGrid">
                         <tr>
-                            <th colspan="3">New Review</th>
+                            <th colspan="3"  class="bg-gradient-primary">New Review</th>
                         </tr>
                         <tr>
                             <td>
@@ -135,13 +163,13 @@
                                 <input type="file" name="add_img" id="add-img" class="image_inputType_file" accept="img/*" required multiple>
                             </td>
                             <td>
-                                <input type="submit" id="btnWrite" value="ADD" onclick="return createInfo();">
+                                <input type="submit" id="btnWrite" value="ADD" class="btn btn-primary" onclick="return createInfo();">
                             </td>
                         </tr>
                     </table>
                     <input type="hidden" id="addUser" name="add_user" value="{{user.id}}">
                 </form>
-                <input type="button" id="btnClose" class="btn_close" value="Close">
+                <input type="button" id="btnClose" class="btn btn-secondary btn_close" value="Close">
             </div>
         </div>
     </div>
