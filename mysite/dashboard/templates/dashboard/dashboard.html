@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% if user.is_authenticated %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <div class="form-row">
-        <div class="col">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <form method="GET" id="selectForm">
+        <div class="form-row">
+            <div class="col">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            </div>
+            <div class="col">
+                <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="form-control select"/>
+            </div>
         </div>
-        <div class="col">
-            <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="form-control select"/>
-        </div>
-    </div>
+    </form>
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
     </a>
@@ -158,9 +160,9 @@
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Percentage of Total Product Sales</h6>
+                {% comment %} 
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -173,22 +175,32 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </div>
+                </div> 
+                {% endcomment %}
             </div>
             <!-- Card Body -->
             <div class="card-body">
                 <div class="chart-pie pt-4 pb-2">
                     <canvas id="myPieChart"></canvas>
                 </div>
-                <div class="mt-4 text-center small">
+                <div class="mt-4 text-left small">
                     <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
+                        <i class="fas fa-circle text-primary"></i> 正官庄活蔘28D高麗蔘活/力飲100ml*10瓶
+                    </span><br>
                     <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> Social
-                    </span>
+                        <i class="fas fa-circle text-success"></i> 正官庄高麗蔘精EVERY/TIME-秘10ml*20入
+                    </span><br>
                     <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Referral
+                        <i class="fas fa-circle text-info"></i> 預購正官庄活蔘28D高麗/蔘活力飲禮盒100ml*8入
+                    </span><br>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-warning"></i> 預購正官庄高麗蔘石榴飲/50ml*9入
+                    </span><br>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-danger"></i> 預購正官庄高麗蔘野櫻莓飲
+                    </span><br>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-secondary"></i> 預購正官庄高麗蔘精EVERY/TIME10ml*30入
                     </span>
                 </div>
             </div>
@@ -199,104 +211,64 @@
 
 
 
-        <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-white pt-7 pb-3 border-y border-300">
-          <div class="row">
-            <div class="col-12 col-xl-7 col-xxl-6">
-              <div class="row g-3 mb-3">
-                {% comment %} <div class="col-12 col-md-6">
-                  <h3 class="text-1100 text-nowrap">Issues Discovered</h3>
-                  <p class="text-700 mb-md-7">Newly found and yet to be solved</p>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <p class="mb-0 fw-bold">Issue type </p>
-                    <p class="mb-0 fs--1">Total count <span class="fw-bold">257</span></p>
-                  </div>
-                  <hr class="bg-200 mb-2 mt-2" />
-                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-info-300 bullet-item me-2"></span>
-                    <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">Product design</p>
-                    <h5 class="mb-0 text-900">78</h5>
-                  </div>
-                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-warning-300 bullet-item me-2"></span>
-                    <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">Development</p>
-                    <h5 class="mb-0 text-900">63</h5>
-                  </div>
-                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-danger-300 bullet-item me-2"></span>
-                    <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">QA & Testing</p>
-                    <h5 class="mb-0 text-900">56</h5>
-                  </div>
-                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-success-300 bullet-item me-2"></span>
-                    <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">Customer queries</p>
-                    <h5 class="mb-0 text-900">36</h5>
-                  </div>
-                  <div class="d-flex align-items-center"><span class="d-inline-block bg-primary bullet-item me-2"></span>
-                    <p class="mb-0 fw-semi-bold text-900 lh-sm flex-1">R & D</p>
-                    <h5 class="mb-0 text-900">24</h5>
-                  </div>
-                  <button class="btn btn-outline-primary mt-5">See Details<span class="fas fa-angle-right ms-2 fs--2 text-center"></span></button>
-                </div> {% endcomment %}
-                <div class="col-12 col-md-6">
-                  <div class="position-relative mb-sm-4 mb-xl-0">
-                    <div>{{plot5|safe}}</div>
-                    {% comment %} <div class="echart-issue-chart" style="min-height:390px;width:100%"></div> {% endcomment %}
-                  </div>
-                </div>
-              </div>
+<div class="row">
+    <div class="col-xl-12 col-lg-8">
+        <div class="card shadow mb-4">
+            
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">全聯</h6>
             </div>
-            <div class="col-12 col-xl-5 col-xxl-6">
-              <h3>Project: eleven Progress</h3>
-              <p class="text-700 mb-0 mb-xl-3">Deadline &amp; progress</p>
-              <div>{{plot6|safe}}</div>
-              {% comment %} <div class="echart-zero-burnout-chart" style="min-height:320px;width:100%"></div> {% endcomment %}
-            </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <h2 class="sub-header" style="font-size: 24px;">{{current_year}}年{{current_month}}月 전련사</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead >
-                <tr >
-                  <th style="color: #000000;">제품</th>
-                  <th style="color: #000000;">당월목표</th>
-                  <th style="color: #000000;">당월전망</th>
-                  <th style="color: #000000;">목표비</th>
-                  <th style="color: #000000;">전년비</th>
-                  <th style="color: #000000;">당월실적</th>
-                  <th style="color: #000000;">진도율</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for data in dash_data_list %}
-                <tr>
-                  <td>{{data.product_name}}</td>
-                  <td>{{data.target_qauntity}}</td>
-                  <td>{{data.expect_qauntity}}</td>
-                  <td>{{data.expect_target_ratio_q}}%</td>
-                  <td>{{data.yoy_ratio_q}}%</td>
-                  <td>{{data.monthly_acc_sum_q}}</td>
-                  <td>{{data.mothly_ratio_q}}%</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped text-align-center" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="bg-gradient-primary text-center text-white">PRODUCT</th>
+                                <th class="bg-gradient-primary text-center text-white">ANNUAL GOAL</th>
+                                <th class="bg-gradient-primary text-center text-white">당월전망</th>
+                                <th class="bg-gradient-primary text-center text-white">목표비</th>
+                                <th class="bg-gradient-primary text-center text-white">전년비</th>
+                                <th class="bg-gradient-primary text-center text-white">당월실적</th>
+                                <th class="bg-gradient-primary text-center text-white">진도율</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in dash_data_list %}
+                            <tr>
+                                <td>{{data.product_name}}</td>
+                                <td>{{data.target_qauntity}}</td>
+                                <td>{{data.expect_qauntity}}</td>
+                                <td>{{data.expect_target_ratio_q}}%</td>
+                                <td>{{data.yoy_ratio_q}}%</td>
+                                <td>{{data.monthly_acc_sum_q}}</td>
+                                <td>{{data.mothly_ratio_q}}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
+    </div>
+</div>
 
 {% else %}
 <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script type="text/javascript">
     window.onload = function () {
-        defaultYear();
-        
+        defaultYear();    
     }
+    // 연도 데이터 입력
     function defaultYear() {
         const now = new Date();
         const currentYear = now.getFullYear();
-        document.getElementById("yearSearch").value = "{{current_year}}";
+        document.getElementById("yearSearch").value = "{{year}}";
     }
 
-    // 연간 전체 제품 판매량 (선그래프)
+    // 연간 전체 제품 판매량 (라인차트)
     const sumSale01 = "{{sumSale01.sum_m_sale__sum|default_if_none:0}}"
     const sumSale02 = "{{sumSale02.sum_m_sale__sum|default_if_none:0}}"
     const sumSale03 = "{{sumSale03.sum_m_sale__sum|default_if_none:0}}"
@@ -310,6 +282,20 @@
     const sumSale11 = "{{sumSale11.sum_m_sale__sum|default_if_none:0}}"
     const sumSale12 = "{{sumSale12.sum_m_sale__sum|default_if_none:0}}"
 
+    // 전체 판매량 제품 비율 (파이차트)
+    const sum11530035 = "{{sum11530035.sum_m_sale__sum|default_if_none:0}}";
+    const sum11060162 = "{{sum11060162.sum_m_sale__sum|default_if_none:0}}";
+    const sum17010087 = "{{sum17010087.sum_m_sale__sum|default_if_none:0}}";
+    const sum17010088 = "{{sum17010088.sum_m_sale__sum|default_if_none:0}}";
+    const sum17010004 = "{{sum17010004.sum_m_sale__sum|default_if_none:0}}";
+    const sum17010002 = "{{sum17010002.sum_m_sale__sum|default_if_none:0}}";
+    let totalSum = Number(sum11530035) + Number(sum11060162) + Number(sum17010087) + Number(sum17010088) + Number(sum17010004) + Number(sum17010002);
+
+    // jQuery
+    // 연도 변경시 데이터 변경
+    $("#yearSearch").on("propertychange change keyup input click", function() {
+        $("#selectForm").submit();
+    });
 </script>
 <!-- Page level plugins -->
 <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
