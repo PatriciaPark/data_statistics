@@ -34,7 +34,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="/index">
+                    <a class="nav-link" href="/dashboard">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -216,11 +216,13 @@
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    {% if user.is_superuser %}
                                     <a class="dropdown-item" href="/admin">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Admin Settings
                                     </a>
                                     <div class="dropdown-divider"></div>
+                                    {% endif %}
                                     <a class="dropdown-item" href="{% url 'users:logout' %}">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
