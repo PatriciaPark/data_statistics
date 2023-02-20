@@ -22,7 +22,7 @@ def index(request):
         year = int(request.GET.get('input-year'))
     except TypeError:
         year = int(datetime.today().year)
-    
+
     # 연간 전체 상품 판매량(라인차트)
     sumSale01 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=1).aggregate(Sum('sum_m_sale'))
     sumSale02 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=2).aggregate(Sum('sum_m_sale'))
@@ -37,8 +37,12 @@ def index(request):
     sumSale11 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=11).aggregate(Sum('sum_m_sale'))
     sumSale12 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=12).aggregate(Sum('sum_m_sale'))
     
-    context = {'year':year, 'sumSale01':sumSale01, 'sumSale02':sumSale02, 'sumSale03':sumSale03, 'sumSale04':sumSale04, 'sumSale05':sumSale05, 'sumSale06':sumSale06, 
+    # 당해년도
+    thisyear = datetime.today().year
+    
+    context = {'thisyear':thisyear, 'year':year, 'sumSale01':sumSale01, 'sumSale02':sumSale02, 'sumSale03':sumSale03, 'sumSale04':sumSale04, 'sumSale05':sumSale05, 'sumSale06':sumSale06, 
                'sumSale07':sumSale07, 'sumSale08':sumSale08, 'sumSale09':sumSale09, 'sumSale10':sumSale10, 'sumSale11':sumSale11, 'sumSale12':sumSale12}
+    
     
     # 전체 판매량 제품 비율 (파이차트)
     sum11530035 = SumMonthly.objects.filter(prd_code = 11530035, sum_m_date__year=year).aggregate(Sum('sum_m_sale'))   #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
@@ -53,11 +57,129 @@ def index(request):
                     'sum17010004':sum17010004, 'sum17010002':sum17010002})
     
     
+    # 전년도 전체 판매량 (previous year)
+    sum11530035py = SumMonthly.objects.filter(prd_code = 11530035, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
+    sum11060162py = SumMonthly.objects.filter(prd_code = 11060162, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
+    sum17010087py = SumMonthly.objects.filter(prd_code = 17010087, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
+    sum17010088py = SumMonthly.objects.filter(prd_code = 17010088, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
+    sum17010004py = SumMonthly.objects.filter(prd_code = 17010004, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #預購正官庄高麗蔘野櫻莓飲
+    sum17010002py = SumMonthly.objects.filter(prd_code = 17010002, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale'))   #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
+    # **제품이 추가될때마다 코드추가**
+    
+    # TOP CARD INFO (4)
+    # 전상품 연간목표 판매량(또는 금액) = 목표량(target_qauntity) * 12 (또는 월간 목표량 합)
+    try:
+        targetQauntity = list(Dashboard_Table_month_basic.objects.filter(date__year=year).aggregate(Sum('target_qauntity')).values())[0]
+    except:
+        targetQauntity = 1
+    ## 전년도    
+    try:
+        targetQauntityPy = list(Dashboard_Table_month_basic.objects.filter(date__year=year-1).aggregate(Sum('target_qauntity')).values())[0]
+    except:
+        targetQauntityPy = 1
+    
+    # 전상품 연간누적 판매량(또는 금액) = Monthly 판매량 합계
+    try:
+        annualSum = list(sum11530035.values())[0] + list(sum11060162.values())[0] + list(sum17010087.values())[0] + list(sum17010088.values())[0] +list(sum17010004.values())[0] + list(sum17010002.values())[0]
+        # **제품이 추가될때마다 코드추가**
+    except:
+        annualSum = 1
+    ## 전년도
+    try:
+        annualSumPy = list(sum11530035py.values())[0] + list(sum11060162py.values())[0] + list(sum17010087py.values())[0] + list(sum17010088py.values())[0] +list(sum17010004py.values())[0] + list(sum17010002py.values())[0]
+        # **제품이 추가될때마다 코드추가**
+    except:
+        annualSumPy = 1
     
     
+    # 판매진도율 = (누적/목표)*100 (%) : 둘째자리 반올림
+    try:
+        salesRate = round((annualSum/targetQauntity)*100, 2)
+    except:
+        salesRate = 1
+    ## 전년도
+    try:
+        salesRatePy = round((annualSumPy/targetQauntityPy)*100, 2)
+    except:
+        salesRatePy = 1
     
-   
-
+    # 전년비 판매진도율 = ((당해진도율-전년진도율)/전년진도율) * 100 : 둘째자리 반올림
+    yoySalesRate = round(((salesRate-salesRatePy)/salesRatePy)*100,2)
+    
+    context.update({'annualSum':annualSum, 'annualSumPy':annualSumPy, 'targetQauntity_comma':format(targetQauntity,','), 'annualSum_comma':format(annualSum,','), 'salesRate':salesRate, 'yoySalesRate':yoySalesRate})
+    
+    
+    # 상품별 연간 판매 목표량 대비 실적 (바차트) target_qauntity
+    targetQauntity11530035 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 11530035, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    targetQauntity11060162 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 11060162, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    targetQauntity17010087 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 17010087, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    targetQauntity17010088 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 17010088, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    targetQauntity17010004 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 17010004, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    targetQauntity17010002 = list(Dashboard_Table_month_basic.objects.filter(product_selling_price_id_id__product_id = 17010002, date__year=year).select_related('product_selling_price_id').aggregate(Sum('target_qauntity')).values())[0]
+    
+    if targetQauntity11530035 is None:
+        targetQauntity11530035 = 1
+    if targetQauntity11060162 is None:
+        targetQauntity11060162 = 1
+    if targetQauntity17010087 is None:
+        targetQauntity17010087 = 1
+    if targetQauntity17010088 is None:
+        targetQauntity17010088 = 1
+    if targetQauntity17010004 is None:
+        targetQauntity17010004 = 1
+    if targetQauntity17010002 is None:
+        targetQauntity17010002 = 1    
+    
+    sum11530035b = list(sum11530035.values())[0]   #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
+    sum11060162b = list(sum11060162.values())[0]   #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
+    sum17010087b = list(sum17010087.values())[0]   #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
+    sum17010088b = list(sum17010088.values())[0]   #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
+    sum17010004b = list(sum17010004.values())[0]   #預購正官庄高麗蔘野櫻莓飲
+    sum17010002b = list(sum17010002.values())[0]   #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
+    
+    if sum11530035b is None:
+        sum11530035b = 0
+    if sum11060162b is None:
+        sum11060162b = 0
+    if sum17010087b is None:
+        sum17010087b = 0
+    if sum17010088b is None:
+        sum17010088b = 0
+    if sum17010004b is None:
+        sum17010004b = 0
+    if sum17010002b is None:
+        sum17010002b = 0
+    
+    pct11530035 = round(sum11530035b/targetQauntity11530035,2)*100
+    pct11060162 = round(sum11060162b/targetQauntity11060162,2)*100
+    pct17010087 = round(sum17010087b/targetQauntity17010087,2)*100
+    pct17010088 = round(sum17010088b/targetQauntity17010088,2)*100
+    pct17010004 = round(sum17010004b/targetQauntity17010004,2)*100
+    pct17010002 = round(sum17010002b/targetQauntity17010002,2)*100
+    # **제품이 추가될때마다 코드추가**
+    
+     
+    context.update({'targetQauntity11530035':targetQauntity11530035, 'targetQauntity11060162':targetQauntity11060162, 'targetQauntity17010087':targetQauntity17010087,
+                    'targetQauntity17010088':targetQauntity17010088, 'targetQauntity17010004':targetQauntity17010004, 'targetQauntity17010002':targetQauntity17010002,
+                    'sum11530035b':sum11530035b, 'sum11060162b':sum11060162b, 'sum17010087b':sum17010087b, 'sum17010088b':sum17010088b, 'sum17010004b':sum17010004b, 'sum17010002b':sum17010002b,
+                    'pct11530035':pct11530035, 'pct11060162':pct11060162, 'pct17010087':pct17010087, 'pct17010088':pct17010088, 'pct17010004':pct17010004, 'pct17010002':pct17010002})
+    
+    
+    # 상품별 연간 목표/전망/실적 요약(표)
+    # 제품
+    # 당해목표 (target_qauntity)
+    # 당해전망 (expect_qauntity)
+    data = list(Dashboard_Table_month_basic.objects.filter(date__year=year).select_related('product_selling_price_id').values('product_selling_price_id__product_id__prd_name').annotate(Sum('target_qauntity'),Sum('expect_qauntity')))
+    # 목표비 = (목표/전망) * 100 (%) => 템플릿에서 계산
+    # 전년비 = ((당해판매량-전년판매량)/전년판매량) * 100 (%)
+    yoySales = round(((annualSum-annualSumPy)/annualSumPy)*100,2)
+    # 당해실적 (monthly 판매량 합) => annualSum
+    # 진도율 = (누적/목표)*100 (%) => salesRate
+    
+    print(annualSum, annualSumPy, yoySales)
+    
+    
+    context.update({'data':data, 'yoySales':yoySales})
 
     return render(request, 'dashboard/dashboard.html', context)
 

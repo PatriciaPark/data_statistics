@@ -2,6 +2,8 @@
 {% block content %}
 {% load static %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 {% if user.is_authenticated %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -11,11 +13,11 @@
                 <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             </div>
             <div class="col">
-                <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="form-control select"/>
+                <input type="number" id="yearSearch" name="input-year" min="{{thisyear|add:-1}}" max="{{thisyear}}" step="1" class="form-control select"/>
             </div>
         </div>
     </form>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="CreatePDFfromHTML();">
         <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
     </a>
 </div>
@@ -30,8 +32,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            target sales volume (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            GOAL (Annual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{targetQauntity_comma}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-crosshairs fa-2x text-gray-300"></i>
@@ -48,8 +50,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Cumulative Sales (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            SOLD (Annual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{annualSum_comma}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dna fa-2x text-gray-300"></i>
@@ -65,16 +67,16 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Current sales progress rate
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">progress rate
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{salesRate}}%</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
                                     <div class="progress-bar bg-info" role="progressbar"
-                                        style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                        style="width: {{salesRate}}%" aria-valuenow="50" aria-valuemin="0"
                                         aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -94,16 +96,16 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Year-on-year<br>Progress Rate
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Year-on-year
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">30%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{yoySalesRate}}%</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
                                     <div class="progress-bar bg-warning" role="progressbar"
-                                        style="width: 30%" aria-valuenow="30" aria-valuemin="0"
+                                        style="width: {{yoySalesRate}}%" aria-valuenow="30" aria-valuemin="0"
                                         aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -208,7 +210,61 @@
     </div>
 </div>
 
+<!-- Project Progressing Card -->
+<div class="row">
+    <div class="col-xl-12 col-lg-8">
+        <div class="card shadow mb-4">
+            
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">全聯 ANNUAL SUMMARY (CHART)</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="small font-weight-bold">正官庄活蔘28D高麗蔘活/力飲100ml*10瓶 <span
+                        class="float-right">{{sum11530035b}}/{{targetQauntity11530035|default_if_none:1}}({{pct11530035}}%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{pct11530035}}%"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
 
+                <h4 class="small font-weight-bold">正官庄高麗蔘精EVERY/TIME-秘10ml*20入 <span
+                        class="float-right">{{sum11060162b}}/{{targetQauntity11060162|default_if_none:1}}({{pct11060162}}%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{pct11060162}}%"
+                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">預購正官庄活蔘28D高麗/蔘活力飲禮盒100ml*8入 <span
+                        class="float-right">{{sum17010087b}}/{{targetQauntity17010087|default_if_none:1}}({{pct17010087}}%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: {{pct17010087}}%"
+                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">預購正官庄高麗蔘石榴飲/50ml*9入 <span
+                        class="float-right">{{sum17010088b}}/{{targetQauntity17010088|default_if_none:1}}({{pct17010088}}%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{pct17010088}}%"
+                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                <h4 class="small font-weight-bold">預購正官庄高麗蔘野櫻莓飲 <span
+                        class="float-right">{{sum17010004b}}/{{targetQauntity17010004|default_if_none:1}}({{pct17010004}}%)</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{pct17010004}}%"
+                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <h4 class="small font-weight-bold">預購正官庄高麗蔘精EVERY/TIME10ml*30入 <span
+                        class="float-right">{{sum17010002b}}/{{targetQauntity17010002|default_if_none:1}}({{pct17010002}}%)</span></h4>
+                <div class="progress">
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{pct17010002}}%"
+                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <div class="row">
@@ -216,7 +272,7 @@
         <div class="card shadow mb-4">
             
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">全聯</h6>
+                <h6 class="m-0 font-weight-bold text-primary">全聯 ANNUAL SUMMARY (TABLE)</h6>
             </div>
 
             <div class="card-body">
@@ -224,25 +280,25 @@
                     <table class="table table-striped text-align-center" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="bg-gradient-primary text-center text-white">PRODUCT</th>
-                                <th class="bg-gradient-primary text-center text-white">ANNUAL GOAL</th>
-                                <th class="bg-gradient-primary text-center text-white">당월전망</th>
-                                <th class="bg-gradient-primary text-center text-white">목표비</th>
-                                <th class="bg-gradient-primary text-center text-white">전년비</th>
-                                <th class="bg-gradient-primary text-center text-white">당월실적</th>
-                                <th class="bg-gradient-primary text-center text-white">진도율</th>
+                                <th class="bg-gradient-primary text-center text-white">PRODUCT NAME</th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="Sales target for this year">ANNUAL TARGET</abbr></th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="Expected sales this year">ANNUAL EXPECT</abbr></th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="Target achievement rate:&#10;(ANNUAL TARGET/ANNUAL EXPECT)*100">TARGET COST</abbr></th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="Target achievement rate compared to the previous year:&#10;((Sales of this year - Sales of last year)/Sales of last year)*100">YEAR-OVER-YEAR</abbr></th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="Cumulative sales for this year (performance)">ANNUAL SALES</abbr></th>
+                                <th class="bg-gradient-primary text-center text-white"><abbr title="(ANNUAL SALES/ANNUAL TARGET)*100">PROGRESS RATE</abbr></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for data in dash_data_list %}
+                            {% for data in data %}
                             <tr>
-                                <td>{{data.product_name}}</td>
-                                <td>{{data.target_qauntity}}</td>
-                                <td>{{data.expect_qauntity}}</td>
-                                <td>{{data.expect_target_ratio_q}}%</td>
-                                <td>{{data.yoy_ratio_q}}%</td>
-                                <td>{{data.monthly_acc_sum_q}}</td>
-                                <td>{{data.mothly_ratio_q}}%</td>
+                                <td class="text-center">{{data.product_selling_price_id__product_id__prd_name|cut:' '}}</td>
+                                <td class="text-center">{{targetQauntity_comma}}</td>
+                                <td class="text-center">{{data.expect_qauntity__sum}}</td>
+                                <td class="text-center">{% widthratio data.target_qauntity__sum data.expect_qauntity__sum 100 as target_cost%}{{target_cost|floatformat:2}}%</td>
+                                <td class="text-center">{{yoySales|floatformat:2}}%</td>
+                                <td class="text-center">{{annualSum_comma}}</td>
+                                <td class="text-center">{{salesRate}}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -258,15 +314,7 @@
 <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script type="text/javascript">
-    window.onload = function () {
-        defaultYear();    
-    }
-    // 연도 데이터 입력
-    function defaultYear() {
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        document.getElementById("yearSearch").value = "{{year}}";
-    }
+    const year = "{{year}}";
 
     // 연간 전체 제품 판매량 (라인차트)
     const sumSale01 = "{{sumSale01.sum_m_sale__sum|default_if_none:0}}"
@@ -291,15 +339,10 @@
     const sum17010002 = "{{sum17010002.sum_m_sale__sum|default_if_none:0}}";
     let totalSum = Number(sum11530035) + Number(sum11060162) + Number(sum17010087) + Number(sum17010088) + Number(sum17010004) + Number(sum17010002);
 
-    // jQuery
-    // 연도 변경시 데이터 변경
-    $("#yearSearch").on("propertychange change keyup input click", function() {
-        $("#selectForm").submit();
-    });
 </script>
+<script src="{% static 'script/dashboard.js' %}"></script>
 <!-- Page level plugins -->
 <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-
 <!-- Page level custom scripts -->
 <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>

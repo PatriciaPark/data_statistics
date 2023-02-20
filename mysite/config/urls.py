@@ -35,8 +35,8 @@ urlpatterns = [
     path('csr/', include('csr.urls')),
     path('store/', include('store.urls')),
     path('users/', include('users.urls')),
-    path('index/', index),
     path('dashboard/', include('dashboard.urls')),
+    path('index/', include('dashboard.urls')),
 ]
 
 # urlpatterns.append(re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}))
