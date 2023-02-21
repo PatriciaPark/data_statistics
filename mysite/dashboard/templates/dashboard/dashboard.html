@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load humanize %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
@@ -33,7 +34,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             GOAL (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{targetQauntity_comma}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{targetQauntity|intcomma}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-crosshairs fa-2x text-gray-300"></i>
@@ -51,7 +52,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             SOLD (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{annualSum_comma}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{annualSum|intcomma}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dna fa-2x text-gray-300"></i>
@@ -293,11 +294,11 @@
                             {% for data in data %}
                             <tr>
                                 <td class="text-center">{{data.product_selling_price_id__product_id__prd_name|cut:' '}}</td>
-                                <td class="text-center">{{targetQauntity_comma}}</td>
-                                <td class="text-center">{{data.expect_qauntity__sum}}</td>
+                                <td class="text-center">{{targetQauntity|intcomma}}</td>
+                                <td class="text-center">{{data.expect_qauntity__sum|intcomma}}</td>
                                 <td class="text-center">{% widthratio data.target_qauntity__sum data.expect_qauntity__sum 100 as target_cost%}{{target_cost|floatformat:2}}%</td>
                                 <td class="text-center">{{yoySales|floatformat:2}}%</td>
-                                <td class="text-center">{{annualSum_comma}}</td>
+                                <td class="text-center">{{annualSum|intcomma}}</td>
                                 <td class="text-center">{{salesRate}}%</td>
                             </tr>
                             {% endfor %}

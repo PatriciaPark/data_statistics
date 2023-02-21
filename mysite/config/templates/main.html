@@ -3,7 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% if user.is_authenticated %} 
-    
+    <meta http-equiv="refresh" content="0; url='/dashboard'" />
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}

@@ -106,7 +106,7 @@ def index(request):
     # 전년비 판매진도율 = ((당해진도율-전년진도율)/전년진도율) * 100 : 둘째자리 반올림
     yoySalesRate = round(((salesRate-salesRatePy)/salesRatePy)*100,2)
     
-    context.update({'annualSum':annualSum, 'annualSumPy':annualSumPy, 'targetQauntity_comma':format(targetQauntity,','), 'annualSum_comma':format(annualSum,','), 'salesRate':salesRate, 'yoySalesRate':yoySalesRate})
+    context.update({'annualSum':annualSum, 'annualSumPy':annualSumPy, 'targetQauntity':targetQauntity, 'annualSum':annualSum, 'salesRate':salesRate, 'yoySalesRate':yoySalesRate})
     
     
     # 상품별 연간 판매 목표량 대비 실적 (바차트) target_qauntity
