@@ -14,6 +14,11 @@ $("#yearSearch").on("propertychange change keyup input click", function() {
     $("#selectForm").submit();
 });
 
+$("#monthSummary").on("click", function() {
+    
+    $("#barForm").submit();
+});
+
 // Generate Report (PDF)
 function CreatePDFfromHTML() {
     var HTML_Width = $(".container-fluid").width();

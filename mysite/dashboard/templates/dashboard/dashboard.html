@@ -127,12 +127,12 @@
 <div class="row">
 
     <!-- Area Chart -->
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-6 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Summary of Total Annual Product Sales (EA)</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Annual Total Sales Summary (EA)</h6>
                 {% comment %}
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -159,8 +159,65 @@
         </div>
     </div>
 
+    <!-- Bar Chart -->
+    <div class="col-xl-6 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Monthly Total Sales Summary (EA)</h6>
+                
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <form method="GET" id="barForm">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Month:</div>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary1" value="1">
+                            <label class="dropdown-item form-check-label" for="monthSummary1">Jan</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary2" value="2">
+                            <label class="dropdown-item form-check-label" for="monthSummary2">Feb</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary3" value="3">
+                            <label class="dropdown-item form-check-label" for="monthSummary3">Mar</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary4" value="4">
+                            <label class="dropdown-item form-check-label" for="monthSummary4">Apr</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary5" value="5">
+                            <label class="dropdown-item form-check-label" for="monthSummary5">May</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary6" value="6">
+                            <label class="dropdown-item form-check-label" for="monthSummary6">Jun</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary7" value="7">
+                            <label class="dropdown-item form-check-label" for="monthSummary7">Jul</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary8" value="8">
+                            <label class="dropdown-item form-check-label" for="monthSummary8">Aug</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary9" value="9">
+                            <label class="dropdown-item form-check-label" for="monthSummary9">Sep</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary10" value="10">
+                            <label class="dropdown-item form-check-label" for="monthSummary10">Oct</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary11" value="11">
+                            <label class="dropdown-item form-check-label" for="monthSummary11">Nov</label>
+                            <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary12" value="12">
+                            <label class="dropdown-item form-check-label" for="monthSummary12">Dec</label>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
     <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-6 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -208,7 +265,7 @@
     </div>
 
     <!-- Donut Chart -->
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-6 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -420,6 +477,7 @@
 <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 <!-- Page level custom scripts -->
 <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-region.js' %}"></script>
 <!-- dashboard.js: simple function, map -->

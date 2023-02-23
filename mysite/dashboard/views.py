@@ -23,6 +23,10 @@ def index(request):
     except TypeError:
         year = int(datetime.today().year)
 
+    month = request.GET.get('input-month')
+    
+    print(month)
+
     # 연간 전체 상품 판매량(라인차트)
     sumSale01 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=1).aggregate(Sum('sum_m_sale'))
     sumSale02 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=2).aggregate(Sum('sum_m_sale'))
@@ -157,8 +161,6 @@ def index(request):
         sum17010004b = 1
     if sum17010002b is None:
         sum17010002b = 1
-    
-    print(sum11530035b, sum11530035py)
     
     # 진도율 = (누적/목표)*100 (%)
     pct11530035 = round(sum11530035b/targetQauntity11530035,2)*100
