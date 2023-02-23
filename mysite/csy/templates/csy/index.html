@@ -13,7 +13,7 @@
     </h1>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <form method="GET">
+            <form method="GET" id="selectForm">
                 <div class="searchForm">
                     <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
                     {% comment %} select box (location-city-store) {% endcomment %}
@@ -42,6 +42,7 @@
                         {% endfor %}
                     </select>
                     <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                    <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
                     <input type="button" class="btn btn-success" value="📥Excel" onclick="fnExceldown('myTable','yearlyByMonth');">
                 </div>
             </form>

@@ -2,11 +2,22 @@
 window.onload = function () {
     searchMonthly();
     searchStrReview();
-    // localStorage.removeItem("user_selected_date");
-    // localStorage.removeItem("user_selected_prd");
-    // localStorage.removeItem("user_selected_sort");
 }
-
+// click reset button event
+function resetForm() {
+    document.getElementById("selectAddLoc").value = "all";
+    document.getElementById("selectAddCity").value = "all";
+    document.getElementById("selectAddStr").value = "all";
+    document.getElementById("selectSearch").value = "";
+    document.getElementById("selectSort").value = "";
+    localStorage.removeItem("user_selected_loc");
+    localStorage.removeItem("user_selected_city");
+    localStorage.removeItem("user_selected_str");
+    localStorage.removeItem("user_selected_date");
+    localStorage.removeItem("user_selected_prd");
+    localStorage.removeItem("user_selected_sort");
+    document.getElementById("selectForm").submit();
+}
 // 파일 선택시에만 버튼 활성화
 document.getElementById("fileInput").addEventListener("input", function (event) {
     document.getElementById("submitBtn").disabled = !this.value;

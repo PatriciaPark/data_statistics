@@ -12,7 +12,7 @@
     {% comment %} <div data-preset="energy" class="ldBar label-center" data-value="35"></div> {% endcomment %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <form method="GET">
+            <form method="GET" id="selectForm">
                 <div class="searchForm">
                     <input type="month" name="input-month" id="monthSearch" class="bg-light border-1 searchMonth">
                     {% comment %} select box (location-city-store) {% endcomment %}
@@ -52,6 +52,7 @@
                         <option value="prdStockMon">庫存月份</option>
                     </select>
                     <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                    <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
                 </div>
             </form>
         </div>
@@ -135,13 +136,13 @@
                 </table>
             </div>
         </div>
+        <form action="/csm/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="input-group">
+                <input type="file" class="form-control" id="fileInput" name="fileInput">
+                <input type="submit" class="btn btn-primary" id="submitBtn" value="Upload File" disabled>
+            </div>
+        </form>
     </div>
-    <form action="/csm/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="input-group">
-            <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-primary" id="submitBtn" value="Upload File" disabled>
-        </div>
-    </form>
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}

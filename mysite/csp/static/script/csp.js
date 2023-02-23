@@ -4,7 +4,19 @@ window.onload = function () {
     // localStorage.removeItem("user_selected_year");
     // localStorage.removeItem("user_selected_prd");
 }
-
+// click reset button event
+function resetForm() {
+    document.getElementById("selectAddLoc").value = "all";
+    document.getElementById("selectAddCity").value = "all";
+    document.getElementById("selectAddStr").value = "all";
+    defaultYear();
+    localStorage.removeItem("user_selected_loc");
+    localStorage.removeItem("user_selected_city");
+    localStorage.removeItem("user_selected_str");
+    localStorage.removeItem("user_selected_year");
+    localStorage.removeItem("user_selected_prd");
+    document.getElementById("selectForm").submit();
+}
 // 달력 날짜 선택시 로컬스토리지 저장
 document.getElementById("yearSearch").addEventListener("input", function (event) {
     localStorage.setItem("user_selected_year", document.getElementById("yearSearch").value);
