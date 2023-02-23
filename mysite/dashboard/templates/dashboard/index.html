@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQVMap -->
+<link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% if user.is_authenticated %}
+<!-- Map card -->
+<div class="col-xl-6 col-lg-8">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-map-marker-alt mr-1"></i>Sales rate by region</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+                <div id="world-map" style="height: 250px; width: 100%;"></div>
+            </div>
+            <div class="mt-4 text-left small">
+                <span class="mr-2 text-primary">北部</span>
+                <span class="mr-2 text-success">中部</span>
+                <span class="mr-2 text-info">南部</span>
+                <span class="mr-2 text-warning">東部</span>
+                <span class="mr-2 text-danger">外島</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.card -->
+{% else %}
+<meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<!-- JQVMap -->
+<script src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+<script src="{% static 'plugins/jqvmap/maps/jquery.vmap.taiwan.js' %}"></script>
+<script type="text/javascript">
+/*
+* Author: Abdullah A Almsaeed
+* Date: 4 Jan 2014
+* Description:
+*      This is a demo file used only for the main dashboard (index.html)
+**/
+// dashcoard for map
+$(function () {
+    'use strict'
+    // World map by jvectormap
+    $('#world-map').vectorMap({
+        map: 'tw_tw',
+        backgroundColor: 'transparent',
+        regionStyle: {
+            initial: {
+            fill: 'rgba(0,0,255,0.3)',
+            'fill-opacity': 1,
+            stroke: 'rgba(0,0,0,.2)',
+            'stroke-width': 1,
+            'stroke-opacity': 1
+            }
+        }
+    })
+
+})
+</script>
+{% endblock %}

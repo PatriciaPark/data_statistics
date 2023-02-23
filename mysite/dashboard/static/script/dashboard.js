@@ -38,3 +38,4 @@ function CreatePDFfromHTML() {
         pdf.save("Dashboard_"+ year + ".pdf");
     });
 }
+  

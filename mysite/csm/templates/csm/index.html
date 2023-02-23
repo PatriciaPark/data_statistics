@@ -57,7 +57,6 @@
         </div>
         <div class="card shadow mb-4">
             <p id="pCount">數據數 : {{monthData.count}} 條</p>
-            <p id="pInfo"><B>* 每日銷貨總計</B>= 銷貨量/當月總天數, <B>誤差值</B>= 銷貨量/每日銷貨總計, <B>庫存月份</B>= 庫存量/銷貨量</p>
             <div class="dataGrid">
                 <table class="tableGrid">
                     <thead>
@@ -73,10 +72,10 @@
                             <th class="bg-gradient-primary"><B>進貨量</B></th>
                             <th class="bg-gradient-primary"><B>退貨量</B></th>
                             <th class="bg-gradient-primary"><B>銷貨量</B></th>
-                            <th class="bg-gradient-primary"><B>每日銷貨總計</B></th>
-                            <th class="bg-gradient-primary"><B>誤差值(%)</B></th>
+                            <th class="bg-gradient-primary"><B><abbr title="= 銷貨量/當月總天數">每日銷貨總計</abbr></B></th>
+                            <th class="bg-gradient-primary"><B><abbr title="= 銷貨量/每日銷貨總計">誤差值(%)</abbr></B></th>
                             <th class="bg-gradient-primary"><B>庫存量</B></th>
-                            <th class="bg-gradient-primary"><B>庫存月份</B></th>
+                            <th class="bg-gradient-primary"><B><abbr title="= 庫存量/銷貨量">庫存月份</abbr></B></th>
                         </tr>
                     </thead>
                     <tbody>

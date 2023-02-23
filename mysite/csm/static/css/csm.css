@@ -45,8 +45,3 @@ tbody tr:hover {background-color: rgb(208, 237, 247);}
     background-color: white;
     width: 95.9%;
 }
-/* 항목 설명 p */
-#pInfo {
-    position:absolute; 
-    right: 15px;
-}
