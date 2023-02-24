@@ -27,12 +27,16 @@ function defaultDate() {
 
 // 검색창 달력 데이터 업데이트한 달로 세팅
 function updatedDate() {
-    const currentMonth = monthData;
+    
     if(monthData.length < 2) {
-        currentMonth = 0 + monthData;
+        const currentMonth = 0 + monthData;
+        const updatedMonth = yearData + "-" + currentMonth;
+        document.getElementById('monthSearch').value = updatedMonth;
+    } else {
+        const currentMonth = monthData;
+        const updatedMonth = yearData + "-" + currentMonth;
+        document.getElementById('monthSearch').value = updatedMonth;
     }
-    const updatedMonth = yearData + "-" + currentMonth;
-    document.getElementById('monthSearch').value = updatedMonth;
 }
 
 // Search 버튼 클릭이벤트 - 월별 데일리 데이터 출력    
