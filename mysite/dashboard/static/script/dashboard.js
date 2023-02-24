@@ -15,7 +15,6 @@ function settingMonth() {
 // jQuery
 // 연도 변경시 데이터 변경
 $("#yearSearch").on("propertychange change keyup input click", function() {
-    localStorage.setItem("user_selected_year", document.getElementById("yearSearch").value);
     $("#selectForm").submit();
 });
 // 바차트 월 변경시 데이터 변경

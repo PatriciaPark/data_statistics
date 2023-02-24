@@ -65,7 +65,7 @@
 {% endif %}
 <script>
     const yearData = "{{year}}";
-    const monthData = "{{month|date:'mm'}}";
+    const monthData = "{{month}}";
     const prd11530035Data = "{{prd11530035}}";
     const prd11060162Data = "{{prd11060162}}";
     const prd17010087Data = "{{prd17010087}}";
@@ -73,7 +73,7 @@
     const prd17010004Data = "{{prd17010004}}";
     const prd17010002Data = "{{prd17010002}}";
     const prdlistData = "{{prdlist}}";
-    
+
     // error message
     {% for message in messages %}
         alert("{{message}}");
