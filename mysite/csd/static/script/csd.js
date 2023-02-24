@@ -27,7 +27,7 @@ function defaultDate() {
 
 // 검색창 달력 데이터 업데이트한 달로 세팅
 function updatedDate() {
-    
+    // 월 데이터가 한자리(1~9월)인 경우, 캘린더 포맷에 맞게 앞에 0을 붙임
     if(monthData.length < 2) {
         const currentMonth = 0 + monthData;
         const updatedMonth = yearData + "-" + currentMonth;
