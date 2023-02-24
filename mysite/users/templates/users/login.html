@@ -2,23 +2,46 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% comment %} <link rel="stylesheet" href="{% static 'css/users.css' %}"> {% endcomment %}
 {% if user.is_authenticated %}
 <script>
   window.location.replace("/");
 </script>
 {% endif %}
-<form method="post" action="{% url 'users:login' %}">
-  {% csrf_token %}
-  <div style="postiion:relative;">
-    <img src="{% static 'image/popular_banner.png' %}" style="width:100vw; padding:0px;">
-    <div class="login-card">
-      <h3>Sign in</h3>
-      <input type="text" name="username" id="username" placeholder="User ID">
-      <input type="password" name="password" id="password" placeholder="Password">
-      <input type="submit" name="login" id="loginBtn" class="login login-submit" value="Login">
-      {% include 'users/form_errors.html' %}
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h3>Sign in</h3>
+                            </div>
+                            <form class="user" method="post" action="{% url 'users:login' %}">{% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="User ID">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="login" id="loginBtn" class="btn btn-google btn-user btn-block" value="Login">
+                                    {% include 'users/form_errors.html' %}
+                                </div>
+                            </form>
+                        <div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-  <div>
-</form>
+
+</div>
 {% endblock %}

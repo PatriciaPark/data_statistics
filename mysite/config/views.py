@@ -14,3 +14,6 @@ def page_not_found(request) :
 # 500 Error
 def server_error(request) :
     return render(request, "500.html", status=500)
+
+def index(request):
+    return render(request, 'index.html')

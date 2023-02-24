@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/csd.css' %}">
+<link rel="stylesheet" href="{% static 'css/loading.css' %}">
+<style type="text/css"></style>
+
+<div class="container">
+    {% if user.is_authenticated %}
+      <form class="card p-3 mt-5" method="POST" autocomplete = "off">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary" >Submit </button>
+      </form>
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">{{message}}
+            <a herf={% url 'dashbord:main' %} type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+        <meta http-equiv="refresh" content="0; url='/users/login'" />
+    {% endif %}
+</div>
+
+
+
+<script>
+    const monthData = "{{month}}";
+    const prd11530035Data = "{{prd11530035}}";
+    const prd11060162Data = "{{prd11060162}}";
+    const prd17010087Data = "{{prd17010087}}";
+    const prd17010088Data = "{{prd17010088}}";
+    const prd17010004Data = "{{prd17010004}}";
+    const prd17010002Data = "{{prd17010002}}";
+    const prdlistData = "{{prdlist}}";
+
+    // error message
+    {% for message in messages %}
+        alert("{{message}}");
+    {% endfor %}
+</script>
+<script src="{% static 'script/csd.js' %}"></script>
+{% endblock %}

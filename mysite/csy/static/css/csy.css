@@ -1,11 +1,12 @@
 /* table grid */
 .dataGrid {
+    display: block;
+    overflow: auto;
     padding: 20px;
-    overflow-x: auto;
+    height: 800px;
 }
 
 .tableGrid {
-    border-collapse: collapse;
     border: 1px solid;
     white-space: nowrap;
 }
@@ -13,14 +14,7 @@
 .tableGrid thead {
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
-    background-color: #27190c;
-}
-
-.tableGrid th {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    top:0px;
 }
 
 th, td {
@@ -30,22 +24,16 @@ th, td {
 }
 
 th {
-    background-color: #27190c;
     color: white;
     text-align: center;
 }
 
-tbody tr:hover {background-color: #f9f2eb;}
+tbody tr:hover {background-color: rgb(208, 237, 247);}
 
 /* data count */
 #pCount {
     position:absolute; 
     left: 25px;
-    color: #27190c;
-}
-/* 항목 설명 p */
-#pInfo {
-    position:absolute; 
-    right: 25px;
-    color: #27190c;
+    background-color: white;
+    width: 95.9%;
 }

@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/csd.css' %}">
 <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css"></style>
 {% comment %} 
     *** 새 제품 추가시, ***
@@ -12,44 +13,59 @@
     3. csd.js 로 이동해서 baseGrid()에 함수 추가 후, 함수 생성 : 함수는 기존 다른 함수 참고
 {% endcomment %}
 {% if user.is_authenticated %} 
-    <h3 class="menuTitle">全聯 Daily <B>{{month}}月</B></h3>
-    <form method="GET">
-        <div class="searchForm">
-            <input type="month" name="input-month" id="monthSearch" class="searchMonth">
-            <input type="submit" id="btnSearch" value="🔍︎">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">
+        <i class="fas fa-location-arrow"></i> 全聯 > DATA > Daily > <B>{{year}}年{{month}}月</B>
+    </h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET">
+                <div class="searchForm">
+                    <input type="month" name="input-month" id="monthSearch" class="bg-light border-1 searchMonth">
+                    <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                </div>
+            </form>
         </div>
-    </form>
-    <div class="dataGrid">
-        <table class="tableGrid" id="myTable">
-            <thead>
-                <tr id="thTr">
-                    <th><B>商品代號</B></th>
-                    <th><B>條碼</B></th>
-                    <th><B>品名</B></th>
-                </tr>
-            </thead>
-            <tbody id="tblbody">
-                <tr id="tdTr"></tr>
-                <tr id="tdTr2"></tr>
-                <tr id="tdTr3"></tr>
-                <tr id="tdTr4"></tr>
-                <tr id="tdTr5"></tr>
-                <tr id="tdTr6"></tr>
-                <tr id="tdTr7"></tr>
-            <tbody>
-        </table>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+            {% comment %} <div class="dataGrid"> {% endcomment %}
+                {% comment %} <table class="tableGrid" id="myTable"> {% endcomment %}
+                    <table class="table table-bordered tableGrid" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr id="thTr">
+                                <th class="bg-gradient-primary">商品代號</th>
+                                <th class="bg-gradient-primary">條碼</th>
+                                <th class="bg-gradient-primary">品名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="tdTr"></tr>
+                            <tr id="tdTr2"></tr>
+                            <tr id="tdTr3"></tr>
+                            <tr id="tdTr4"></tr>
+                            <tr id="tdTr5"></tr>
+                            <tr id="tdTr6"></tr>
+                            <tr id="tdTr7"></tr>
+                        <tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="input-group">
+                <input type="file" class="form-control" id="fileInput" name="fileInput">
+                <input type="submit" class="btn btn-primary" id="submitBtn" value="Upload File" disabled>
+            </div>
+        </form>  
     </div>
-    <form action="/csd/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="input-group">
-            <input type="file" class="form-control" id="fileInput" name="fileInput">
-            <input type="submit" class="btn btn-success btn-lg" id="submitBtn" value="Upload File" disabled>
-        </div>
-    </form>  
 {% else %}
     <meta http-equiv="refresh" content="0; url='/users/login'" />
 {% endif %}
 <script>
-    const monthData = "{{month}}";
+    const yearData = "{{year}}";
+    const monthData = "{{month|date:'mm'}}";
     const prd11530035Data = "{{prd11530035}}";
     const prd11060162Data = "{{prd11060162}}";
     const prd17010087Data = "{{prd17010087}}";

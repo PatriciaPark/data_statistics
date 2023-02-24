@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/csd.css' %}">
+<link rel="stylesheet" href="{% static 'css/loading.css' %}">
+<style type="text/css"></style>
+
+<div class="container">
+    {% if user.is_authenticated %}
+        <h3 class="menuTitle">2023年台灣</B></h3>
+        <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>이름</h4>
+              <span class="text-muted">어떤 내용</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>이름</h4>
+              <span class="text-muted">어떤 내용</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>이름</h4>
+              <span class="text-muted">어떤 내용</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>이름</h4>
+              <span class="text-muted">어떤 내용</span>
+            </div>
+        </div>
+
+
+
+        {% comment %} <div class="row">
+            <div class="col">연간목표</div>
+            <div class="col">연간진도율</div>
+            <div class="col">누계목표</div>
+            <div class="col">누계실적</div>
+            <div class="col">당월목표</div>
+        </div> {% endcomment %}
+        <hr>
+        <div class="row">
+            <div class="col-5 border-end">
+                <div class="row row-cols-1">
+                    <div class="col"><div class="badge bg-primary text-wrap mb-3" style="width: 6rem;"> 옆으로 막대 차트 asdfdsfdadfsdfff </div> {{plot5|safe}}</div>
+                    <div class="col">지도 차트{{plot6|safe}}</div>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    메인 차트
+                    <div class="col-9">{{plot1|safe}}</div>
+                    <div class="col-3">
+                        <div class="row row-cols">
+                            <div class="col">
+                                <form method="GET">
+                                    <div class="searchForm">
+                                        <input type="month" name="input-month" id="monthSearch" class="searchMonth">
+                                        <input type="submit" id="btnSearch" value="🔍︎">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form method="GET">
+                                    <div class="searchForm">
+                                        <input type="month" name="input-month" id="monthSearch" class="searchMonth">
+                                        <input type="submit" id="btnSearch" value="🔍︎">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form method="GET">
+                                    <div class="searchForm">
+                                        <input type="month" name="input-month" id="monthSearch" class="searchMonth">
+                                        <input type="submit" id="btnSearch" value="🔍︎">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <h2 class="sub-header">처리현황</h2>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead >
+                          <tr >
+                            <th style="color: #000000;">101101</th>
+                            <th style="color: #000000;">101101101101101</th>
+                            <th style="color: #000000;">101101101</th>
+                            <th style="color: #000000;">101101101</th>
+                            <th style="color: #000000;">101101101</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>101</td>
+                            <td>Lorem</td>
+                            <td>ipsum</td>
+                            <td>dolor</td>
+                            <td>dolor</td>
+                          </tr>
+                          <tr>
+                            <td>102</td>
+                            <td>amet</td>
+                            <td>consectetur</td>
+                            <td>adipiscing</td>
+                            <td>dolor</td>
+                          </tr>
+                          <tr>
+                            <td>103</td>
+                            <td>Integer</td>
+                            <td>nec</td>
+                            <td>odio</td>
+                            <td>dolor</td>
+                          </tr>
+                          <tr>
+                            <td>104</td>
+                            <td>dapibus</td>
+                            <td>diam</td>
+                            <td>Sed</td>
+                            <td>dolor</td>
+                          </tr>
+                          <tr>
+                            <td>105</td>
+                            <td>Nulla</td>
+                            <td>quis</td>
+                            <td>sem</td>
+                            <td>dolor</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        <meta http-equiv="refresh" content="0; url='/users/login'" />
+    {% endif %}
+</div>
+
+
+
+<script>
+    const monthData = "{{month}}";
+    const prd11530035Data = "{{prd11530035}}";
+    const prd11060162Data = "{{prd11060162}}";
+    const prd17010087Data = "{{prd17010087}}";
+    const prd17010088Data = "{{prd17010088}}";
+    const prd17010004Data = "{{prd17010004}}";
+    const prd17010002Data = "{{prd17010002}}";
+    const prdlistData = "{{prdlist}}";
+
+    // error message
+    {% for message in messages %}
+        alert("{{message}}");
+    {% endfor %}
+</script>
+<script src="{% static 'script/csd.js' %}"></script>
+{% endblock %}

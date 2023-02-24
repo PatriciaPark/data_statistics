@@ -16,11 +16,10 @@ def index(request):
     city = Store.objects.filter(str_loc=getloc).values('str_city').distinct().order_by('str_city')
     
     # read data
-    if getloc == 'all':
-        data = Store.objects.all().order_by('str_city')
-    elif getloc is not None and (getCity is None or getCity == 'all'):
+    # 지역만 선택
+    if getloc != 'all' and (getCity is None or getCity == 'all'):
         data = Store.objects.filter(str_loc=getloc).all().order_by('str_city')
-    elif getloc is not None and getCity is not None:
+    elif getloc != 'all' and getCity is not None:
         data = Store.objects.filter(str_loc=getloc, str_city=getCity).all().order_by('str_city')
     else:
         data = Store.objects.all().order_by('str_city')

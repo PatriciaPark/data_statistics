@@ -33,8 +33,7 @@ function defaultDate() {
 
 // 검색창 달력 데이터 업데이트한 달로 세팅
 function updatedDate() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
+    const currentYear = yearData;
     const currentMonth = monthData;
     const updatedMonth = currentYear + "-" + currentMonth;
     document.getElementById('monthSearch').value = updatedMonth;
@@ -65,10 +64,15 @@ function baseGrid() {
     // total/average th
     const thT = document.createElement('th');
     const thA = document.createElement('th');
+    // css를 위한 class 설정
+    thT.setAttribute("class", "bg-gradient-primary");
+    thA.setAttribute("class", "bg-gradient-primary");
 
     // 일자 출력
     for (hashDate = 0; hashDate < lastDate; hashDate++){
         let th = document.createElement('th');
+        // css를 위한 class 설정
+        th.setAttribute("class", "bg-gradient-primary");
         th.innerHTML = hashDate+1;
         thTr.append(th);
     }

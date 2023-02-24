@@ -1,0 +1,77 @@
+/* div css */
+.dataGrid {
+    float:left;
+    padding: 20px;
+    overflow-x: auto;
+}
+/* table grid */
+.tableGrid {
+    border-collapse: collapse;
+    border: 1px solid;
+}
+.tableGrid th {
+    top: 0;
+}
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    color: white;
+    text-align: center;
+}
+#datafield tr:hover {background-color: rgb(208, 237, 247);}
+/* data count */
+#pCount {
+    position:absolute; 
+    left: 25px;
+    margin-bottom: 0px;
+}
+/* popup css */
+/* New button */
+#btnNew {
+    text-decoration:none;
+    /* display: inline-block;
+    border-radius: 5px;
+    text-align:center;
+    line-height: 35px;
+    width: 70px;
+    border-style: solid;
+    background-color: orange; */
+    color: white;
+}
+/* 
+#btnNew:hover {background-color: lightslategray}
+#btnNew:active {
+    background-color: lightslategray;
+    box-shadow: 5px 5px 5px #666;
+    transform: translateY(2px);
+} */
+.wrap{
+    padding:10px;
+}
+
+.pop_wrap{
+    position:fixed; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    background:rgba(0,0,0,.5); 
+    font-size:0; 
+    text-align:center;
+}
+.pop_wrap:after{
+    display:inline-block; 
+    height:100%; 
+    vertical-align:middle; 
+    content:'';
+}
+.pop_wrap .pop_inner{
+    display:inline-block; 
+    padding:20px 30px; 
+    background:#fff;
+    vertical-align:middle; 
+    font-size:15px;
+}
