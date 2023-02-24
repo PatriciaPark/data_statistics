@@ -104,14 +104,17 @@ def index(request):
         targetQauntityPy = 1
     
     # 전상품 연간누적 판매량(또는 금액) = Monthly 판매량 합계
-    annualSum = list(sum11530035.values())[0] + list(sum11060162.values())[0] + list(sum17010087.values())[0] + list(sum17010088.values())[0] +list(sum17010004.values())[0] + list(sum17010002.values())[0]
-    # **제품이 추가될때마다 코드추가**
-    if annualSum is None:    
+    try:
+        annualSum = list(sum11530035.values())[0] + list(sum11060162.values())[0] + list(sum17010087.values())[0] + list(sum17010088.values())[0] +list(sum17010004.values())[0] + list(sum17010002.values())[0]
+    except:
         annualSum = 1
-    ## 전년도
-    annualSumPy = sum11530035py + sum11060162py + sum17010087py + sum17010088py + sum17010004py + sum17010002py
     # **제품이 추가될때마다 코드추가**
-    if annualSumPy is None:
+    
+    ## 전년도
+    try: 
+        annualSumPy = sum11530035py + sum11060162py + sum17010087py + sum17010088py + sum17010004py + sum17010002py
+    # **제품이 추가될때마다 코드추가**
+    except:
         annualSumPy = 1
     
     
