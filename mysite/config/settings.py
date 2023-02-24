@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-#g^i!=wf@4f*0zh5#=9hv)yt%*99w%$_26v!3m(16-lt^0c@#&
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['13.209.157.29']
+# ALLOWED_HOSTS = ['13.209.157.29']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -179,72 +180,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 # 로그아웃 성공 시 자동으로 이동할 URL
 LOGOUT_REDIRECT_URL = '/'
-
-# Logging for DEBUG = False
-LOGGING = {
-
-     'version': 1,
-
-     'disable_existing_loggers': False,
-
-     'formatters': {
-
-         'verbose': {
-
-             'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
-
-                        'pathname=%(pathname)s lineno=%(lineno)s ' +
-
-                        'funcname=%(funcName)s %(message)s'),
-
-             'datefmt': '%Y-%m-%d %H:%M:%S'
-
-         },
-
-         'simple': {
-
-             'format': '%(levelname)s %(message)s'
-
-         }
-
-     },
-
-     'handlers': {
-
-         'null': {
-
-             'level': 'DEBUG',
-
-             'class': 'logging.NullHandler',
-
-         },
-
-         'console': {
-
-             'level': 'DEBUG',
-
-             'class': 'logging.StreamHandler',
-
-             'formatter': 'verbose'
-
-         }
-
-     },
-
-     'loggers': {
-
-         'testlogger': {
-
-             'handlers': ['console'],
-
-             'level': 'INFO',
-
-         }
-
-     }
-
- }
-
-DEBUG_PROPAGATE_EXCEPTIONS = True
-
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
