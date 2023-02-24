@@ -27,7 +27,7 @@ function defaultDate() {
 
 // 검색창 달력 데이터 업데이트한 달로 세팅
 function updatedDate() {
-    const currentMonth = 0 + monthData;
+    const currentMonth = monthData;
     const updatedMonth = yearData + "-" + currentMonth;
     document.getElementById('monthSearch').value = updatedMonth;
 }
