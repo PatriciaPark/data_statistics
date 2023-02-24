@@ -2,7 +2,6 @@
 window.onload=function(){
     searchDaily();
     baseGrid();
-    localStorage.removeItem("user_selected_date");
 }
 
 // 파일 선택시에만 업로드 버튼 활성화
@@ -17,11 +16,6 @@ document.getElementById('submitBtn').onclick = function (e) {
     document.getElementById('loading-div').style.height = maskHeight + 'px';
 };
 
-// 달력 날짜 선택시 로컬스토리지 저장
-document.getElementById('monthSearch').addEventListener('input', function(event){
-    localStorage.setItem("user_selected_date", document.getElementById('monthSearch').value);
-});
-
 // 검색창 달력 현재 달로 디폴트 세팅
 function defaultDate() {
     const now = new Date();
@@ -33,23 +27,18 @@ function defaultDate() {
 
 // 검색창 달력 데이터 업데이트한 달로 세팅
 function updatedDate() {
-    const currentYear = yearData;
-    const currentMonth = monthData;
-    const updatedMonth = currentYear + "-" + currentMonth;
+    const currentMonth = 0 + monthData;
+    const updatedMonth = yearData + "-" + currentMonth;
     document.getElementById('monthSearch').value = updatedMonth;
 }
 
 // Search 버튼 클릭이벤트 - 월별 데일리 데이터 출력    
 function searchDaily() {
     // 검색창 달력 현재달/마지막선택달
-    if(!localStorage.getItem("user_selected_date")) {
-        if(!monthData) {
-            defaultDate();
-        } else {
-            updatedDate();
-        } 
+    if(!monthData) {
+        defaultDate();
     } else {
-        document.getElementById('monthSearch').value = localStorage.getItem("user_selected_date");
+        updatedDate();
     }
 }
 
