@@ -165,15 +165,16 @@
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Monthly Total Sales Summary (EA)</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><B class="text-info">[{{month}}月]</B> Monthly Total Sales Summary (EA)</h6>
                 
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <form method="GET" id="barForm">
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" id="monthSummary">
                             <div class="dropdown-header">Month:</div>
+                            <input type="hidden" name="input-year" id="monthSummaryYear">
                             <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary1" value="1">
                             <label class="dropdown-item form-check-label" for="monthSummary1">Jan</label>
                             <input class="dropdown-item form-check-input" type="radio" name="input-month" id="monthSummary2" value="2">
@@ -328,8 +329,13 @@
             <div class="card-body">
                 <h4 class="small font-weight-bold">正官庄活蔘28D高麗蔘活/力飲100ml*10瓶 
                     <span class="float-right">
-                        {{sum11530035b}}/{{targetQauntity11530035|default_if_none:1}}({{pct11530035|floatformat:2}}%)
-                        <B>[{{yoy11530035}}%]</B>
+                        {{sum11530035b}}/{{targetQauntity11530035|default_if_none:1}}
+                        {% if pct11530035 < 10 %}
+                        <B class="text-danger">({{pct11530035|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct11530035|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy11530035}}%]</i>
                     </span>
                 </h4>
                 <div class="progress mb-4">
@@ -338,8 +344,13 @@
 
                 <h4 class="small font-weight-bold">正官庄高麗蔘精EVERY/TIME-秘10ml*20入 
                     <span class="float-right">
-                        {{sum11060162b}}/{{targetQauntity11060162|default_if_none:1}}({{pct11060162|floatformat:2}}%)
-                        <B>[{{yoy11060162}}%]</B>
+                        {{sum11060162b}}/{{targetQauntity11060162|default_if_none:1}}
+                        {% if pct11060162 < 10 %}
+                        <B class="text-danger">({{pct11060162|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct11060162|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy11060162}}%]</i>
                     </span>
                 </h4>
                 <div class="progress mb-4">
@@ -348,8 +359,13 @@
 
                 <h4 class="small font-weight-bold">預購正官庄活蔘28D高麗/蔘活力飲禮盒100ml*8入 
                     <span class="float-right">
-                        {{sum17010087b}}/{{targetQauntity17010087|default_if_none:1}}({{pct17010087|floatformat:2}}%)
-                        <B>[{{yoy17010087}}%]</B>
+                        {{sum17010087b}}/{{targetQauntity17010087|default_if_none:1}}
+                        {% if pct17010087 < 10 %}
+                        <B class="text-danger">({{pct17010087|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct17010087|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy17010087}}%]</i>
                     </span>
                 </h4>
                 <div class="progress mb-4">
@@ -358,8 +374,13 @@
 
                 <h4 class="small font-weight-bold">預購正官庄高麗蔘石榴飲/50ml*9入 
                     <span class="float-right">
-                        {{sum17010088b}}/{{targetQauntity17010088|default_if_none:1}}({{pct17010088|floatformat:2}}%)
-                        <B>[{{yoy17010088}}%]</B>
+                        {{sum17010088b}}/{{targetQauntity17010088|default_if_none:1}}
+                        {% if pct17010088 < 10 %}
+                        <B class="text-danger">({{pct17010088|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct17010088|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy17010088}}%]</i>
                     </span>
                 </h4>
                 <div class="progress mb-4">
@@ -368,8 +389,13 @@
                 
                 <h4 class="small font-weight-bold">預購正官庄高麗蔘野櫻莓飲 
                     <span class="float-right">
-                        {{sum17010004b}}/{{targetQauntity17010004|default_if_none:1}}({{pct17010004|floatformat:2}}%)
-                        <B>[{{yoy17010004}}%]</B>
+                        {{sum17010004b}}/{{targetQauntity17010004|default_if_none:1}}
+                        {% if pct17010004 < 10 %}
+                        <B class="text-danger">({{pct17010004|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct17010004|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy17010004}}%]</i>
                     </span>
                 </h4>
                 <div class="progress mb-4">
@@ -378,8 +404,13 @@
 
                 <h4 class="small font-weight-bold">預購正官庄高麗蔘精EVERY/TIME10ml*30入 
                     <span class="float-right">
-                        {{sum17010002b}}/{{targetQauntity17010002|default_if_none:1}}({{pct17010002|floatformat:2}}%)
-                        <B>[{{yoy17010002}}%]</B>
+                        {{sum17010002b}}/{{targetQauntity17010002|default_if_none:1}}
+                        {% if pct17010002 < 10 %}
+                        <B class="text-danger">({{pct17010002|floatformat:2}}%)</B>
+                        {% else %}
+                        <B>({{pct17010002|floatformat:2}}%)</B>
+                        {% endif %}
+                        <i>[{{yoy17010002}}%]</i>
                     </span>
                 </h4>
                 <div class="progress">
@@ -440,8 +471,9 @@
 {% endif %}
 <script type="text/javascript">
     const year = "{{year}}";
+    const month = "{{month}}"
 
-    // 연간 전체 제품 판매량 (라인차트)
+    // 연간 전체 제품 판매량 (line chart)
     const sumSale01 = "{{sumSale01.sum_m_sale__sum|default_if_none:0}}";
     const sumSale02 = "{{sumSale02.sum_m_sale__sum|default_if_none:0}}";
     const sumSale03 = "{{sumSale03.sum_m_sale__sum|default_if_none:0}}";
@@ -455,7 +487,7 @@
     const sumSale11 = "{{sumSale11.sum_m_sale__sum|default_if_none:0}}";
     const sumSale12 = "{{sumSale12.sum_m_sale__sum|default_if_none:0}}";
 
-    // 전체 판매량 제품 비율 (donut 차트)
+    // 전체 판매량 제품 비율 (donut chart)
     const sum11530035 = "{{sum11530035.sum_m_sale__sum|default_if_none:0}}";
     const sum11060162 = "{{sum11060162.sum_m_sale__sum|default_if_none:0}}";
     const sum17010087 = "{{sum17010087.sum_m_sale__sum|default_if_none:0}}";
@@ -471,6 +503,14 @@
     const sumEas = "{{sumEas|default_if_none:0}}";
     const sumIsl = "{{sumIsl|default_if_none:0}}";
     let totalSum2 = Number(sumNor) + Number(sumMid) + Number(sumSou) + Number(sumEas) + Number(sumIsl);
+
+    // 월별 상품별 판매량 (bar chart)
+    const sum11530035m = "{{sum11530035m}}";
+    const sum11060162m = "{{sum11060162m}}";
+    const sum17010087m = "{{sum17010087m}}";
+    const sum17010088m = "{{sum17010088m}}";
+    const sum17010004m = "{{sum17010004m}}";
+    const sum17010002m = "{{sum17010002m}}";
 
 </script>
 <!-- Page level plugins -->

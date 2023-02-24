@@ -18,14 +18,17 @@ from django.db.models import Sum
 # index
 def index(request):
     # html에서 선택한 연도도 받아오기
-    try:
+    
+    try: 
         year = int(request.GET.get('input-year'))
-    except TypeError:
+    except:
         year = int(datetime.today().year)
 
     month = request.GET.get('input-month')
+    if month is None:
+        month = int(datetime.today().month)
     
-    print(month)
+    print(year, month)
 
     # 연간 전체 상품 판매량(라인차트)
     sumSale01 = SumMonthly.objects.filter(sum_m_date__year=year, sum_m_date__month=1).aggregate(Sum('sum_m_sale'))
@@ -44,7 +47,7 @@ def index(request):
     # 당해년도
     thisyear = datetime.today().year
     
-    context = {'thisyear':thisyear, 'year':year, 'sumSale01':sumSale01, 'sumSale02':sumSale02, 'sumSale03':sumSale03, 'sumSale04':sumSale04, 'sumSale05':sumSale05, 'sumSale06':sumSale06, 
+    context = {'thisyear':thisyear, 'year':year, 'month':month, 'sumSale01':sumSale01, 'sumSale02':sumSale02, 'sumSale03':sumSale03, 'sumSale04':sumSale04, 'sumSale05':sumSale05, 'sumSale06':sumSale06, 
                'sumSale07':sumSale07, 'sumSale08':sumSale08, 'sumSale09':sumSale09, 'sumSale10':sumSale10, 'sumSale11':sumSale11, 'sumSale12':sumSale12}
     
     
@@ -57,9 +60,17 @@ def index(request):
     sum17010002 = SumMonthly.objects.filter(prd_code = 17010002, sum_m_date__year=year).aggregate(Sum('sum_m_sale'))   #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
     # **제품이 추가될때마다 코드추가**    
     
-    context.update({'sum11530035':sum11530035, 'sum11060162':sum11060162, 'sum17010087':sum17010087, 'sum17010088':sum17010088, 
-                    'sum17010004':sum17010004, 'sum17010002':sum17010002})
+    context.update({'sum11530035':sum11530035, 'sum11060162':sum11060162, 'sum17010087':sum17010087, 'sum17010088':sum17010088, 'sum17010004':sum17010004, 'sum17010002':sum17010002})
     
+    # 월별 제품별 판매량 (바차트)
+    sum11530035m = list(SumMonthly.objects.filter(prd_code = 11530035, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
+    sum11060162m = list(SumMonthly.objects.filter(prd_code = 11060162, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
+    sum17010087m = list(SumMonthly.objects.filter(prd_code = 17010087, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
+    sum17010088m = list(SumMonthly.objects.filter(prd_code = 17010088, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
+    sum17010004m = list(SumMonthly.objects.filter(prd_code = 17010004, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #預購正官庄高麗蔘野櫻莓飲
+    sum17010002m = list(SumMonthly.objects.filter(prd_code = 17010002, sum_m_date__year=year, sum_m_date__month=month).aggregate(Sum('sum_m_sale')).values())[0]   #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
+    
+    context.update({'sum11530035m':sum11530035m, 'sum11060162m':sum11060162m, 'sum17010087m':sum17010087m, 'sum17010088m':sum17010088m, 'sum17010004m':sum17010004m, 'sum17010002m':sum17010002m})
     
     # 전년도 전체 판매량 (previous year)
     sum11530035py = list(SumMonthly.objects.filter(prd_code = 11530035, sum_m_date__year=year-1).aggregate(Sum('sum_m_sale')).values())[0]   #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
