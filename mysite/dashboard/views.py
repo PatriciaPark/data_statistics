@@ -2,15 +2,9 @@ from django.shortcuts import render, redirect
 from csd.models import *
 from django.contrib import messages
 from datetime import datetime
-from pandas import DataFrame
-# from .models import
-import pandas as pd
-from plotly.offline import plot
-import plotly.express as px
-from .forms import Product_selling_priceForm, Dashboard_Table_month_basicForm
+from .forms import Product_selling_priceForm
 from django.http import HttpResponseRedirect
-from .models import Dashboard_Table_month_basic, Product_selling_price
-from django.db.models import Q
+from .models import Dashboard_Table_month_basic
 from csm.models import SumMonthly
 from django.db.models import Sum
 
