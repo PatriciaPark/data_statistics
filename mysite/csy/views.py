@@ -23,7 +23,7 @@ def index(request):
     # set select box value
     loc = Store.objects.values('str_loc').distinct()
     city = Store.objects.filter(str_loc=getloc).values('str_city').distinct()
-    str = Store.objects.filter(str_loc=getloc, str_city=getCity).values('str_name')
+    str = Store.objects.filter(str_loc=getloc, str_city=getCity).values('str_name').order_by('str_name')
     
     # select box list
     product = Product.objects.all()
@@ -217,6 +217,6 @@ def select2(request):
     getCity = request.GET.get('city')
     
     # set select box value
-    store = Store.objects.filter(str_city=getCity).values('str_name','str_code').order_by('str_city')
+    store = Store.objects.filter(str_city=getCity).values('str_name','str_code').order_by('str_name')
     
     return JsonResponse({'data': list(store)})
