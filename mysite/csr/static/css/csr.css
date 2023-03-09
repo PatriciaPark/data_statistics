@@ -61,6 +61,8 @@ th {
     background:rgba(0,0,0,.5); 
     font-size:0; 
     text-align:center;
+    width: 100%;
+    overflow: auto;
 }
 .pop_wrap:after{
     display:inline-block; 
