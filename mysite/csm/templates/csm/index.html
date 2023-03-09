@@ -137,6 +137,7 @@
             </div>
         </div>
         <form action="/csm/upload/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <p id="pInput" class="text-danger">* 文件名必須等於 '全聯112-01'、'全聯112-02'等 </p>
             <div class="input-group">
                 <input type="file" class="form-control" id="fileInput" name="fileInput">
                 <input type="submit" class="btn btn-primary" id="submitBtn" value="Upload File" disabled>
@@ -148,7 +149,7 @@
 {% endif %}
 <script>
     const yearData = "{{year}}"
-    const monthData = "{{month|date:'mm'}}";
+    const monthData = "{{month}}";
     const prdData = "{{prdcode}}";
     const sortData = "{{sort}}";
 

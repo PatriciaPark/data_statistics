@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/prd.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% if user.is_authenticated %}
+<h1 class="h3 mb-4 text-gray-800">
+    <i class="fas fa-location-arrow"></i> 全聯 > Product > Management
+</h1>
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <form method="GET" id="selectForm">
+            <div class="searchForm">
+                <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
+                <button class="btn btn-info"><a href="#newPopup" class="btn_open" id="btnNew" style="text">New</a></button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="card shadow mb-4">
+        <p id="pCount">數據數 : {{data.count}} 條</p>
+        <div class="dataGrid">
+            <table class="tableGrid" id="myTable">
+                <thead class="sticky-element">
+                    <tr>
+                        <th class="bg-gradient-primary"><B>貨號</B></th>
+                        <th class="bg-gradient-primary"><B>條碼</B></th>
+                        <th class="bg-gradient-primary"><B>品名/規格</B></th>
+                    </tr>
+                </thead>
+                <tbody id="datafield">
+                    {% if data %}
+                    {% for data in data %}
+                    <tr>
+                        <td class="text-left">{{data.prd_code}}</td>
+                        <td class="text-left">{{data.prd_barcode}}</td>
+                        <td class="text-left">{{data.prd_name}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3"><B>No Data</B></td>
+                    </tr>
+                    {% endif %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+{% else %}
+<meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<script type="text/javascript">
+
+</script>
+<script src="{% static 'script/prd.js' %}"></script>
+{% endblock %}
