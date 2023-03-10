@@ -25,6 +25,12 @@ var myPieChart = new Chart(ctx, {
   },
   options: {
     maintainAspectRatio: false,
+    plugins: {
+      labels: {
+        fontColor: 'white',
+        fontStyle: 'bold',
+      }
+    },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
@@ -32,7 +38,7 @@ var myPieChart = new Chart(ctx, {
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
-      displayColors: false,
+      displayColors: true,
       caretPadding: 10,
       callbacks: {
         label: function(tooltipItem, data) {

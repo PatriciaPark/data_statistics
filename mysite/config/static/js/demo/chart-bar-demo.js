@@ -43,6 +43,11 @@ var myBarChart = new Chart(ctx, {
   },
   options: {
     maintainAspectRatio: false,
+    plugins: {
+      labels: {
+        render: 'value',
+      }
+    },
     layout: {
       padding: {
         left: 10,
