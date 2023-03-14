@@ -30,6 +30,8 @@ var myPieChart = new Chart(ctx, {
       labels: {
         fontColor: 'white',
         fontStyle: 'bold',
+        overlap: false,
+        showActualPercentages: true,
       }
     },
     tooltips: {
