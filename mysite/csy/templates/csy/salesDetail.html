@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/csy.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+ 
+</style>
+{% if user.is_authenticated %}
+    <h1 class="h3 mb-4 text-gray-800">
+        <i class="fas fa-location-arrow"></i> 全聯 > DATA > Yearly by Month > Sales Detail > <B>{{prdname.0|cut:' '}}</B>
+    </h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <form method="GET" id="selectForm">
+                <div class="searchForm">
+                    <input type="number" id="yearSearch" name="input-year" min="2000" max="2099" step="1" class="select"/>
+                    {% comment %} select box (location-city-store) {% endcomment %}
+                    <select name="add-loc" id="selectAddLoc" class="select">
+                        <option value="all" selected>Location</option>
+                        {% for loc in loc %}
+                        <option value="{{loc.str_loc}}">{{loc.str_loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="add-city" id="selectAddCity" class="select">
+                        <option value="all" selected>City</option>
+                        {% for city in city %}
+                        <option value="{{city.str_city}}">{{city.str_city}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="add-str" id="selectAddStr" class="select">
+                        <option value="all" selected>Store</option>
+                        {% for str in str %}
+                        <option value="{{str.str_name}}">{{str.str_name}}</option>
+                        {% endfor %}
+                    </select>
+                    {% comment %} select box (product list) {% endcomment %}
+                    <select name="input-prd" id="selectSearch" class="select" onChange="selectedPrd()">
+                        {% for prd in product %}
+                        <option value="{{prd.prd_code}}">{{prd.prd_name|cut:' '}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                    <input type="reset" id="btnReset" value="Reset" class="btn btn-secondary" onclick="resetForm()">
+                    <input type="button" class="btn btn-success" value="📥Excel" onclick="fnExceldown('myTable','yearlyByMonth');">
+                </div>
+            </form>
+        </div>
+        <div class="card shadow mb-4">
+            <p id="pCount"> &nbsp </p>
+            <div class="dataGrid">
+                <table class="tableGrid" id="myTable">
+                    <thead class="sticky-element">
+                        <tr>
+                            <th class="bg-gradient-primary"><B>門市代號</B></th>
+                            <th class="bg-gradient-primary"><B>縣市</B></th>
+                            <th class="bg-gradient-primary"><B>門市名稱</B></th>
+                            <th class="bg-gradient-primary"><B>1月</B></th>
+                            <th class="bg-gradient-primary"><B>2月</B></th>
+                            <th class="bg-gradient-primary"><B>3月</B></th>
+                            <th class="bg-gradient-primary"><B>4月</B></th>
+                            <th class="bg-gradient-primary"><B>5月</B></th>
+                            <th class="bg-gradient-primary"><B>6月</B></th>
+                            <th class="bg-gradient-primary"><B>7月</B></th>
+                            <th class="bg-gradient-primary"><B>8月</B></th>
+                            <th class="bg-gradient-primary"><B>9月</B></th>
+                            <th class="bg-gradient-primary"><B>10月</B></th>
+                            <th class="bg-gradient-primary"><B>11月</B></th>
+                            <th class="bg-gradient-primary"><B>12月</B></th>
+                        </tr>
+                    </thead>
+                    <tbody id="datafield">
+                        {% if saleJan %}
+                        <tr>
+                            <td colspan="3"><B>Total</B></td>
+                            {% comment %} 월별 판매 총합 {% endcomment %}
+                            <td style="color:blue"><B>{{totalsaleJan.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleFeb.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleMar.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleApr.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleMay.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleJun.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleJul.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleAug.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleSep.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleOct.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleNov.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                            <td style="color:blue"><B>{{totalsaleDec.inv_d_sale__sum|default_if_none:'0'}}</B></td>
+                        </tr>
+                        {% for saleJan in saleJan %}
+                        <tr>
+                            <td>{{saleJan.str_code}}</td>
+                            <td>{{saleJan.str_code__str_city}}</td>
+                            <td>{{saleJan.str_code__str_name}}</td>
+                            {% comment %} 월별 판매 합 {% endcomment %}
+                            {% with i=forloop.counter0 %}
+                            {% load index %}
+                                {% with  saleJan|index:i as sale1 %}
+                                <td style="color:blue">{{sale1.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleFeb|index:i as sale2 %}
+                                <td style="color:blue">{{sale2.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleMar|index:i as sale3 %}
+                                <td style="color:blue">{{sale3.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleApr|index:i as sale4 %}
+                                <td style="color:blue">{{sale4.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleMay|index:i as sale5 %}
+                                <td style="color:blue">{{sale5.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleJun|index:i as sale6 %}
+                                <td style="color:blue">{{sale6.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleJul|index:i as sale7 %}
+                                <td style="color:blue">{{sale7.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleAug|index:i as sale8 %}
+                                <td style="color:blue">{{sale8.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleSep|index:i as sale9 %}
+                                <td style="color:blue">{{sale9.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleOct|index:i as sale10 %}
+                                <td style="color:blue">{{sale10.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleNov|index:i as sale11 %}
+                                <td style="color:blue">{{sale11.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                                {% with  saleDec|index:i as sale12 %}
+                                <td style="color:blue">{{sale12.inv_d_sale__sum|default:'0'}}</td>
+                                {% endwith %}
+                            {% endwith %}
+                        </tr>
+                        {% endfor %}
+                        
+                        {% else %}
+                        <tr>
+                            <td colspan="22"><B>No Data</B></td>
+                        </tr>
+                        {% endif %}
+                    <tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<script type="text/javascript">
+    const yearDate = "{{yearDate}}";
+    const prdData = "{{prdcode}}";
+</script>
+<script src="{% static 'script/csy.js' %}"></script>
+{% endblock %}

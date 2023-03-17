@@ -10,7 +10,7 @@ from django.db.models import Sum
 from datetime import datetime
 from pandas import DataFrame
 import openpyxl, calendar
-
+from django.db import connection
 
 # index
 def index(request):
@@ -287,6 +287,8 @@ def index(request):
             except:
                 ttlSumDl = '-'
                 ttlerr   = '-'
+    
+    print(connection.queries)
             
     # html 화면에 출력할 데이터 담을 리스트                    
     context = {'product':product, 'year':year, 'month':month, 'monthData':monthData, 'prdcode':prdcode, 'sort':sort, 'loc':loc, 'city':city, 'str':str,
