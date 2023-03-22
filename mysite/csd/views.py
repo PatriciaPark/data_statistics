@@ -86,6 +86,9 @@ def upload(request):
             d_sale  = wb.worksheets[i]['I4'].value
             d_stock = wb.worksheets[i]['J4'].value            
             
+            # InvoiceMonthly 기존 데이터 삭제 (해당 월의 마지막일자 데이터)
+            InvoiceMonthly.objects.filter(inv_m_date=fromdate_time_obj).all().delete()
+            
             # 데이터 DB 저장            
             product, store = 0, 0
             for dbframe in df.itertuples():
@@ -140,6 +143,28 @@ def upload(request):
                     }
                 )
                 obj.save()
+                
+                
+                
+                # 월의 마지막 일자 데이터 저장
+                if len(sheetname) == (i+1):
+                    obj_m, created = InvoiceMonthly.objects.update_or_create(
+                        inv_m_date  = fromdate_time_obj,
+                        prd_code    = product,
+                        str_code    = store,
+                        defaults={
+                            'inv_m_date'  : fromdate_time_obj,
+                            'inv_m_save'  : dbframe.上存量,
+                            'inv_m_buy'   : dbframe.進貨量,
+                            'inv_m_return': dbframe.退貨量,
+                            'inv_m_sale'  : dbframe.銷貨量,
+                            'inv_m_stock' : dbframe.庫存量,
+                            'prd_code'    : product,
+                            'str_code'    : store
+                        }
+                    )
+                    obj_m.save()
+                    
                 
                 
             # Save sum data to DB (tbl_sum_d)

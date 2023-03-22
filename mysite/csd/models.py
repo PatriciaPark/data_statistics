@@ -58,24 +58,29 @@ class InvoiceDaily(models.Model):
 
     objects = models.Manager()
 
-# 데이터 테이블    
-class DataDaily(models.Model):
-    data_code = models.BigAutoField(primary_key=True)
-    register_date = models.DateTimeField(auto_now_add = True)
-    updated_date = models.DateTimeField(auto_now=True)
-    data_path = models.FileField(upload_to='files/%Y%m%d/')
-    data_name = models.CharField(max_length = 200)
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+# 주문테이블(데일리의 마지막 일자 데이터 = 그 달의 데이터 합)
+class InvoiceMonthly(models.Model):
+    inv_m_code = models.BigAutoField(primary_key=True)
+    inv_m_date = models.DateField( null=False, blank=False)
+    inv_m_save = models.IntegerField(null=True, blank=True)
+    inv_m_buy = models.IntegerField(null=True, blank=True)
+    inv_m_return = models.IntegerField(null=True, blank=True)
+    inv_m_sale = models.IntegerField(null=True, blank=True)
+    inv_m_stock = models.IntegerField(null=True, blank=True)
     prd_code = models.ForeignKey(Product, null=True, on_delete = models.SET_NULL)
     str_code = models.ForeignKey(Store, null=True, on_delete = models.SET_NULL)
 
     def __str__(self):
-        return f'[{self.data_name}] [{self.user_id}] [updated at: {self.updated_date}]'
+        return "%s %s %s %s %s %s %s %s %s %s %s" % (self.inv_m_date, self.prd_code, self.prd_code.prd_name,
+                                            self.str_code, self.str_code.str_name, self.str_code.str_city,
+                                            self.inv_m_save, self.inv_m_buy, self.inv_m_return, self.inv_m_sale, self.inv_m_stock)
 
     class Meta:
-        db_table = 'tbl_data_d'
-        verbose_name = 'Daily Data Master'
-        verbose_name_plural = 'Daily Data Master'
+        db_table = 'tbl_invoice_m'
+        verbose_name = 'Monthly Invoice Master'
+        verbose_name_plural = 'Monthly Invoice Master'
+
+    objects = models.Manager()
 
 # 합계 테이블 (데일리)
 class SumDaily(models.Model):

@@ -84,9 +84,9 @@
                         {% if data %}
                         <tr>
                             <td colspan="3"><B>Total</B></td>
-                            <td><B>{{totaldata.inv_d_save__sum}}</B></td>
-                            <td><B>{{totaldata.inv_d_buy__sum}}</B></td>
-                            <td><B>{{totaldata.inv_d_return__sum}}</B></td>
+                            <td><B>{{totaldata.inv_m_save__sum}}</B></td>
+                            <td><B>{{totaldata.inv_m_buy__sum}}</B></td>
+                            <td><B>{{totaldata.inv_m_return__sum}}</B></td>
                             {% comment %} 월별 판매 총합 {% endcomment %}
                             <td style="color:blue"><B class="row_value">{{totalsaleJan.inv_d_sale__sum|default_if_none:'0'}}</B></td>
                             <td style="color:blue"><B class="row_value">{{totalsaleFeb.inv_d_sale__sum|default_if_none:'0'}}</B></td>
@@ -101,20 +101,20 @@
                             <td style="color:blue"><B class="row_value">{{totalsaleNov.inv_d_sale__sum|default_if_none:'0'}}</B></td>
                             <td style="color:blue"><B class="row_value">{{totalsaleDec.inv_d_sale__sum|default_if_none:'0'}}</B></td>
                             {% comment %} 판매, 재고, 월평균, 월재고 {% endcomment %}
-                            <td><B class="row_sum"></B></td>
-                            <td><B>{{totaldata.inv_d_stock__sum}}</B></td>
-                            <td><B>{% widthratio totaldata.inv_d_sale__sum 12 1 %}</B></td>
-                            <input type="hidden" value="{% widthratio totaldata.inv_d_sale__sum 12 1 as monAvg %}">
-                            <td><B>{% widthratio totaldata.inv_d_stock__sum monAvg 1 %}</B></td>
+                            <td><B>{{totaldata.inv_m_sale__sum}}</B></td>
+                            <td><B>{{totaldata.inv_m_stock__sum}}</B></td>
+                            <td><B>{% widthratio totaldata.inv_m_sale__sum 12 1 %}</B></td>
+                            <input type="hidden" value="{% widthratio totaldata.inv_m_sale__sum 12 1 as monAvg %}">
+                            <td><B>{% widthratio totaldata.inv_m_stock__sum monAvg 1 %}</B></td>
                         </tr>
                         {% for data in data %}
                         <tr>
                             <td>{{data.str_code}}</td>
                             <td>{{data.str_code__str_city}}</td>
                             <td>{{data.str_code__str_name}}</td>
-                            <td>{{data.inv_d_save__sum}}</td>
-                            <td>{{data.inv_d_buy__sum}}</td>
-                            <td>{{data.inv_d_return__sum}}</td>
+                            <td>{{data.inv_m_save__sum}}</td>
+                            <td>{{data.inv_m_buy__sum}}</td>
+                            <td>{{data.inv_m_return__sum}}</td>
                             {% comment %} 월별 판매 합 {% endcomment %}
                             {% with i=forloop.counter0 %}
                             {% load index %}
@@ -155,11 +155,12 @@
                                 <td style="color:blue" class="row_value2">{{sale12.inv_d_sale__sum|default:'0'}}</td>
                                 {% endwith %}
                             {% endwith %}
-                            <td class="row_sum2"></td>
-                            <td>{{data.inv_d_stock__sum}}</td>
-                            <td>{% widthratio data.inv_d_sale__sum 12 1 %}</td>
-                            <input type="hidden" value="{% widthratio data.inv_d_sale__sum 12 1 as monAvg %}">
-                            <td>{% widthratio data.inv_d_stock__sum monAvg 1 %}</td>
+                            <td>{{data.inv_m_sale__sum}}</td>
+                            <td>{{data.inv_m_stock__sum}}</td>
+                            <td>{{data.inv_m_sale__sum|div:12}}</td>
+                            <input type="hidden" value="{% with data.inv_m_sale__sum|div:12 as monAvg %}">
+                            <td>{{data.inv_m_stock__sum|div:monAvg}}</td>
+                            {% endwith %}
                         </tr>
                         {% endfor %}
                         
