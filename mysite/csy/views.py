@@ -86,9 +86,9 @@ def index(request):
     # 지역만 선택
     if getloc != 'all' and (getCity is None or getCity == 'all') and (getStore is None or getStore == 'all'):
         # 데이터
-        data = InvoiceDaily.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        data = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 최상단 총합계 데이터
-        totaldata = InvoiceDaily.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        totaldata = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 월별 판매 데이터
         saleJan = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=1, inv_d_date__day=last_day_jan).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
         saleFeb = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=2, inv_d_date__day=last_day_feb).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
@@ -119,9 +119,9 @@ def index(request):
     # 지역 및 시까지 선택
     elif getloc != 'all' and getCity is not None and (getStore is None or getStore == 'all'):
         # 데이터
-        data = InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        data = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 최상단 총합계 데이터
-        totaldata = InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        totaldata = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 월별 판매 데이터
         saleJan = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=1, inv_d_date__day=last_day_jan).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
         saleFeb = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=2, inv_d_date__day=last_day_feb).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
@@ -152,9 +152,9 @@ def index(request):
     #지역, 시, 매장 선택
     elif getloc != 'all' and getCity is not None and getStore is not None:
         # 데이터
-        data = InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        data = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 최상단 총합계 데이터
-        totaldata = InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_d_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_d_save'),Sum('inv_d_buy'),Sum('inv_d_return'),Sum('inv_d_sale'),Sum('inv_d_stock'))
+        totaldata = InvoiceMonthly.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').aggregate(Sum('inv_m_save'),Sum('inv_m_buy'),Sum('inv_m_return'),Sum('inv_m_sale'),Sum('inv_m_stock'))
         # 월별 판매 데이터
         saleJan = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=1, inv_d_date__day=last_day_jan).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
         saleFeb = list(InvoiceDaily.objects.filter(str_code__str_loc=getloc, str_code__str_city=getCity, str_code__str_name=getStore, prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=2, inv_d_date__day=last_day_feb).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_d_sale')))
