@@ -37,7 +37,7 @@ class Store(models.Model):
 # 주문테이블(데일리)
 class InvoiceDaily(models.Model):
     inv_d_code = models.BigAutoField(primary_key=True)
-    inv_d_date = models.DateField( null=False, blank=False)
+    inv_d_date = models.DateField(null=False, blank=False)
     inv_d_save = models.IntegerField(null=True, blank=True)
     inv_d_buy = models.IntegerField(null=True, blank=True)
     inv_d_return = models.IntegerField(null=True, blank=True)
