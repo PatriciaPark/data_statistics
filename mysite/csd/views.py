@@ -22,15 +22,15 @@ def index(request):
         month = datetime.today().strftime('%m')
 
     # DB에서 상품별 합계 데이터 받아오기
-    prd11530035 = list(SumDaily.objects.filter(prd_code = 11530035, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
-    prd11060162 = list(SumDaily.objects.filter(prd_code = 11060162, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
-    prd17010087 = list(SumDaily.objects.filter(prd_code = 17010087, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
-    prd17010088 = list(SumDaily.objects.filter(prd_code = 17010088, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
-    prd17010004 = list(SumDaily.objects.filter(prd_code = 17010004, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘野櫻莓飲
-    prd17010002 = list(SumDaily.objects.filter(prd_code = 17010002, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
-    prdlist     = list(SumDaily.objects.filter(prd_code = 12345678, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date'))
+    prd11530035 = list(SumDaily.objects.filter(prd_code=int(11530035), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
+    prd11060162 = list(SumDaily.objects.filter(prd_code=int(11060162), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
+    prd17010087 = list(SumDaily.objects.filter(prd_code=int(17010087), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
+    prd17010088 = list(SumDaily.objects.filter(prd_code=int(17010088), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
+    prd17010004 = list(SumDaily.objects.filter(prd_code=int(17010004), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘野櫻莓飲
+    prd17010002 = list(SumDaily.objects.filter(prd_code=int(17010002), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
+    prdlist     = list(SumDaily.objects.filter(prd_code=int(12345678), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date'))
     
-    # print('###prd11530035 ',SumDaily.objects.filter(prd_code = 11530035, sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date').query)
+    # print('###prd11060162 ',prd11060162)
     
     # html 화면에 출력할 데이터 담을 리스트                    
     context = {'year':year, 'month':month, 'prdlist':prdlist, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
@@ -80,15 +80,14 @@ def upload(request):
             print("***Updated... ",fromdate_time_obj)
             
             # 엑셀 합계 데이터 들어있는 셀 읽어오기 (F4~J4)
-            d_save  = wb.worksheets[i]['F4'].value
-            d_buy   = wb.worksheets[i]['G4'].value
-            d_return= wb.worksheets[i]['H4'].value
-            d_sale  = wb.worksheets[i]['I4'].value
-            d_stock = wb.worksheets[i]['J4'].value
+            d_save  = int(wb.worksheets[i]['F4'].value)
+            d_buy   = int(wb.worksheets[i]['G4'].value)
+            d_return= int(wb.worksheets[i]['H4'].value)
+            d_sale  = int(wb.worksheets[i]['I4'].value)
+            d_stock = int(wb.worksheets[i]['J4'].value)
             
-            prd_code = wb.worksheets[i]['C6'].value
-            
-            # InvoiceMonthly 기존 데이터 삭제 (해당 월의 마지막일자 데이터)
+            # InvoiceMonthly 기존 데이터 삭제 (해당 월의 마지막일자 데이터=해당 월의 총합 데이터)
+            prd_code = int(wb.worksheets[i]['C6'].value)
             InvoiceMonthly.objects.filter(inv_m_date=fromdate_time_obj, prd_code=prd_code).all().delete()
             
             # 데이터 DB 저장            
@@ -96,12 +95,12 @@ def upload(request):
             for dbframe in df.itertuples():
                 # Get or Save prd data to DB (tbl_product)
                 try:
-                    product = Product.objects.get(prd_code = str(dbframe.貨號))
+                    product = Product.objects.get(prd_code = prd_code)
                 except ObjectDoesNotExist:
                     try:
                         product = Product.objects.create(
-                            prd_code = str(dbframe.貨號),
-                            prd_barcode = str(dbframe.條碼),
+                            prd_code = prd_code,
+                            prd_barcode = int(dbframe.條碼),
                             prd_name = dbframe._5
                         )
                         product.save()
@@ -110,12 +109,12 @@ def upload(request):
                 
                 # Get or Save str data to DB (tbl_store)    
                 try:
-                    store = Store.objects.get(str_code = str(dbframe.門市代號))
+                    store = Store.objects.get(str_code = int(dbframe.門市代號))
                 except ObjectDoesNotExist:
                     try:
                         store = Store.objects.create(
-                            str_code = dbframe.門市代號,
-                            str_name = dbframe.門市名稱
+                            str_code = int(dbframe.門市代號),
+                            str_name = str(dbframe.門市名稱)
                         )
                         store.save()
                     except IntegrityError:
@@ -128,7 +127,6 @@ def upload(request):
                 # 실제 데이터 = 당일자 데이터 - 전일자 데이터
                 
                 # 데이터 저장
-                
                 obj, created = InvoiceDaily.objects.update_or_create(
                     inv_d_date  = fromdate_time_obj,
                     prd_code    = product,
@@ -145,6 +143,7 @@ def upload(request):
                     }
                 )
                 obj.save()
+                print(fromdate_time_obj,store,dbframe.上存量)
                 
                 # 월의 마지막 일자 데이터 저장
                 if len(sheetname) == (i+1):
