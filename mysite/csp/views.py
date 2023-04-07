@@ -207,158 +207,149 @@ def index(request):
     else:
         # 데이터
         data = InvoiceMonthly.objects.filter(prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_m_sale'))
-        
+
+        saleData1231 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1229 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=29).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0112 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=12).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0131 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0202 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0216 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=16).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0228 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=28).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0302 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0316 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=16).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0331 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0406 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=4, inv_d_date__day=6).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0420 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=4, inv_d_date__day=20).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0430 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=4, inv_d_date__day=30).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0504 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=5, inv_d_date__day=4).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0518 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=5, inv_d_date__day=18).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0531 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=5, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0601 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=6, inv_d_date__day=1).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0615 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=6, inv_d_date__day=15).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0630 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=6, inv_d_date__day=30).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0706 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=7, inv_d_date__day=6).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0720 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=7, inv_d_date__day=20).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0731 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=7, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0810 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=8, inv_d_date__day=10).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0824 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=8, inv_d_date__day=24).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0831 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=8, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0907 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=9, inv_d_date__day=7).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0921 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=9, inv_d_date__day=21).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0930 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=9, inv_d_date__day=30).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1005 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=10, inv_d_date__day=5).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1019 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=10, inv_d_date__day=19).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1031 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=10, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1102 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=11, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1123 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=11, inv_d_date__day=23).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1130 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=11, inv_d_date__day=30).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1207 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=12, inv_d_date__day=7).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1221 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=12, inv_d_date__day=21).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1231 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=12, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData0104 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)+1, inv_d_date__month=1, inv_d_date__day=4).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
         
         # 월/일자 리스트 (38개)
-        px_month = [12, 12,  1, 1,  2,  2, 2,  3, 3,  3,  4,  4,  4, 5,  5,  5, 6,  6,  6, 7,  7, 7,  8,  8,   8, 9, 9,   9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 1]
-        px_date  = [31, 29, 12, 31, 2, 16, 28, 2, 16, 31, 6, 20, 30, 4, 18, 31, 1, 15, 30, 6, 20, 31, 10, 24, 31, 7, 21, 30,  5, 19, 31,  2, 23, 30, 7,  21, 31, 4]
+        # px_month = [12, 12,  1, 1,  2,  2, 2,  3, 3,  3,  4,  4,  4, 5,  5,  5, 6,  6,  6, 7,  7, 7,  8,  8,   8, 9, 9,   9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 1]
+        # px_date  = [31, 29, 12, 31, 2, 16, 28, 2, 16, 31, 6, 20, 30, 4, 18, 31, 1, 15, 30, 6, 20, 31, 10, 24, 31, 7, 21, 30,  5, 19, 31,  2, 23, 30, 7,  21, 31, 4]
         
-        for i in range(0,25):
-            saleData = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
+        # for i in range(0,25):
+        #     if i == 0 | i == 1:
+        #         saleData0 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
+        #     if i > 2 & i < 37:
+        #         saleData1 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
+        #     if i == 37:
+        #         saleData2 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)+1, inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
         
+    # 12/30-1/12
+    saleJan_  = [j-k for j,k in zip(saleData1231,saleData1229)]
+    [l+m for l,m in zip(saleJan_,saleData0112)]
+    saleJan   = saleJan_ + saleData0112
+    # 1/13-2/2
+    saleJan2_ = [j-k for j,k in zip(saleData0131,saleData0112)]
+    saleJan2  = [l+m for l,m in zip(saleJan2_,saleData0202)]
+    # 2/3-2/16
+    saleFeb   = [j-k for j,k in zip(saleData0216,saleData0202)]
+    # 2/17-3/2
+    saleFeb2_ = [j-k for j,k in zip(saleData0228,saleData0216)]
+    saleFeb2  = [l+m for l,m in zip(saleFeb2_,saleData0302)]
+    # 3/3-3/16
+    saleMar   = [j-k for j,k in zip(saleData0316,saleData0302)]
+    # 3/17-4/6
+    saleMar2_ = [j-k for j,k in zip(saleData0331,saleData0316)]
+    saleMar2  = [l+m for l,m in zip(saleMar2_,saleData0406)]
+    # 4/7-4/20
+    saleApr   = [j-k for j,k in zip(saleData0420,saleData0406)]
+    # 4/21-5/4
+    saleApr2_ = [j-k for j,k in zip(saleData0430,saleData0420)]
+    saleApr2  = [l+m for l,m in zip(saleApr2_,saleData0504)]
+    # 5/5-5/18
+    saleMay   = [j-k for j,k in zip(saleData0518,saleData0504)]
+    # 5/19-6/1
+    saleMay2_ = [j-k for j,k in zip(saleData0531,saleData0518)]
+    saleMay2  = [l+m for l,m in zip(saleMay2_,saleData0601)]
+    # 6/2-6/15
+    saleJun   = [j-k for j,k in zip(saleData0615,saleData0601)]
+    # 6/16-7/6
+    saleJun2_ = [j-k for j,k in zip(saleData0630,saleData0615)]
+    saleJun2  = [l+m for l,m in zip(saleJun2_,saleData0706)]
+    # 7/7-7/20
+    saleJul   = [j-k for j,k in zip(saleData0720,saleData0706)]
+    # 7/21-8/10
+    saleJul2_ = [j-k for j,k in zip(saleData0731,saleData0720)]
+    saleJul2  = [l+m for l,m in zip(saleJul2_,saleData0810)]
+    # 8/11-8/24
+    saleAug   = [j-k for j,k in zip(saleData0824,saleData0810)]
+    # 8/25-9/7
+    saleAug2_ = [j-k for j,k in zip(saleData0831,saleData0824)]
+    saleAug2  = [l+m for l,m in zip(saleAug2_,saleData0907)]
+    # 9/8-9/21
+    saleSep   = [j-k for j,k in zip(saleData0921,saleData0907)]
+    # 9/22-10/5
+    saleSep2_ = [j-k for j,k in zip(saleData0930,saleData0921)]
+    saleSep2  = [l+m for l,m in zip(saleSep2_,saleData1005)]
+    # 10/6-10/19
+    saleOct   = [j-k for j,k in zip(saleData1019,saleData1005)]
+    # 10/20-11/2
+    saleOct2_ = [j-k for j,k in zip(saleData1031,saleData1019)]
+    saleOct2  = [l+m for l,m in zip(saleOct2_,saleData1102)]
+    # 11/3-11/23
+    saleNov   = [j-k for j,k in zip(saleData1123,saleData1102)]
+    # 11/24-12/7
+    saleNov2_ = [j-k for j,k in zip(saleData1130,saleData1123)]
+    saleNov2  = [l+m for l,m in zip(saleNov2_,saleData1207)]
+    # 12/8-12/21
+    saleDec   = [j-k for j,k in zip(saleData1221,saleData1207)]
+    # 12/22-1/4
+    saleDec2_ = [j-k for j,k in zip(saleData1231,saleData1221)]
+    saleDec2  = [l+m for l,m in zip(saleDec2_,saleData0104)]
+           
         
-        
-        
-        saleData1231 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData1229 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=29).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0112 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=12).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0131 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0202 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0216 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=16).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0228 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=28).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0302 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0316 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=16).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0331 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=3, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        saleData0406 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=4, inv_d_date__day=6).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-        
-        # 12/30-1/12
-        saleJan_ = [j-k for j,k in zip(saleData1231,saleData1229)]
-        [l+m for l,m in zip(saleJan_,saleData0112)]    
-        saleJan = saleJan_ + saleData0112
-        # 1/13-2/2
-        saleJan2_ = [j-k for j,k in zip(saleData0131,saleData0112)]
-        [l+m for l,m in zip(saleJan2_,saleData0202)]
-        saleJan2 = saleJan2_ + saleData0202
-        # 2/3-2/16
-        saleFeb = [j-k for j,k in zip(saleData0216,saleData0202)]
-        # 2/17-3/2
-        saleFeb2_ = [j-k for j,k in zip(saleData0228,saleData0216)]
-        [l+m for l,m in zip(saleFeb2_,saleData0302)]
-        saleFeb2 = saleFeb2_ + saleData0302
-        # 3/3-3/16
-        saleMar = [j-k for j,k in zip(saleData0316,saleData0302)]
-        # 3/17-4/6
-        saleMar2_ = [j-k for j,k in zip(saleData0331,saleData0316)]
-        [l+m for l,m in zip(saleMar2_,saleData0406)]
-        saleMar2 = saleMar2_ + saleData0406
-        
-        for i in range(0, 25):
-            # 월/일자 리스트 (24개)
-            px_month = [12, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12, 1]
-            px_date = [30, 12, 13, 2, 3, 16, 17, 2, 3, 16, 17, 6, 7, 20, 21, 4, 5, 18, 19, 1, 2, 15, 16, 6, 7, 20, 21, 10, 11, 24, 25, 7, 8, 21, 22, 5, 6, 19, 20, 2, 3, 23, 24, 7, 8, 21, 22, 4]
-            # 1-1월
-            saleData0 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            saleData1 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=px_month[i+1], inv_d_date__day=px_date[i+1]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            # 1-2~12-1월
-            saleData2 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=px_month[2*i-2], inv_d_date__day=px_date[2*i-2]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            saleData3 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=px_month[2*i-1], inv_d_date__day=px_date[2*i-1]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            saleData4 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=px_month[2*i-3], inv_d_date__day=px_date[2*i-3]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            #12-2월
-            saleData32 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)+1, inv_d_date__month=px_month[2*i-1], inv_d_date__day=px_date[2*i-1]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
-            
-            
-            # saleJan,saleJan2,saleFeb,saleFeb2,saleMar,saleMar2,saleApr,saleApr2,saleMay,saleMay2,saleJun,saleJun2 = [],[],[],[],[],[],[],[],[],[],[],[]
-            # saleJul,saleJul2,saleAug,saleAug2,saleSep,saleSep2,saleOct,saleOct2,saleNov,saleNov2,saleDec,saleDec2 = [],[],[],[],[],[],[],[],[],[],[],[]
-            
-            # (1-1)월
-                
-                
-            if i > 1:
-                # (1-2)~(12-1)월                
-                [l+m for l,m in zip(saleData2,saleData3)]    
-                saledataSum3 = saleData2 + saleData3                        
-                saledataSum4 = [n-o for n,o in zip(saledataSum3,saleData4)] 
-                # (12-2)월
-                [p-q for p,q in zip(saleData2,saleData32)]
-                saledataSum2 = saleData2 + saleData32
-                saledataSum5 = [r-s for r,s in zip(saledataSum2,saleData4)] 
-                
-                
-                # if i == 2:
-                #     saleJan2 = saledataSum4
-                # if i == 3:
-                #     saleFeb  = saledataSum4
-                # if i == 4:
-                #     saleFeb2 = saledataSum4
-                if i == 5:
-                    saleMar  = saledataSum4
-                if i == 6:
-                    saleMar2 = saledataSum4
-                if i == 7:
-                    saleApr  = saledataSum4
-                if i == 8:
-                    saleApr2 = saledataSum4
-                if i == 9:
-                    saleMay  = saledataSum4
-                if i == 10:
-                    saleMay2 = saledataSum4
-                if i == 11:
-                    saleJun  = saledataSum4
-                if i == 12:
-                    saleJun2 = saledataSum4
-                if i == 13:
-                    saleJul  = saledataSum4
-                if i == 14:
-                    saleJul2 = saledataSum4
-                if i == 15:
-                    saleAug  = saledataSum4
-                if i == 16:
-                    saleAug2 = saledataSum4
-                if i == 17:
-                    saleSep  = saledataSum4
-                if i == 18:
-                    saleSep2 = saledataSum4
-                if i == 19:
-                    saleOct  = saledataSum4
-                if i == 20:
-                    saleOct2 = saledataSum4
-                if i == 21:
-                    saleNov  = saledataSum4
-                if i == 22:
-                    saleNov2 = saledataSum4
-                if i == 23:
-                    saleDec  = saledataSum4
-                if i == 24:
-                    saleDec2 = saledataSum5
-            
-        
-        # 월별 판매 총합 데이터
-        totalsaleJan  = sum(saleJan)
-        totalsaleJan2 = sum(saleJan2)
-        totalsaleFeb  = sum(saleFeb)
-        totalsaleFeb2 = sum(saleFeb2)
-        totalsaleMar  = sum(saleMar)
-        totalsaleMar2 = sum(saleMar2)
-        totalsaleApr  = sum(saleApr)
-        totalsaleApr2 = sum(saleApr2)
-        totalsaleMay  = sum(saleMay)
-        totalsaleMay2 = sum(saleMay2)
-        totalsaleJun  = sum(saleJun)
-        totalsaleJun2 = sum(saleJun2)
-        totalsaleJul  = sum(saleJul)
-        totalsaleJul2 = sum(saleJul2)
-        totalsaleAug  = sum(saleAug)
-        totalsaleAug2 = sum(saleAug2)
-        totalsaleSep  = sum(saleSep)
-        totalsaleSep2 = sum(saleSep2)
-        totalsaleOct  = sum(saleOct)
-        totalsaleOct2 = sum(saleOct2)
-        totalsaleNov  = sum(saleNov)
-        totalsaleNov2 = sum(saleNov2)
-        totalsaleDec  = sum(saleDec)
-        totalsaleDec2 = sum(saleDec2)
-        # 최상단 총합계 데이터
-        totaldata = totalsaleJan + totalsaleJan2 + totalsaleFeb + totalsaleFeb2 + totalsaleMar + totalsaleMar2 + totalsaleApr + totalsaleApr2 + totalsaleMay + totalsaleMay2 + totalsaleJun + totalsaleJun2 + totalsaleJul + totalsaleJul2 + totalsaleAug + totalsaleAug2 + totalsaleSep + totalsaleSep2 + totalsaleOct + totalsaleOct2 + totalsaleNov + totalsaleNov2 + totalsaleDec + totalsaleDec2
+    # 월별 판매 총합 데이터
+    totalsaleJan  = sum(saleJan)
+    totalsaleJan2 = sum(saleJan2)
+    totalsaleFeb  = sum(saleFeb)
+    totalsaleFeb2 = sum(saleFeb2)
+    totalsaleMar  = sum(saleMar)
+    totalsaleMar2 = sum(saleMar2)
+    totalsaleApr  = sum(saleApr)
+    totalsaleApr2 = sum(saleApr2)
+    totalsaleMay  = sum(saleMay)
+    totalsaleMay2 = sum(saleMay2)
+    totalsaleJun  = sum(saleJun)
+    totalsaleJun2 = sum(saleJun2)
+    totalsaleJul  = sum(saleJul)
+    totalsaleJul2 = sum(saleJul2)
+    totalsaleAug  = sum(saleAug)
+    totalsaleAug2 = sum(saleAug2)
+    totalsaleSep  = sum(saleSep)
+    totalsaleSep2 = sum(saleSep2)
+    totalsaleOct  = sum(saleOct)
+    totalsaleOct2 = sum(saleOct2)
+    totalsaleNov  = sum(saleNov)
+    totalsaleNov2 = sum(saleNov2)
+    totalsaleDec  = sum(saleDec)
+    totalsaleDec2 = sum(saleDec2)
+    # 최상단 총합계 데이터
+    totaldata = totalsaleJan + totalsaleJan2 + totalsaleFeb + totalsaleFeb2 + totalsaleMar + totalsaleMar2 + totalsaleApr + totalsaleApr2 + totalsaleMay + totalsaleMay2 + totalsaleJun + totalsaleJun2 + totalsaleJul + totalsaleJul2 + totalsaleAug + totalsaleAug2 + totalsaleSep + totalsaleSep2 + totalsaleOct + totalsaleOct2 + totalsaleNov + totalsaleNov2 + totalsaleDec + totalsaleDec2
     
     context = {'product':product, 'yearDate':year, 'data':data, 'prdcode':prdcode, 'prdname':prdname, 'totaldata':totaldata,
                'saleJan':saleJan, 'saleFeb':saleFeb, 'saleMar':saleMar, 'saleApr':saleApr, 'saleMay':saleMay, 'saleJun':saleJun, 
