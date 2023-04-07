@@ -15,13 +15,12 @@ from django.db import connection
 # index
 def index(request):
     # html에서 선택한 날짜 받아오기
-    date  = request.GET.get('input-month')  #2022-11
-    year  = date[:4]                        #2022
-    month = date[5:]                        #11
-    
-    if year is None:
+    try:
+        date  = request.GET.get('input-month')  #2022-11
+        year  = date[:4]                        #2022
+        month = date[5:]                        #11
+    except TypeError:
         year  = datetime.today().year
-    if month is None:
         month = datetime.today().strftime('%m')
         
     # 불러온 달의 마지막일 (eg. 28일/30일/31일)
