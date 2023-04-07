@@ -113,21 +113,6 @@ def details(request):
     # template로 전송
     context = {'product':product, 'yearDate':year, 'prdcode':prdcode, 'prdname':prdname, 'loc':loc, 'city':city, 'str':str}
     
-    # 각 월의 마지막 일자 (엑셀로 오는 일일 데이터가 누적 숫자로 오기 때문에 마지막 일자의 데이터만 써야한다)
-    month = [1,2,3,4,5,6,7,8,9,10,11,12]
-    # 월말일
-    date = []
-    # 쿼리에 들어갈 매달 마지막 데이터 일자
-    last_day_ = []
-    for i in range(0,len(month)):
-        last_date = calendar.monthrange(int(year), month[i])[1]
-        date.append(last_date)
-        try:
-            last_day_.append(list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=year, inv_d_date__month=month[i]).values('inv_d_date__day').latest('inv_d_date__day').values())[0])
-        except:
-            last_day_.append(date[i])
-    
-    
     # read data
     data, totaldata = [], []
         
