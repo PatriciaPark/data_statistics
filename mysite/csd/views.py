@@ -143,7 +143,6 @@ def upload(request):
                         }
                     )
                     obj.save()
-                    print(fromdate_time_obj,store,dbframe.上存量)
                     
                     # 월의 마지막 일자 데이터 저장
                     if len(sheetname) == (i+1):
@@ -164,7 +163,6 @@ def upload(request):
                         )
                         obj_m.save()
                         
-                    
                     
                 # Save sum data to DB (tbl_sum_d)
                 obj_sum, created = SumDaily.objects.update_or_create(
