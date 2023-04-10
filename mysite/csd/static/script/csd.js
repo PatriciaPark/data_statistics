@@ -85,7 +85,10 @@ function baseGrid() {
     prd17010088(lastDate);
     prd17010004(lastDate);
     prd17010002(lastDate);
-    prdlist();
+    prd17010101(lastDate);
+    prd17010008(lastDate);
+    prd17010100(lastDate);
+    prd17010099(lastDate);
 }
 
 function prd11530035(lastDate){
@@ -432,11 +435,12 @@ function prd17010002(lastDate){
     }
 }    
 
-function prdlist() {
-    const prdlist = prdlistData.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+function prd17010101(lastDate){
+    // views.py에서 넘어온 상품별 데이터
+    const prd17010101 = prd17010101Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
     let tdTr7 = document.getElementById('tdTr7');
 
-    if(prdlist.length > 1) {
+    if(prd17010101.length > 1) {
         let tdCode = document.createElement('td');  // 상품코드 td
         let tdBar = document.createElement('td');   // 바코드 td
         let tdName = document.createElement('td');  // 상품명 td
@@ -446,29 +450,28 @@ function prdlist() {
         tdAvg.classList.add('setBold');
         let total = 0;
         let count = 0;
-        for (var i = 0; i < prdlist.length/6; i++){
+
+        for (var i = 0; i < prd17010101.length/6; i++){
             // 판매량 td
-            let td = document.createElement('td');
+            let td = document.createElement('td');      
             // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
             if (i == 0) {
-                tdCode.innerHTML = prdlist[i*6+4];
+                tdCode.innerHTML = prd17010101[i*6+4];
                 tdTr7.append(tdCode);
-                tdBar.innerHTML = prdlist[i*6+3];
+                tdBar.innerHTML = prd17010101[i*6+3];
                 tdTr7.append(tdBar); 
-                tdName.innerHTML = prdlist[i*6+2];
+                tdName.innerHTML = prd17010101[i*6+2];
                 tdTr7.append(tdName);
-                td.innerHTML = prdlist[i*6+5];
+                td.innerHTML = prd17010101[i*6+5];
                 tdTr7.append(td);
-                total += parseInt(prdlist[i*6+5]);
+                total += parseInt(prd17010101[i*6+5]);
                 count ++;
             } else {
-                // 해당 날짜 데이터가 있음
-                if(prdlist[i*6+5] != 0) {
-                    td.innerHTML = prdlist[i*6+5]-total;
+                if(prd17010101[i*6+5] != 0) {
+                    td.innerHTML = prd17010101[i*6+5]-total;
                     tdTr7.append(td);
-                    total += parseInt(prdlist[i*6+5]-total);
+                    total += parseInt(prd17010101[i*6+5]-total);
                     count ++;
-                // 해당 날짜 데이터 없음
                 } else {
                     td.innerHTML = 0;
                     tdTr7.append(td);   
@@ -480,5 +483,188 @@ function prdlist() {
         tdTr7.append(tdTotal);
         tdAvg.innerHTML = Math.round(total/count);
         tdTr7.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入";
+        tdTr7.append(td);
+    }
+}    
+
+function prd17010008(lastDate){
+    // views.py에서 넘어온 상품별 데이터
+    const prd17010008 = prd17010008Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    let tdTr8 = document.getElementById('tdTr8');
+
+    if(prd17010008.length > 1) {
+        let tdCode = document.createElement('td');  // 상품코드 td
+        let tdBar = document.createElement('td');   // 바코드 td
+        let tdName = document.createElement('td');  // 상품명 td
+        let tdTotal = document.createElement('td'); // total td
+        let tdAvg = document.createElement('td');   // average td
+        tdTotal.classList.add('setBold');
+        tdAvg.classList.add('setBold');
+        let total = 0;
+        let count = 0;
+
+        for (var i = 0; i < prd17010008.length/6; i++){
+            // 판매량 td
+            let td = document.createElement('td');
+            // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
+            if (i == 0) {
+                tdCode.innerHTML = prd17010008[i*6+4];
+                tdTr8.append(tdCode);
+                tdBar.innerHTML = prd17010008[i*6+3];
+                tdTr8.append(tdBar); 
+                tdName.innerHTML = prd17010008[i*6+2];
+                tdTr8.append(tdName);
+                td.innerHTML = prd17010008[i*6+5];
+                tdTr8.append(td);
+                total += parseInt(prd17010008[i*6+5]);
+                count ++;
+            } else {
+                // 해당 날짜 데이터가 있음
+                if(prd17010008[i*6+5] != 0) {
+                    td.innerHTML = prd17010008[i*6+5]-total;
+                    tdTr8.append(td);
+                    total += parseInt(prd17010008[i*6+5]-total);
+                    count ++;
+                // 해당 날짜 데이터 없음
+                } else {
+                    td.innerHTML = 0;
+                    tdTr8.append(td);   
+                }
+            }
+        }
+        // 값
+        tdTotal.innerHTML = total;
+        tdTr8.append(tdTotal);
+        tdAvg.innerHTML = Math.round(total/count);
+        tdTr8.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 正官庄璀璨蔘之禮/50ml*9入";
+        tdTr8.append(td);
+    }
+}
+
+function prd17010100(lastDate){
+    // views.py에서 넘어온 상품별 데이터
+    const prd17010100 = prd17010100Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    let tdTr9 = document.getElementById('tdTr9');
+
+    if(prd17010100.length > 1) {
+        let tdCode = document.createElement('td');  // 상품코드 td
+        let tdBar = document.createElement('td');   // 바코드 td
+        let tdName = document.createElement('td');  // 상품명 td
+        let tdTotal = document.createElement('td'); // total td
+        let tdAvg = document.createElement('td');   // average td
+        tdTotal.classList.add('setBold');
+        tdAvg.classList.add('setBold');
+        let total = 0;
+        let count = 0;
+
+        for (var i = 0; i < prd17010100.length/6; i++){
+            // 판매량 td
+            let td = document.createElement('td');
+            // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
+            if (i == 0) {
+                tdCode.innerHTML = prd17010100[i*6+4];
+                tdTr9.append(tdCode);
+                tdBar.innerHTML = prd17010100[i*6+3];
+                tdTr9.append(tdBar); 
+                tdName.innerHTML = prd17010100[i*6+2];
+                tdTr9.append(tdName);
+                td.innerHTML = prd17010100[i*6+5];
+                tdTr9.append(td);
+                total += parseInt(prd17010100[i*6+5]);
+                count ++;
+            } else {
+                // 해당 날짜 데이터가 있음
+                if(prd17010100[i*6+5] != 0) {
+                    td.innerHTML = prd17010100[i*6+5]-total;
+                    tdTr9.append(td);
+                    total += parseInt(prd17010100[i*6+5]-total);
+                    count ++;
+                // 해당 날짜 데이터 없음
+                } else {
+                    td.innerHTML = 0;
+                    tdTr9.append(td);   
+                }
+            }
+        }
+        // 값
+        tdTotal.innerHTML = total;
+        tdTr9.append(tdTotal);
+        tdAvg.innerHTML = Math.round(total/count);
+        tdTr9.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 正官庄高麗蔘葉黃素飲/60ml*7入";
+        tdTr9.append(td);
+    }
+}
+
+function prd17010099(lastDate){
+    // views.py에서 넘어온 상품별 데이터
+    const prd17010099 = prd17010099Data.replace(/\&#x27;|\{|\}|\s|\&lt;|\&gt;|\[|\]/g,'').split(/[:,]/);
+    let tdTr10 = document.getElementById('tdTr10');
+
+    if(prd17010099.length > 1) {
+        let tdCode = document.createElement('td');  // 상품코드 td
+        let tdBar = document.createElement('td');   // 바코드 td
+        let tdName = document.createElement('td');  // 상품명 td
+        let tdTotal = document.createElement('td'); // total td
+        let tdAvg = document.createElement('td');   // average td
+        tdTotal.classList.add('setBold');
+        tdAvg.classList.add('setBold');
+        let total = 0;
+        let count = 0;
+
+        for (var i = 0; i < prd17010099.length/6; i++){
+            // 판매량 td
+            let td = document.createElement('td');
+            // 상품코드, 바코드, 상품명, 일자별 판매량 데이터 출력
+            if (i == 0) {
+                tdCode.innerHTML = prd17010099[i*6+4];
+                tdTr10.append(tdCode);
+                tdBar.innerHTML = prd17010099[i*6+3];
+                tdTr10.append(tdBar); 
+                tdName.innerHTML = prd17010099[i*6+2];
+                tdTr10.append(tdName);
+                td.innerHTML = prd17010099[i*6+5];
+                tdTr10.append(td);
+                total += parseInt(prd17010099[i*6+5]);
+                count ++;
+            } else {
+                // 해당 날짜 데이터가 있음
+                if(prd17010099[i*6+5] != 0) {
+                    td.innerHTML = prd17010099[i*6+5]-total;
+                    tdTr10.append(td);
+                    total += parseInt(prd17010099[i*6+5]-total);
+                    count ++;
+                // 해당 날짜 데이터 없음
+                } else {
+                    td.innerHTML = 0;
+                    tdTr10.append(td);   
+                }
+            }
+        }
+        // 값
+        tdTotal.innerHTML = total;
+        tdTr10.append(tdTotal);
+        tdAvg.innerHTML = Math.round(total/count);
+        tdTr10.append(tdAvg);
+    } else {
+        // 데이터 없는 경우 No data 출력
+        let td = document.createElement('td');
+        td.colSpan = lastDate + 5;
+        td.innerHTML = "No data: 正官庄高麗蔘野櫻莓飲/50ml*10入";
+        tdTr10.append(td);
     }
 }
