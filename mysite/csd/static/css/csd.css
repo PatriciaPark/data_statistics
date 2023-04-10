@@ -1,7 +1,8 @@
 /* 그리드 영역 */
 .dataGrid {
     padding: 20px;
-    overflow: auto; 
+    overflow: auto;
+    height: 800px;
 }
 
 .tableGrid {

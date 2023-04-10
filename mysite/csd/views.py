@@ -22,18 +22,22 @@ def index(request):
         month = datetime.today().strftime('%m')
 
     # DB에서 상품별 합계 데이터 받아오기
-    prd11530035 = list(SumDaily.objects.filter(prd_code=int(11530035), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
     prd11060162 = list(SumDaily.objects.filter(prd_code=int(11060162), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘精ＥＶＥＲＹ / ＴＩＭＥ－秘１０ｍｌ＊２０入
+    prd11530035 = list(SumDaily.objects.filter(prd_code=int(11530035), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘２８Ｄ高麗蔘活 / 力飲１００ｍｌ＊１０瓶
+    prd17010002 = list(SumDaily.objects.filter(prd_code=int(17010002), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
+    prd17010004 = list(SumDaily.objects.filter(prd_code=int(17010004), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘野櫻莓飲
+    prd17010008 = list(SumDaily.objects.filter(prd_code=int(17010008), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄璀璨蔘之禮/50ml*9入
     prd17010087 = list(SumDaily.objects.filter(prd_code=int(17010087), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄活蔘２８Ｄ高麗 / 蔘活力飲禮盒１００ｍｌ＊８入
     prd17010088 = list(SumDaily.objects.filter(prd_code=int(17010088), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘石榴飲 / ５０ｍｌ＊９入
-    prd17010004 = list(SumDaily.objects.filter(prd_code=int(17010004), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘野櫻莓飲
-    prd17010002 = list(SumDaily.objects.filter(prd_code=int(17010002), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #預購正官庄高麗蔘精ＥＶＥ / ＲＹＴＩＭＥ１０ｍｌ＊３０入
-    prdlist     = list(SumDaily.objects.filter(prd_code=int(12345678), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date'))
+    prd17010099 = list(SumDaily.objects.filter(prd_code=int(17010099), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘野櫻莓飲/50ml*10入
+    prd17010100 = list(SumDaily.objects.filter(prd_code=int(17010100), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄高麗蔘葉黃素飲/60ml*7入
+    prd17010101 = list(SumDaily.objects.filter(prd_code=int(17010101), sum_d_date__year=int(year), sum_d_date__month=int(month)).select_related('prd_code').order_by('sum_d_date')) #正官庄活蔘28D馬卡飲/50ml*10入
     
     # print('###prd11060162 ',prd11060162)
     
     # html 화면에 출력할 데이터 담을 리스트                    
-    context = {'year':year, 'month':month, 'prdlist':prdlist, 'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
+    context = {'year':year, 'month':month, 'prd17010099':prd17010099, 'prd17010100':prd17010100, 'prd17010101':prd17010101, 'prd17010008':prd17010008, 
+               'prd11530035':prd11530035, 'prd11060162':prd11060162, 'prd17010087':prd17010087, 'prd17010088':prd17010088, 'prd17010004':prd17010004, 'prd17010002':prd17010002}
     
     return render(request, 'csd/index.html', context)
 
