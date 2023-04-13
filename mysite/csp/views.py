@@ -33,6 +33,12 @@ def index(request):
     prdname = Product.objects.filter(prd_code = prdcode).values_list('prd_name', flat=True)
     
     # read data
+    saleData1231_,saleData1229_,saleData0112,saleData0131,saleData0202,saleData0216,saleData0228 = [],[],[],[],[],[],[]
+    saleData0302,saleData0316,saleData0331,saleData0406,saleData0420,saleData0430,saleData0504,saleData0518 = [],[],[],[],[],[],[],[]
+    saleData0531,saleData0601,saleData0615,saleData0630,saleData0706,saleData0720,saleData0731,saleData0810 = [],[],[],[],[],[],[],[]
+    saleData0824,saleData0831,saleData0907,saleData0921,saleData0930,saleData1005,saleData1019,saleData1031 = [],[],[],[],[],[],[],[]
+    saleData1102,saleData1123,saleData1130,saleData1207,saleData1221,saleData1231,saleData0104 = [],[],[],[],[],[],[]
+    
     # 지역만 선택
     if getloc != 'all' and (getCity is None or getCity == 'all') and (getStore is None or getStore == 'all'):
         # 데이터
@@ -208,8 +214,8 @@ def index(request):
         # 데이터
         data = InvoiceMonthly.objects.filter(prd_code = prdcode, inv_m_date__year=year).select_related('prd_code','str_code').values('str_code','str_code__str_city','str_code__str_name','prd_code__prd_name').annotate(Sum('inv_m_sale'))
 
-        saleData1231 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
-        saleData1229 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=29).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1231_ = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
+        saleData1229_ = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)-1, inv_d_date__month=12, inv_d_date__day=29).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
         saleData0112 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=12).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
         saleData0131 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=1, inv_d_date__day=31).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
         saleData0202 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year), inv_d_date__month=2, inv_d_date__day=2).select_related('prd_code','str_code').values('str_code').values_list('inv_d_sale', flat=True))
@@ -260,7 +266,7 @@ def index(request):
         #         saleData2 = list(InvoiceDaily.objects.filter(prd_code = prdcode, inv_d_date__year=int(year)+1, inv_d_date__month=px_month[i], inv_d_date__day=px_date[i]).select_related('prd_code','str_code').values('str_code').annotate(Sum('inv_d_sale')).values_list('inv_d_sale__sum', flat=True))
         
     # 12/30-1/12
-    saleJan_  = [j-k for j,k in zip(saleData1231,saleData1229)]
+    saleJan_  = [j-k for j,k in zip(saleData1231_,saleData1229_)]
     [l+m for l,m in zip(saleJan_,saleData0112)]
     saleJan   = saleJan_ + saleData0112
     # 1/13-2/2
