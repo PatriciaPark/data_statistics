@@ -20,7 +20,7 @@ def index(request):
 
     month = request.GET.get('input-month')
     if month is None:
-        month = int(datetime.today().month)
+        month = int(datetime.today().month-1)
     
     print(year, month)
 
