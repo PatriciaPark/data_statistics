@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'users',
     'corsheaders',
     'dashboard',
-    'product'
+    'product',
+    'sqldown'
 ]
 
 MIDDLEWARE = [

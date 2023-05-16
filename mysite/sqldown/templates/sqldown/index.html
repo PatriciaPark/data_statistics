@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Download PDF plugins -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+{% if user.is_authenticated %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <form method="GET" id="selectForm">
+        <div class="form-row">
+            <div class="col-auto">
+                <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-location-arrow"></i> SQL DOWNLOAD</h1>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <form method="GET">
+            <div class="searchForm">
+                <input type="date" name="input-month" id="monthSearch" class="bg-light border-1 searchMonth">
+                <input type="submit" id="btnSearch" class="btn btn-primary" value="🔍︎">
+                <input type="button" class="btn btn-success" value="📥Excel" onclick="fnExceldown('myTable','yearlyByMonth');">
+            </div>
+        </form>
+    </div>
+    <div class="card shadow mb-4">
+        
+    </div>
+</div>
+<!-- Content Row -->
+<div class="row">
+
+
+
+</div>
+
+
+
+
+{% else %}
+<meta http-equiv="refresh" content="0; url='/users/login'" />
+{% endif %}
+<script type="text/javascript">
+
+
+</script>
+<!-- dashboard.js: simple function, map -->
+<script src="{% static 'script/sqldown.js' %}"></script>
+{% endblock %}
