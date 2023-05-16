@@ -37,6 +37,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('product/', include('product.urls')),
+    path('sqldown/', include('sqldown.urls')),
+    
 ]
 
 urlpatterns.append(re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}))
