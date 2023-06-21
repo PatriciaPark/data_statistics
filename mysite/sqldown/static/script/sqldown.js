@@ -1,24 +1,65 @@
-// Generate Report (PDF)
-function CreatePDFfromHTML() {
-    var HTML_Width = $(".container-fluid").width();
-    var HTML_Height = $(".container-fluid").height();
-    var top_left_margin = 15;
-    var PDF_Width = HTML_Width + (top_left_margin * 2);
-    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height * 0.94;
+window.onload = function () {
+    dateSetting();
+}
 
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+// 달력 날짜 선택시 로컬스토리지 저장
+document.getElementById("datePicker").addEventListener("input", function (event) {
+    localStorage.setItem("user_selected_date", document.getElementById("datePicker").value);
+});
 
-    html2canvas($(".container-fluid")[0]).then(function (canvas) {
-        var imgData = canvas.toDataURL("image/jpeg", 1.0);
-        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);    // 가로출력: 'p' -> 'l'
+// 달력 날짜 default
+function dateSetting() {
+    if (!localStorage.getItem("user_selected_date")) {
+        document.getElementById('datePicker').valueAsDate = new Date();
+    } else {
+        document.getElementById("datePicker").value = localStorage.getItem("user_selected_date");
+    }
+}
 
-        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-        for (var i = 1; i <= totalPDFPages; i++) { 
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+// click reset button event
+function resetForm() {
+    localStorage.removeItem("user_selected_date");
+    document.getElementById('datePicker').valueAsDate = new Date();
+    document.getElementById("selectForm").submit();
+}
+
+// excel download
+function fnExceldown(id, title){
+    var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+    tab_text = tab_text + '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+    tab_text = tab_text + '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+    tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
+    tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+    tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+    tab_text = tab_text + "<table border='1px'>";
+    var exportTable = $('#' + id).clone();
+    exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+    tab_text = tab_text + exportTable.html();
+    tab_text = tab_text + '</table></body></html>';
+    var data_type = 'data:application/vnd.ms-excel';
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    var fileName = title + '_' + prdData + '_' + yearDate + '.xls';
+    
+    //Explorer 환경에서 다운로드
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+        if (window.navigator.msSaveBlob) {
+            var blob = new Blob([tab_text], {
+                type: "application/csv;charset=utf-8;"
+            });
+            navigator.msSaveBlob(blob, fileName);
         }
-        pdf.save("Dashboard_"+ year + ".pdf");
-    });
+    } else {
+        var blob2 = new Blob([tab_text], {
+            type: "application/csv;charset=utf-8;"
+        });
+        var filename = fileName;
+        var elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob2);
+        elem.download = filename;
+        document.body.appendChild(elem);
+        elem.click();
+        document.body.removeChild(elem);
+    }
 }
